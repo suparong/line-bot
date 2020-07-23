@@ -54,7 +54,7 @@ async function setBody(req) {
         console.log("other")
         aimlParser.getResult(msg, (answer, wildCardArray, input) => {
             body.messages[0].text = answer
-        }
-        }
+        })
+    }
     return JSON.stringify(body)
 }
