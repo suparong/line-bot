@@ -5,10 +5,6 @@ const bodyParser = require('body-parser')
 const got = require('got')
 const app = express()
 const port = process.env.PORT || 4000
-const AIMLParser = require('aimlparser')
-const aimlParser = new AIMLParser({ name: 'HelloBot' })
-
-aimlParser.load(['./test-aiml.xml'])
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -45,8 +41,9 @@ async function setBody(req) {
             text: 'Hello'
         }]
     }
-    switch (msg) {
-        case "fg":
+
+    switch (toLowerCase(msg)) {
+        case "facebook":
             console.log("fb")
             body.messages[0].text = "fb"
             return JSON.stringify(body)
@@ -56,12 +53,16 @@ async function setBody(req) {
             body.messages[0].text = "web"
             return JSON.stringify(body)
             break;
+        case "hi", "hello":
+            console.log("hi")
+            body.messages[0].text = "hi"
+            return JSON.stringify(body)
+            break;
         default:
             console.log("other")
-            aimlParser.getResult(msg, (answer, wildCardArray, input) => {
-                body.messages[0].text = answer
-            })
+            body.messages[0].text = "other"
             return JSON.stringify(body)
     }
+
 
 }
