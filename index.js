@@ -3,6 +3,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const got = require('got')
+const request = require('request-promise')
 const app = express()
 const port = process.env.PORT || 4000
 const { facebook } = require('./api/facebook')
@@ -27,15 +28,14 @@ async function reply(req) {
 
     let body = await setBody(req)
 
-    let options = {
-        headers,
-        body
-    }
-
     console.log("========>", body)
-    const res = await got.post('https://api.line.me/v2/bot/message/reply', options)
-    console.log('status = ' + res.statusCode)
+    const res = await request.post({
+        url: 'https://api.line.me/v2/bot/message/reply',
+        headers: headers,
+        body: body
+    })
 }
+
 /**
  *  messages In
  * {
