@@ -25,11 +25,13 @@ async function reply(req) {
         'Authorization': 'Bearer d6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
     }
 
+    let body = await setBody(req)
+
     let options = {
         headers,
         body
     }
-    let body = await setBody(req)
+
     console.log("========>", body)
     const res = await got.post('https://api.line.me/v2/bot/message/reply', options)
     console.log('status = ' + res.statusCode)
