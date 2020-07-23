@@ -8,9 +8,9 @@ async function facebook(message) {
      * message = "(fb,facebook)&page=AAAAAA"
      */
     let urlParams = new URLSearchParams(message)
-    console.log("11111111111", urlParams)
+    // console.log("11111111111", urlParams)
     let page = urlParams.get('page')
-    console.log("+++++>", page)
+    // console.log("+++++>", page)
     let item = await request(page)
     return item
 }
@@ -23,7 +23,7 @@ async function request(page) {
         //     json: true
         // };
         let res = await got.get(`https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`, { responseType: 'json' })
-        console.log("###############################>", res.body)
+        // console.log("###############################>", res.body)
         let newres = await formateData(res.body)
         return newres
     } catch (error) {
