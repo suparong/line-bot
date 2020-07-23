@@ -29,9 +29,12 @@ async function reply(req) {
 
     let newres = await setBody(req)
     console.log("========>", newres)
+    /**
+     * url :reply,push,multicast,Broadcast
+     */
     let options = {
         method: 'POST',
-        uri: 'https://api.line.me/v2/bot/message/reply',
+        uri: 'https://api.line.me/v2/bot/message/push',
         headers,
         body: newres,
         json: true // Automatically stringifies the body to JSON
@@ -65,10 +68,11 @@ async function reply(req) {
 async function setBody(req) {
     let body
     try {
-        let reply_token = req.body.events[0].replyToken
+        // let reply_token = req.body.events[0].replyToken
+        let user_token = req.body.events[0].source.userId
         let msg = req.body.events[0].message.text
         body = {
-            replyToken: reply_token,
+            to: user_token,
             messages: []
         }
 
