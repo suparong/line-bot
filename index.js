@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const got = require('got')
 const app = express()
 const port = process.env.PORT || 4000
+const { facebook } = require('./api/facebook')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -38,30 +39,25 @@ async function setBody(req) {
         let msg = req.body.events[0].message.text
         body = {
             replyToken: reply_token,
-            messages: [{
-                type: 'text',
-                text: ''
-            }]
+            messages: []
         }
 
-        let message = msg.toLowerCase()
+        let page = msg.toLowerCase()
 
-        if (message === "faecbook" || message === "fb") {
+        if (page === "faecbook" || page === "fb") {
             console.log("fb")
-            body.messages[0].text = "fb"
-            // return JSON.stringify(body)
-        } else if (message === "web") {
+            let data = facebook(page)
+            console.log("========>", data)
+            body.messages[0] = "fb"
+        } else if (page === "web") {
             console.log("web")
             body.messages[0].text = "web"
-            // return JSON.stringify(body)
-        } else if (message === "hi" || message === "hello") {
+        } else if (page === "hi" || page === "hello") {
             console.log("hi")
             body.messages[0].text = "hi"
-            // return JSON.stringify(body)
         } else {
             console.log("other")
             body.messages[0].text = "other"
-            // return JSON.stringify(body)
         }
 
     } catch (error) {
