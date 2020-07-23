@@ -11,8 +11,8 @@ async function facebook(message) {
     console.log("11111111111", urlParams)
     let page = urlParams.get('page')
     console.log("+++++>", page)
-    // let item = await request(page)
-    return null
+    let item = await request(page)
+    return item
 }
 
 async function request(page) {
