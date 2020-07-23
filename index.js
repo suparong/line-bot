@@ -6,6 +6,7 @@ const got = require('got')
 const app = express()
 const port = process.env.PORT || 4000
 const { facebook } = require('./api/facebook')
+const _ = require('lodash')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -32,7 +33,7 @@ async function reply(req) {
     console.log('status = ' + res.statusCode)
 }
 /**
- * 
+ *  messages In
  * {
   "events": [
     {
@@ -59,20 +60,23 @@ async function setBody(req) {
         let msg = req.body.events[0].message.text
         body = {
             replyToken: reply_token,
-            messages: []
+            messages: [{
+                type: "text",
+                text: ``
+            }]
         }
 
         let message = msg.toLowerCase()
 
-        if (message === "faecbook" || message === "fb") {
+        if (_.includes(message) === "faecbook" || _.includes(message) === "fb") {
             console.log("fb")
             let data = await facebook(message)
             console.log("========>", data)
-            body.messages[0] = "fb"
-        } else if (message === "web") {
+            body.messages[0].text = "fb"
+        } else if (_.includes(message) === "web") {
             console.log("web")
             body.messages[0].text = "web"
-        } else if (message === "hi" || message === "hello") {
+        } else if (_.includes(message) === "hi" || _.includes(message) === "hello") {
             console.log("hi")
             body.messages[0].text = "hi"
         } else {
