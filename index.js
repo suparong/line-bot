@@ -32,6 +32,7 @@ async function reply(req) {
     let options = {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/reply',
+        headers,
         body: newres,
         json: true // Automatically stringifies the body to JSON
     }
