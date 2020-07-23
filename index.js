@@ -8,6 +8,7 @@ const app = express()
 const port = process.env.PORT || 4000
 const { facebook } = require('./api/facebook')
 const _ = require('lodash')
+const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -22,8 +23,8 @@ app.listen(port)
 async function reply(req) {
 
     let headers = {
-        'responseType': 'json',
-        'Authorization': 'Bearer d6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
     }
 
     let newres = await setBody(req)
