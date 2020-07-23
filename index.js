@@ -42,26 +42,24 @@ async function setBody(req) {
         }]
     }
 
-    switch (msg.toLowerCase()) {
-        case "facebook":
-            console.log("fb")
-            body.messages[0].text = "fb"
-            return JSON.stringify(body)
-            break;
-        case "web":
-            console.log("web")
-            body.messages[0].text = "web"
-            return JSON.stringify(body)
-            break;
-        case "hi", "hello":
-            console.log("hi")
-            body.messages[0].text = "hi"
-            return JSON.stringify(body)
-            break;
-        default:
-            console.log("other")
-            body.messages[0].text = "other"
-            return JSON.stringify(body)
+    let message = msg.toLowerCase()
+
+    if (message === "faecbook" || message === "fb") {
+        console.log("fb")
+        body.messages[0].text = "fb"
+        return JSON.stringify(body)
+    } else if (message === "web") {
+        console.log("web")
+        body.messages[0].text = "web"
+        return JSON.stringify(body)
+    } else if (message === "hi" || message === "hello") {
+        console.log("hi")
+        body.messages[0].text = "hi"
+        return JSON.stringify(body)
+    } else {
+        console.log("other")
+        body.messages[0].text = "other"
+        return JSON.stringify(body)
     }
 
 
