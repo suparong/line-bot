@@ -32,33 +32,41 @@ async function reply(req) {
 }
 
 async function setBody(req) {
-    let reply_token = req.body.events[0].replyToken
-    let msg = req.body.events[0].message.text
-    let body = {
-        replyToken: reply_token,
-        messages: [{
-            type: 'text',
-            text: 'Hello'
-        }]
-    }
+    let body
+    try {
+        let reply_token = req.body.events[0].replyToken
+        let msg = req.body.events[0].message.text
+        body = {
+            replyToken: reply_token,
+            messages: [{
+                type: 'text',
+                text: ''
+            }]
+        }
 
-    let message = msg.toLowerCase()
+        let message = msg.toLowerCase()
 
-    if (message === "faecbook" || message === "fb") {
-        console.log("fb")
-        body.messages[0].text = "fb"
-        return JSON.stringify(body)
-    } else if (message === "web") {
-        console.log("web")
-        body.messages[0].text = "web"
-        return JSON.stringify(body)
-    } else if (message === "hi" || message === "hello") {
-        console.log("hi")
-        body.messages[0].text = "hi"
-        return JSON.stringify(body)
-    } else {
-        console.log("other")
-        body.messages[0].text = "other"
+        if (message === "faecbook" || message === "fb") {
+            console.log("fb")
+            body.messages[0].text = "fb"
+            // return JSON.stringify(body)
+        } else if (message === "web") {
+            console.log("web")
+            body.messages[0].text = "web"
+            // return JSON.stringify(body)
+        } else if (message === "hi" || message === "hello") {
+            console.log("hi")
+            body.messages[0].text = "hi"
+            // return JSON.stringify(body)
+        } else {
+            console.log("other")
+            body.messages[0].text = "other"
+            // return JSON.stringify(body)
+        }
+
+    } catch (error) {
+        console.log(error)
+    } finally {
         return JSON.stringify(body)
     }
 
