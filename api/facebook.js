@@ -9,6 +9,7 @@ async function facebook(message) {
      */
     let urlParams = new URLSearchParams(message)
     let page = urlParams.get('page')
+    console.log("+++++>", page)
     if (!page) return null
     let item = await request(page)
 }
@@ -17,6 +18,7 @@ async function request(page) {
     try {
         var options = {
             'url': `https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`,
+            'headers': {},
             json: true
         };
         let res = await got.get(options)
