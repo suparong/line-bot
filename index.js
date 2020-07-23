@@ -42,7 +42,7 @@ async function setBody(req) {
         }]
     }
 
-    switch (toLowerCase(msg)) {
+    switch (msg.toLowerCase()) {
         case "facebook":
             console.log("fb")
             body.messages[0].text = "fb"
