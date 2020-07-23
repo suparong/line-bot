@@ -31,7 +31,27 @@ async function reply(req) {
     });
     console.log('status = ' + res.statusCode)
 }
-
+/**
+ * 
+ * {
+  "events": [
+    {
+      "type": "message",
+      "replyToken": "b669db6edb5e48dbb5961ab8...",
+      "source": {
+        "userId": "U3c28a70ed7c5e7ce2c9a7597...",
+        "type": "user"
+      },
+      "timestamp": 1531072356142,
+      "message": {
+        "type": "text",
+        "id": "82347...",
+        "text": "ทดสอบ"
+      }
+    }
+  ]
+}
+ */
 async function setBody(req) {
     let body
     try {
@@ -42,17 +62,17 @@ async function setBody(req) {
             messages: []
         }
 
-        let page = msg.toLowerCase()
+        let message = msg.toLowerCase()
 
-        if (page === "faecbook" || page === "fb") {
+        if (message === "faecbook" || message === "fb") {
             console.log("fb")
-            let data = await facebook(page)
+            let data = await facebook(message)
             console.log("========>", data)
             body.messages[0] = "fb"
-        } else if (page === "web") {
+        } else if (message === "web") {
             console.log("web")
             body.messages[0].text = "web"
-        } else if (page === "hi" || page === "hello") {
+        } else if (message === "hi" || message === "hello") {
             console.log("hi")
             body.messages[0].text = "hi"
         } else {
