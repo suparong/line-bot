@@ -36,8 +36,7 @@ async function reply(req) {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/push',
         headers,
-        body: newres,
-        json: true // Automatically stringifies the body to JSON
+        body: newres // Automatically stringifies the body to JSON
     }
     const res = await request(options)
     console.log('status = ' + res.statusCode);
