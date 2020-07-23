@@ -38,7 +38,7 @@ async function reply(req) {
 
 async function setBody(req) {
     let reply_token = req.body.events[0].replyToken
-    et msg = req.body.events[0].message.text
+    let msg = req.body.events[0].message.text
     let body = {
         replyToken: reply_token,
         messages: [{
