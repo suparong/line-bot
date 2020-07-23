@@ -68,20 +68,20 @@ async function setBody(req) {
 
         let message = msg.toLowerCase()
 
-        if (_.includes(message) === "faecbook" || _.includes(message) === "fb") {
+        if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
             console.log("fb")
             let data = await facebook(message)
             console.log("========>", data)
             body.messages[0].text = "fb"
-        } else if (_.includes(message) === "web") {
+        } else if (_.includes(message, "web")) {
             console.log("web")
             body.messages[0].text = "web"
-        } else if (_.includes(message) === "hi" || _.includes(message) === "hello") {
+        } else if (_.includes(message, "hi") || _.includes(message, "hello")) {
             console.log("hi")
             body.messages[0].text = "hi"
         } else {
             console.log("other")
-            body.messages[0].text = "other"
+            body.messages[0].text = "what"
         }
 
     } catch (error) {
