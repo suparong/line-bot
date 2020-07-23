@@ -81,7 +81,7 @@ async function setBody(req) {
         if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
             console.log("fb")
             let data = await facebook(message)
-            body.messages.push(data)
+            body.messages.concat(data)
         } else if (_.includes(message, "web")) {
             console.log("web")
             // body.messages[0].text = "web"
@@ -92,7 +92,6 @@ async function setBody(req) {
             console.log("other")
             // body.messages[0].text = "what"
         }
-        await _.flattenDeep(body.messages)
 
     } catch (error) {
         console.log(error)
