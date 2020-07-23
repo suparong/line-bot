@@ -9,8 +9,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
     console.log("11111111")
-    let reply_token = req.body.events[0].replyToken
-    reply(reply_token)
+    // let reply_token = req.body.events[0].replyToken
+    // reply(reply_token)
     res.sendStatus(200)
 })
 app.listen(port)
