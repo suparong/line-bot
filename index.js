@@ -26,14 +26,17 @@ async function reply(req) {
         'Authorization': 'Bearer d6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
     }
 
-    let body = await setBody(req)
+    let newres = await setBody(req)
 
+    let options = {
+        method: 'POST',
+        uri: 'https://api.line.me/v2/bot/message/reply',
+        body: newres,
+        json: true // Automatically stringifies the body to JSON
+    }
     console.log("========>", body)
-    const res = await request.post({
-        url: 'https://api.line.me/v2/bot/message/reply',
-        headers: headers,
-        body: body
-    })
+    const res = await request(options)
+    console.log('status = ' + res.statusCode);
 }
 
 /**
