@@ -39,7 +39,6 @@ async function reply(req) {
         body: newres,
         json: true // Automatically stringifies the body to JSON
     }
-
     const res = await request(options)
     console.log('status = ' + res.statusCode);
 }

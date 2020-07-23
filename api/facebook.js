@@ -1,6 +1,6 @@
 const got = require('got')
 const query = "about,picture,fan_count"
-const access_token = 'EAAG4BSmPZAe0BADp5txAuBVyLLJOZB50ZB8M16BzvV8ccaZAGWYErJoeR1Asen0ZAE7xztEgRhnhn1c96qk3dGAgb54J5zfextshqcRPPtsxtZBV79ZBMXf31aD4UBIGscsNRAOQ9YANelAOv4B7KjYLC43KFesZASGR52nGwJEt4L3oJqKZAZAh98cZBEL1UNDJCwZD'
+const access_token = 'EAAbXHzk3yrYBAOoDZBiZAXZCbTicjEDOsEY4NIoAxLv24tBYjbFQaJHBhgRwuNWEmN7P0VVGiWo1ZAFEiYY12WRPh8rIM9VvfHUj414QTlsFP2fAXEmoeQ0ygBbCM83rEQ41udsZCq3gRDSsUrgPzAXY7hajZASdk22OZBKON6rCtGwzbD1sZBYkAx5106fj1RIZD'
 
 
 async function facebook(message) {
@@ -24,6 +24,7 @@ async function request(page) {
         // };
         let res = await got.get(`https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`, { responseType: 'json' })
         // console.log("###############################>", res.body)
+        if (res.error) return res.error
         let newres = await formateData(res.body)
         return newres
     } catch (error) {
