@@ -5,14 +5,15 @@ const access_token = 'EAAG4BSmPZAe0BAHFYkRTYyE1MvWd3hTRdZB57oZCRYzdqUxb1HLPAqBR2
 
 async function facebook(message) {
     /**
-     * message = "(fb,facebook)?page=ABCDEFG"
+     * message = "(fb,facebook)?status=add&page=AAAAAA"
      */
-    console.log("11111111111", message)
     let urlParams = new URLSearchParams(message)
+    console.log("11111111111", urlParams)
+    let status = urlParams.get('status')
     let page = urlParams.get('page')
-    console.log("+++++>", page)
-    if (!page) return null
-    let item = await request(page)
+    console.log("+++++>", status, ":", page)
+    // let item = await request(page)
+    return null
 }
 
 async function request(page) {
