@@ -36,7 +36,7 @@ async function reply(req) {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/push',
         headers,
-        body: newres,
+        body: _.flattenDeep(newres),
         json: true // Automatically stringifies the body to JSON
     }
 
