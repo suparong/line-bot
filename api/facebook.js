@@ -22,7 +22,7 @@ async function request(page) {
         //     'headers': {},
         //     json: true
         // };
-        let res = await got.get(`https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`, json: true)
+        let res = await got.get(`https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`, { responseType: 'json' })
         let newres = await formateData(res)
         return newres
     } catch (error) {
