@@ -36,7 +36,7 @@ async function reply(req) {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/push',
         headers,
-        body: _.flattenDeep(newres),
+        body: newres,
         json: true // Automatically stringifies the body to JSON
     }
 
@@ -92,6 +92,7 @@ async function setBody(req) {
             console.log("other")
             // body.messages[0].text = "what"
         }
+        body = await _.flattenDeep(body.messages)
 
     } catch (error) {
         console.log(error)
