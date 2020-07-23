@@ -2,7 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const request = require('request')
+const got = require('got')
 const app = express()
 const port = process.env.PORT || 4000
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -26,17 +26,12 @@ function reply(reply_token) {
         messages: [{
             type: 'text',
             text: 'Hello'
-        },
-        {
-            type: 'text',
-            text: 'How are you?'
         }]
     })
-    request.post({
+    const res = await got.post({
         url: 'https://api.line.me/v2/bot/message/reply',
         headers: headers,
         body: body
-    }, (err, res, body) => {
-        console.log('status = ' + res.statusCode);
     });
+    console.log('status = ' + res.statusCode)
 }
