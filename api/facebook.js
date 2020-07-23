@@ -7,6 +7,7 @@ async function facebook(message) {
     /**
      * message = "(fb,facebook)?page=ABCDEFG"
      */
+    console.log("11111111111", message)
     let urlParams = new URLSearchParams(message)
     let page = urlParams.get('page')
     console.log("+++++>", page)
