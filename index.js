@@ -60,10 +60,7 @@ async function setBody(req) {
         let msg = req.body.events[0].message.text
         body = {
             replyToken: reply_token,
-            messages: [{
-                type: "text",
-                text: ``
-            }]
+            messages: []
         }
 
         let message = msg.toLowerCase()
@@ -72,16 +69,16 @@ async function setBody(req) {
             console.log("fb")
             let data = await facebook(message)
             console.log("========>", data)
-            body.messages[0].text = "fb"
+            body.messages[0] = data
         } else if (_.includes(message, "web")) {
             console.log("web")
-            body.messages[0].text = "web"
+            // body.messages[0].text = "web"
         } else if (_.includes(message, "hi") || _.includes(message, "hello")) {
             console.log("hi")
-            body.messages[0].text = "hi"
+            // body.messages[0].text = "hi"
         } else {
             console.log("other")
-            body.messages[0].text = "what"
+            // body.messages[0].text = "what"
         }
 
     } catch (error) {
