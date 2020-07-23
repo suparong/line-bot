@@ -46,7 +46,7 @@ async function setBody(req) {
 
         if (page === "faecbook" || page === "fb") {
             console.log("fb")
-            let data = facebook(page)
+            let data = await facebook(page)
             console.log("========>", data)
             body.messages[0] = "fb"
         } else if (page === "web") {

@@ -5,15 +5,18 @@ const access_token = 'EAAG4BSmPZAe0BAHFYkRTYyE1MvWd3hTRdZB57oZCRYzdqUxb1HLPAqBR2
 
 async function facebook(page) {
 
-    var options = {
-        'method': 'GET',
-        'url': `https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`,
-        'headers': {
-        }, json: true
-    };
-    let res = await got(options)
-    let newres = await formateData(res)
-    return newres
+    try {
+        var options = {
+            'url': `https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`,
+            json: true
+        };
+        let res = await got.get(options)
+        let newres = await formateData(res)
+        return newres
+    } catch (error) {
+        return error
+    }
+
 }
 
 async function formateData(res) {
