@@ -92,7 +92,7 @@ async function setBody(req) {
             console.log("other")
             // body.messages[0].text = "what"
         }
-        body = await _.flattenDeep(body.messages)
+        await _.flattenDeep(body.messages)
 
     } catch (error) {
         console.log(error)
