@@ -36,21 +36,21 @@ async function formateData(res) {
     let data = {}
     try {
 
-        if (res.picture) {
-            data = {
-                type: "image",
-                originalContentUrl: res.picture.data.url,
-                previewImageUrl: res.picture.data.url
-            }
-            item.push(data)
-        }
-        if (res.fan_count) {
-            data = {
-                type: "text",
-                text: `page count ${res.fan_count}`
-            }
-            item.push(data)
-        }
+        // if (res.picture) {
+        //     data = {
+        //         type: "image",
+        //         originalContentUrl: res.picture.data.url,
+        //         previewImageUrl: res.picture.data.url
+        //     }
+        //     item.push(data)
+        // }
+        // if (res.fan_count) {
+        //     data = {
+        //         type: "text",
+        //         text: `page count ${res.fan_count}`
+        //     }
+        //     item.push(data)
+        // }
         if (res.id) {
             data = {
                 type: "text",
