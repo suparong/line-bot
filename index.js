@@ -72,8 +72,7 @@ async function setBody(req) {
         let user_token = req.body.events[0].source.userId
         let msg = req.body.events[0].message.text
         body = {
-            to: user_token,
-            messages: 
+            to: user_token
         }
 
         let message = msg.toLowerCase()
@@ -81,8 +80,8 @@ async function setBody(req) {
         if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
             console.log("fb")
             let data = await facebook(message)
-            // body.messages = body.messages.concat(data)
             body.messages.push(data)
+            // body.messages.push(data)
         } else if (_.includes(message, "web")) {
             console.log("web")
             // body.messages[0].text = "web"
