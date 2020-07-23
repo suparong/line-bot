@@ -21,11 +21,17 @@ app.listen(port)
 async function reply(req) {
 
     let headers = {
-        'Content-Type': 'application/json',
+        'responseType': 'json',
         'Authorization': 'Bearer d6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
     }
+
+    let options = {
+        headers,
+        body
+    }
     let body = await setBody(req)
-    const res = await got.post('https://api.line.me/v2/bot/message/reply', { headers, body })
+    console.log("========>", body)
+    const res = await got.post('https://api.line.me/v2/bot/message/reply', options)
     console.log('status = ' + res.statusCode)
 }
 /**
@@ -64,7 +70,6 @@ async function setBody(req) {
         if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
             console.log("fb")
             let data = await facebook(message)
-            console.log("========>", data)
             body.messages.push(data)
         } else if (_.includes(message, "web")) {
             console.log("web")

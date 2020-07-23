@@ -54,7 +54,7 @@ async function formateData(res) {
         if (res.id) {
             data = {
                 type: "text",
-                text: `page_id ${res._id}`
+                text: `page_id ${res.id}`
             }
             item.push(data)
         }
