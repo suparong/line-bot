@@ -1,7 +1,7 @@
 const got = require('got')
 const rq = require('request-promise')
 const query = "about,picture,fan_count"
-const access_token = 'EAAbXHzk3yrYBAF9TaOEBJR5vowTZCENLMfpKb8GKl6kaXYPQiJbEPgOqcxQlRTGrcWvOuNgexSZALeU08LI8TfAdNA81bgZBPTnLx6MNCAboq3e8gtGJlIV5DnBUqinz4lZCDFEj6DyKWveCDMKxKGwUy5UmZBTZByOSgb6g6EHT0cqQ1gT8xZB74czuclFF64ZD'
+const access_token = 'EAAbXHzk3yrYBANSIfLMaOb8dXkzw5sx2SOKClGp4WCRiuFt9ZBgD7ZAXK7lFV3IHFWzvXforZBSSuMDPWkhJw8s8uNLWmQnDPWf49um0xkIurM3r0eJE8jhHrpLiZCJ6HpRaUb7g1ZCujgql2Aa7xgLlGNN9ZAIZATmvx68i42gDDEEZA7fnlNjDtr08dnMFrlMZD'
 
 
 async function facebook(message) {
@@ -26,12 +26,11 @@ async function request(page) {
         }
         let res = await rq(options)
         console.log("###############################>", res)
-        // if (res.error) return { type: "text", text: `${res.error}` }
         let newres = await formateData(res.body)
         console.log("###############################>", JSON.stringify(newres))
         return newres
     } catch (error) {
-        console.log("=-=-=---=-=-=-", JSON.stringify(error))
+        console.log("=-=-=---=-=-=-", JSON.stringify(error.statusCode))
         return { type: "text", text: `${error}` }
     }
 }
