@@ -24,7 +24,7 @@ async function request(page) {
         console.log("###############################>", JSON.stringify(newres))
         return newres
     } catch (error) {
-        console.log("=-=-=---=-=-=-", error)
+        console.log("=-=-=---=-=-=-", JSON.stringify(error))
         return { type: "text", text: `${res.error}` }
     }
 }
