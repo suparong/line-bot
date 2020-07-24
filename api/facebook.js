@@ -51,17 +51,29 @@ async function formateData(res) {
                     }
                 ]
             },
+            "hero": {
+                "type": "image",
+                "size": "full",
+                "url": "",
+                "aspectRatio": "2:1"
+            },
             "body": {
                 "type": "box",
                 "layout": "horizontal",
+                "contents": []
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
                 "contents": [
                     {
-                        "type": "text",
-                        "text": "Hello,"
-                    },
-                    {
-                        "type": "text",
-                        "text": "World!"
+                        "type": "button",
+                        "style": "link",
+                        "action": {
+                            "type": "uri",
+                            "label": "Go to back3",
+                            "uri": "https://back3-hw.zrinf.io/"
+                        }
                     }
                 ]
             }
@@ -70,23 +82,23 @@ async function formateData(res) {
 
     try {
 
-        // if (res.picture) {
-        //     data.contents.body.contents.hero.url = res.picture.data.url
-        // }
-        // if (res.fan_count) {
-        //     item = {
-        //         type: "text",
-        //         text: `เพสมีคนถูกใจ ${res.fan_count} คน`
-        //     }
-        //     data.contents.body.contents.body.contents.push(item)
-        // }
-        // if (res.id) {
-        //     item = {
-        //         type: "text",
-        //         text: `เพสนี้ ID นี้นะ ${res.id}`
-        //     }
-        //     data.contents.body.contents.body.contents.push(item)
-        // }
+        if (res.picture) {
+            data.contents.hero.url = res.picture.data.url
+        }
+        if (res.fan_count) {
+            item = {
+                type: "text",
+                text: `เพสมีคนถูกใจ ${res.fan_count} คน`
+            }
+            data.contents.body.contents.push(item)
+        }
+        if (res.id) {
+            item = {
+                type: "text",
+                text: `เพสนี้ ID นี้นะ ${res.id}`
+            }
+            data.contents.body.contents.push(item)
+        }
     } catch (error) {
         console.log(error)
     } finally {
