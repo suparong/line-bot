@@ -41,6 +41,16 @@ async function formateData(res) {
         "altText": "This is a Flex Message",
         "contents": {
             "type": "bubble",
+            "header": {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "ใช่เพสนี้หรือป่าวนะ"
+                    }
+                ]
+            },
             "body": {
                 "type": "box",
                 "layout": "horizontal",
@@ -60,9 +70,9 @@ async function formateData(res) {
 
     try {
 
-        if (res.picture) {
-            data.contents.body.contents.hero.url = res.picture.data.url
-        }
+        // if (res.picture) {
+        //     data.contents.body.contents.hero.url = res.picture.data.url
+        // }
         // if (res.fan_count) {
         //     item = {
         //         type: "text",
