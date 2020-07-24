@@ -1,4 +1,5 @@
 const got = require('got')
+const request = require('request-promise')
 const query = "about,picture,fan_count"
 const access_token = 'EAAbXHzk3yrYBAF9TaOEBJR5vowTZCENLMfpKb8GKl6kaXYPQiJbEPgOqcxQlRTGrcWvOuNgexSZALeU08LI8TfAdNA81bgZBPTnLx6MNCAboq3e8gtGJlIV5DnBUqinz4lZCDFEj6DyKWveCDMKxKGwUy5UmZBTZByOSgb6g6EHT0cqQ1gT8xZB74czuclFF64ZD'
 
@@ -17,15 +18,21 @@ async function facebook(message) {
 
 async function request(page) {
     try {
-        let res = await got.get(`https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`, { responseType: 'json' })
+        var options = {
+            'method': 'GET',
+            'url': `https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`,
+            'headers': {
+            }, json: true
+        }
+        let res = await request(options)
         console.log("###############################>", res)
-        if (res.error) return { type: "text", text: `${res.error}` }
-        let newres = await formateData(res.body)
-        console.log("###############################>", JSON.stringify(newres))
-        return newres
+        // if (res.error) return { type: "text", text: `${res.error}` }
+        // let newres = await formateData(res.body)
+        // console.log("###############################>", JSON.stringify(newres))
+        // return newres
     } catch (error) {
         console.log("=-=-=---=-=-=-", JSON.stringify(error))
-        return { type: "text", text: `${res.error}` }
+        return { type: "text", text: `${error.HTTPError}` }
     }
 }
 
