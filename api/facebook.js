@@ -18,7 +18,7 @@ async function facebook(message) {
 async function request(page) {
     try {
         let res = await got.get(`https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`, { responseType: 'json' })
-        // console.log("###############################>", res.body)
+        console.log("###############################>", res.body)
         if (res.error) return res.error
         let newres = await formateData(res.body)
         console.log("###############################>", JSON.stringify(newres))
@@ -29,56 +29,57 @@ async function request(page) {
 }
 
 async function formateData(res) {
-    let data
-    let item
-    try {
-        data =
-        {
-            "type": "flex",
-            "altText": "This is a Flex Message",
-            "contents": [
-                {
-                    "type": "bubble",
-                    "header": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [
-                            {
-                                "type": "text",
-                                "text": "ใช่เพสนี้หรือป่าวนะ"
+    console.log("====aaa", res)
+    let data = {
+        "type": "flex",
+        "altText": "This is a Flex Message",
+        "contents": [
+            {
+                "type": "bubble",
+                "header": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": "ใช่เพสนี้หรือป่าวนะ"
+                        }
+                    ]
+                },
+                "hero": {
+                    "type": "image",
+                    "size": "full",
+                    "url": ""
+                    "aspectRatio": "2:1"
+                },
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": []
+                },
+                "footer": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "button",
+                            "style": "link",
+                            "action": {
+                                "type": "uri",
+                                "label": "Go to back3",
+                                "uri": "https://back3-hw.zrinf.io/"
                             }
-                        ]
-                    },
-                    "hero": {
-                        "type": "image",
-                        "size": "full",
-                        "aspectRatio": "2:1"
-                    },
-                    "body": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": []
-                    },
-                    "footer": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [
-                            {
-                                "type": "button",
-                                "style": "link",
-                                "action": {
-                                    "type": "uri",
-                                    "label": "Go to back3",
-                                    "uri": "https://back3-hw.zrinf.io/"
-                                }
-                            }
-                        ]
-                    }
+                        }
+                    ]
                 }
-            ]
-        }
+            }
+        ]
+    }
+
+    try {
+
         if (res.picture) {
-            data.contents[0].body.contents.hero.url = res.picture.data.url
+            data.contents[0].hero.url = res.picture.data.url
         }
         if (res.fan_count) {
             item = {
