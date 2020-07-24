@@ -33,54 +33,46 @@ async function formateData(res) {
     {
         "type": "flex",
         "altText": "This is a Flex Message",
-        "contents": {
-            "type": "bubble",
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                    {
-                        "type": "bubble",
-                        "header": {
-                            "type": "box",
-                            "layout": "vertical",
-                            "contents": [
-                                {
-                                    "type": "text",
-                                    "text": "ใช่เพสนี้หรือป่าวนะ"
-                                }
-                            ]
-                        },
-                        "hero": {
-                            "type": "image",
-                            "size": "full",
-                            "aspectRatio": "2:1"
-                        },
-                        "body": {
-                            "type": "box",
-                            "layout": "vertical",
-                            "contents": []
-                        },
-                        "footer": {
-                            "type": "box",
-                            "layout": "vertical",
-                            "contents": [
-                                {
-                                    "type": "button",
-                                    "style": "link",
-                                    "action": {
-                                        "type": "uri",
-                                        "label": "Go to back3",
-                                        "uri": "https://back3-hw.zrinf.io/"
-                                    }
-                                }
-                            ]
+        "contents": [
+            {
+                "type": "bubble",
+                "header": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": "ใช่เพสนี้หรือป่าวนะ"
                         }
-                    }
-                ]
+                    ]
+                },
+                "hero": {
+                    "type": "image",
+                    "size": "full",
+                    "aspectRatio": "2:1"
+                },
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": []
+                },
+                "footer": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "button",
+                            "style": "link",
+                            "action": {
+                                "type": "uri",
+                                "label": "Go to back3",
+                                "uri": "https://back3-hw.zrinf.io/"
+                            }
+                        }
+                    ]
+                }
             }
-
-        }
+        ]
     }
 
 
