@@ -1,6 +1,6 @@
 const got = require('got')
 const query = "about,picture,fan_count"
-const access_token = 'EAAbXHzk3yrYBAFqlpY8qVIju1gHZAnyeit4TGM4AZBzvlUgmbj3bEibrKgh6QbS9MXstVWgmtSse5m96aok6HpQ6P7M1LwvZC7Om1haibjGUCQUZB6VyLPZBBU5lHD309QhRjCFyZBeJSxkAT1LX2ZAlH8NhaTbRvK1cMdX4RZCSta1wallnoN69IselxyWj61oZD'
+const access_token = 'EAAbXHzk3yrYBAF9TaOEBJR5vowTZCENLMfpKb8GKl6kaXYPQiJbEPgOqcxQlRTGrcWvOuNgexSZALeU08LI8TfAdNA81bgZBPTnLx6MNCAboq3e8gtGJlIV5DnBUqinz4lZCDFEj6DyKWveCDMKxKGwUy5UmZBTZByOSgb6g6EHT0cqQ1gT8xZB74czuclFF64ZD'
 
 
 async function facebook(message) {
