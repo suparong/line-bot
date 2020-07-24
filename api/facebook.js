@@ -43,7 +43,7 @@ async function formateData(res) {
             "type": "bubble",
             "header": {
                 "type": "box",
-                "layout": "horizontal",
+                "layout": "vertical",
                 "contents": [
                     {
                         "type": "text",
@@ -59,12 +59,13 @@ async function formateData(res) {
             },
             "body": {
                 "type": "box",
-                "layout": "horizontal",
+                "layout": "vertical",
                 "contents": []
             },
             "footer": {
                 "type": "box",
                 "layout": "vertical",
+                "spacing": "sm",
                 "contents": [
                     {
                         "type": "button",
@@ -91,7 +92,9 @@ async function formateData(res) {
             item = {
                 "type": "text",
                 "margin": "md",
-                "text": `เพสมีคนถูกใจ ${res.fan_count} คน`
+                "size": "sm",
+                "text": `เพสมีคนถูกใจ ${res.fan_count} คน`,
+                "wrap": true
             }
             data.contents.body.contents.push(item)
         }
@@ -99,6 +102,7 @@ async function formateData(res) {
             item = {
                 "type": "text",
                 "margin": "md",
+                "size": "sm",
                 "text": `เพสนี้ ID นี้นะ ${res.id}`
             }
             data.contents.body.contents.push(item)
