@@ -26,7 +26,7 @@ async function request(page) {
         }
         let res = await rq(options)
         console.log("###############################>", res)
-        let newres = await formateData(res.body)
+        let newres = await formateData(res)
         console.log("###############################>", JSON.stringify(newres))
         return newres
     } catch (error) {
