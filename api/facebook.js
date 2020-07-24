@@ -41,6 +41,11 @@ async function formateData(res) {
         "altText": "This is a Flex Message",
         "contents": {
             "type": "bubble",
+            "styles": {
+                "footer": {
+                    "backgroundColor": "#42b3f4"
+                }
+            }
             "header": {
                 "type": "box",
                 "layout": "vertical",
@@ -93,6 +98,7 @@ async function formateData(res) {
                 "type": "text",
                 "margin": "md",
                 "size": "sm",
+                "color": "#666666",
                 "text": `เพสมีคนถูกใจ ${res.fan_count} คน`,
                 "wrap": true
             }
@@ -103,6 +109,7 @@ async function formateData(res) {
                 "type": "text",
                 "margin": "md",
                 "size": "sm",
+                "color": "#666666",
                 "text": `เพสนี้ ID นี้นะ ${res.id}`
             }
             data.contents.body.contents.push(item)
