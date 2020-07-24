@@ -27,12 +27,12 @@ async function request(page) {
         let res = await request(options)
         console.log("###############################>", res)
         // if (res.error) return { type: "text", text: `${res.error}` }
-        // let newres = await formateData(res.body)
-        // console.log("###############################>", JSON.stringify(newres))
-        // return newres
+        let newres = await formateData(res.body)
+        console.log("###############################>", JSON.stringify(newres))
+        return newres
     } catch (error) {
         console.log("=-=-=---=-=-=-", JSON.stringify(error))
-        return { type: "text", text: `${error.HTTPError}` }
+        return { type: "text", text: `${error}` }
     }
 }
 
