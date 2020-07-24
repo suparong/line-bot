@@ -80,16 +80,15 @@ async function setBody(req) {
             console.log("fb")
             let data = await facebook(message)
             body.messages.push(data)
-            // body.messages.push(data)
         } else if (_.includes(message, "web")) {
             console.log("web")
-            // body.messages[0].text = "web"
+            body.messages.push({ type: "text", text: `web` })
         } else if (_.includes(message, "hi") || _.includes(message, "hello")) {
             console.log("hi")
-            // body.messages[0].text = "hi"
+            body.messages.push({ type: "text", text: `hi` })
         } else {
             console.log("other")
-            // body.messages[0].text = "what"
+            body.messages.push({ type: "text", text: `what` })
         }
 
     } catch (error) {

@@ -1,7 +1,7 @@
 const got = require('got')
 const rq = require('request-promise')
 const query = "about,picture,fan_count"
-const access_token = 'EAAbXHzk3yrYBANSIfLMaOb8dXkzw5sx2SOKClGp4WCRiuFt9ZBgD7ZAXK7lFV3IHFWzvXforZBSSuMDPWkhJw8s8uNLWmQnDPWf49um0xkIurM3r0eJE8jhHrpLiZCJ6HpRaUb7g1ZCujgql2Aa7xgLlGNN9ZAIZATmvx68i42gDDEEZA7fnlNjDtr08dnMFrlMZD'
+const access_token = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
 
 
 async function facebook(message) {
@@ -11,7 +11,7 @@ async function facebook(message) {
     let urlParams = new URLSearchParams(message)
     // console.log("11111111111", urlParams)
     let page = urlParams.get('page')
-    console.log("+++++>", page)
+    // console.log("+++++>", page)
     let item = await request(page)
     return item
 }
@@ -52,7 +52,7 @@ async function formateData(res) {
                 "contents": [
                     {
                         "type": "text",
-                        "text": "ใช่เพสนี้หรือป่าวนะ"
+                        "text": "ใช่เพสนี้ป่าวนะ"
                     }
                 ]
             },
@@ -87,9 +87,7 @@ async function formateData(res) {
             }
         }
     }
-
     try {
-
         if (res.picture) {
             data.contents.hero.url = res.picture.data.url
         }
@@ -99,7 +97,7 @@ async function formateData(res) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `เพสมีคนถูกใจ ${res.fan_count} คน`,
+                "text": `คนถูกใจ ${res.fan_count} คน`,
                 "wrap": true
             }
             data.contents.body.contents.push(item)
@@ -110,7 +108,7 @@ async function formateData(res) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `เพสนี้ ID นี้นะ ${res.id}`
+                "text": `ID นี้นะ :  ${res.id}`
             }
             data.contents.body.contents.push(item)
         }
@@ -127,41 +125,3 @@ async function formateData(res) {
 module.exports = {
     facebook
 }
-
-// "type": "bubble",
-// "header": {
-//     "type": "box",
-//     "layout": "horizontal",
-//     "contents": [
-//         {
-//             "type": "text",
-//             "text": "ใช่เพสนี้หรือป่าวนะ"
-//         }
-//     ]
-// },
-// "hero": {
-//     "type": "image",
-//     "size": "full",
-//     "url": "",
-//     "aspectRatio": "2:1"
-// },
-// "body": {
-//     "type": "box",
-//     "layout": "vertical",
-//     "contents": []
-// },
-// "footer": {
-//     "type": "box",
-//     "layout": "vertical",
-//     "contents": [
-//         {
-//             "type": "button",
-//             "style": "link",
-//             "action": {
-//                 "type": "uri",
-//                 "label": "Go to back3",
-//                 "uri": "https://back3-hw.zrinf.io/"
-//             }
-//         }
-//     ]
-// }
