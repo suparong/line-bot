@@ -34,7 +34,7 @@ async function formateData(res) {
         "altText": "This is a Flex Message",
         "contents": {
             "type": "bubble",
-            "body"{
+            "body": {
                 "type": "box",
                 "layout": "horizontal",
                 "contents": {
