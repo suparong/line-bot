@@ -10,7 +10,7 @@ async function facebook(message) {
     let urlParams = new URLSearchParams(message)
     // console.log("11111111111", urlParams)
     let page = urlParams.get('page')
-    // console.log("+++++>", page)
+    console.log("+++++>", page)
     let item = await request(page)
     return item
 }
