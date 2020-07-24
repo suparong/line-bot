@@ -38,42 +38,13 @@ async function formateData(res) {
                 "type": "box",
                 "layout": "horizontal",
                 "contents": [
-                    "type": "bubble",
-                    "header": {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                            {
-                                "type": "text",
-                                "text": "ใช่เพสนี้หรือป่าวนะ"
-                            }
-                        ]
+                    {
+                        "type": "text",
+                        "text": "Hello,"
                     },
-                    "hero": {
-                        "type": "image",
-                        "size": "full",
-                        "url": "",
-                        "aspectRatio": "2:1"
-                    },
-                    "body": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": []
-                    },
-                    "footer": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [
-                            {
-                                "type": "button",
-                                "style": "link",
-                                "action": {
-                                    "type": "uri",
-                                    "label": "Go to back3",
-                                    "uri": "https://back3-hw.zrinf.io/"
-                                }
-                            }
-                        ]
+                    {
+                        "type": "text",
+                        "text": "World!"
                     }
                 ]
             }
@@ -112,3 +83,41 @@ async function formateData(res) {
 module.exports = {
     facebook
 }
+
+// "type": "bubble",
+// "header": {
+//     "type": "box",
+//     "layout": "horizontal",
+//     "contents": [
+//         {
+//             "type": "text",
+//             "text": "ใช่เพสนี้หรือป่าวนะ"
+//         }
+//     ]
+// },
+// "hero": {
+//     "type": "image",
+//     "size": "full",
+//     "url": "",
+//     "aspectRatio": "2:1"
+// },
+// "body": {
+//     "type": "box",
+//     "layout": "vertical",
+//     "contents": []
+// },
+// "footer": {
+//     "type": "box",
+//     "layout": "vertical",
+//     "contents": [
+//         {
+//             "type": "button",
+//             "style": "link",
+//             "action": {
+//                 "type": "uri",
+//                 "label": "Go to back3",
+//                 "uri": "https://back3-hw.zrinf.io/"
+//             }
+//         }
+//     ]
+// }
