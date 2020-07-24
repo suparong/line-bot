@@ -37,7 +37,7 @@ async function formateData(res) {
             "body": {
                 "type": "box",
                 "layout": "horizontal",
-                "contents": {
+                "contents": [
                     "type": "bubble",
                     "header": {
                         "type": "box",
@@ -75,7 +75,7 @@ async function formateData(res) {
                             }
                         ]
                     }
-                }
+                ]
             }
         }
     }
