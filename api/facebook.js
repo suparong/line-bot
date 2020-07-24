@@ -1,6 +1,6 @@
 const got = require('got')
 const rq = require('request-promise')
-const query = "about,picture,fan_count"
+const query = "about,picture{url},fan_count,name"
 const access_token = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
 
 
@@ -25,12 +25,9 @@ async function request(page) {
             }, json: true
         }
         let res = await rq(options)
-        // console.log("###############################>", res)
         let newres = await formateData(res)
-        // console.log("###############################>", JSON.stringify(newres))
         return newres
     } catch (error) {
-        // console.log("=-=-=---=-=-=-", JSON.stringify(error.statusCode))
         return { type: "text", text: `${error}` }
     }
 }
@@ -90,6 +87,16 @@ async function formateData(res) {
     try {
         if (res.picture) {
             data.contents.hero.url = res.picture.data.url
+        }
+        if (res.name) {
+            item = {
+                "type": "text",
+                "margin": "md",
+                "size": "sm",
+                "color": "#666666",
+                "text": `ชื่อ :  ${res.name}`
+            }
+            data.contents.body.contents.push(item)
         }
         if (res.fan_count) {
             item = {
