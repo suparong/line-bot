@@ -29,45 +29,57 @@ async function request(page) {
 }
 
 async function formateData(res) {
-    let data = {
-        "type": "bubble",
-        "header": {
-            "type": "box",
-            "layout": "vertical",
+    let data =
+    {
+        "type": "flex,
+        "altText": "This is a Flex Message",
+        "contents": {
+            "type": "bubble",
             "contents": [
                 {
-                    "type": "text",
-                    "text": "ใช่เพสนี้หรือป่าวนะ"
-                }
-            ]
-        },
-        "hero": {
-            "type": "image",
+                    "type": "bubble",
+                    "header": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "ใช่เพสนี้หรือป่าวนะ"
+                            }
+                        ]
+                    },
+                    "hero": {
+                        "type": "image",
 
-            "size": "full",
-            "aspectRatio": "2:1"
-        },
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": []
-        },
-        "footer": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-                {
-                    "type": "button",
-                    "style": "link",
-                    "action": {
-                        "type": "uri",
-                        "label": "Go to back3",
-                        "uri": "https://back3-hw.zrinf.io/"
+                        "size": "full",
+                        "aspectRatio": "2:1"
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": []
+                    },
+                    "footer": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "button",
+                                "style": "link",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "Go to back3",
+                                    "uri": "https://back3-hw.zrinf.io/"
+                                }
+                            }
+                        ]
                     }
                 }
             ]
         }
     }
+
+
 
 
     try {
