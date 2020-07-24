@@ -69,6 +69,8 @@ async function formateData(res) {
                     {
                         "type": "button",
                         "style": "link",
+                        "color": "#FFFFFF",
+                        "height": "sm",
                         "action": {
                             "type": "uri",
                             "label": "Go to back3",
@@ -87,15 +89,17 @@ async function formateData(res) {
         }
         if (res.fan_count) {
             item = {
-                type: "text",
-                text: `เพสมีคนถูกใจ ${res.fan_count} คน`
+                "type": "text",
+                "margin": "md",
+                "text": `เพสมีคนถูกใจ ${res.fan_count} คน`
             }
             data.contents.body.contents.push(item)
         }
         if (res.id) {
             item = {
-                type: "text",
-                text: `เพสนี้ ID นี้นะ ${res.id}`
+                "type": "text",
+                "margin": "md",
+                "text": `เพสนี้ ID นี้นะ ${res.id}`
             }
             data.contents.body.contents.push(item)
         }
