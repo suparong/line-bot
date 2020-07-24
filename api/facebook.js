@@ -31,7 +31,7 @@ async function request(page) {
 async function formateData(res) {
     let data =
     {
-        "type": "flex,
+        "type": "flex",
         "altText": "This is a Flex Message",
         "contents": {
             "type": "bubble",
