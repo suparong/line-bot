@@ -85,20 +85,20 @@ async function formateData(res) {
         if (res.picture) {
             data.contents.body.contents.hero.url = res.picture.data.url
         }
-        if (res.fan_count) {
-            item = {
-                type: "text",
-                text: `เพสมีคนถูกใจ ${res.fan_count} คน`
-            }
-            data.contents.body.contents.body.contents.push(item)
-        }
-        if (res.id) {
-            item = {
-                type: "text",
-                text: `เพสนี้ ID นี้นะ ${res.id}`
-            }
-            data.contents.body.contents.body.contents.push(item)
-        }
+        // if (res.fan_count) {
+        //     item = {
+        //         type: "text",
+        //         text: `เพสมีคนถูกใจ ${res.fan_count} คน`
+        //     }
+        //     data.contents.body.contents.body.contents.push(item)
+        // }
+        // if (res.id) {
+        //     item = {
+        //         type: "text",
+        //         text: `เพสนี้ ID นี้นะ ${res.id}`
+        //     }
+        //     data.contents.body.contents.body.contents.push(item)
+        // }
     } catch (error) {
         console.log(error)
     } finally {
