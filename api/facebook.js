@@ -77,14 +77,14 @@ async function formateData(res) {
         if (res.fan_count) {
             let item = {
                 type: "text",
-                text: `page count ${res.fan_count}`
+                text: `เพสมีคนถูกใจ ${res.fan_count} คน`
             }
             data.body.contents.push(item)
         }
         if (res.id) {
             let item = {
                 type: "text",
-                text: `page_id ${res.id}`
+                text: `เพสนี้ ID นี้นะ ${res.id}`
             }
             data.body.contents.push(item)
         }

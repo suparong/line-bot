@@ -79,7 +79,7 @@ async function setBody(req) {
         if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
             console.log("fb")
             let data = await facebook(message)
-            body.messages = data
+            body.messages.push(data)
             // body.messages.push(data)
         } else if (_.includes(message, "web")) {
             console.log("web")
