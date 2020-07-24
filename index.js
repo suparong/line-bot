@@ -70,7 +70,8 @@ async function setBody(req) {
         let user_token = req.body.events[0].source.userId
         let msg = req.body.events[0].message.text
         body = {
-            to: user_token
+            "to": user_token,
+            "messages": []
         }
 
         let message = msg.toLowerCase()

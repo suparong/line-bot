@@ -1,6 +1,6 @@
 const got = require('got')
 const query = "about,picture,fan_count"
-const access_token = 'EAAbXHzk3yrYBAOoDZBiZAXZCbTicjEDOsEY4NIoAxLv24tBYjbFQaJHBhgRwuNWEmN7P0VVGiWo1ZAFEiYY12WRPh8rIM9VvfHUj414QTlsFP2fAXEmoeQ0ygBbCM83rEQ41udsZCq3gRDSsUrgPzAXY7hajZASdk22OZBKON6rCtGwzbD1sZBYkAx5106fj1RIZD'
+const access_token = 'EAAbXHzk3yrYBAFqlpY8qVIju1gHZAnyeit4TGM4AZBzvlUgmbj3bEibrKgh6QbS9MXstVWgmtSse5m96aok6HpQ6P7M1LwvZC7Om1haibjGUCQUZB6VyLPZBBU5lHD309QhRjCFyZBeJSxkAT1LX2ZAlH8NhaTbRvK1cMdX4RZCSta1wallnoN69IselxyWj61oZD'
 
 
 async function facebook(message) {
@@ -17,15 +17,11 @@ async function facebook(message) {
 
 async function request(page) {
     try {
-        // var options = {
-        //     'url': `https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`,
-        //     'headers': {},
-        //     json: true
-        // };
         let res = await got.get(`https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`, { responseType: 'json' })
         // console.log("###############################>", res.body)
         if (res.error) return res.error
         let newres = await formateData(res.body)
+        console.log("###############################>", newres)
         return newres
     } catch (error) {
         return error
@@ -33,36 +29,69 @@ async function request(page) {
 }
 
 async function formateData(res) {
-    let item = []
-    let data = {}
-    try {
+    let data = {
+        "type": "bubble",
+        "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+                {
+                    "type": "text",
+                    "text": "ใช่เพสนี้หรือป่าวนะ"
+                }
+            ]
+        },
+        "hero": {
+            "type": "image",
 
-        // if (res.picture) {
-        //     data = {
-        //         type: "image",
-        //         originalContentUrl: res.picture.data.url,
-        //         previewImageUrl: res.picture.data.url
-        //     }
-        //     item.push(data)
-        // }
-        // if (res.fan_count) {
-        //     data = {
-        //         type: "text",
-        //         text: `page count ${res.fan_count}`
-        //     }
-        //     item.push(data)
-        // }
+            "size": "full",
+            "aspectRatio": "2:1"
+        },
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": []
+        },
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+                {
+                    "type": "button",
+                    "style": "link",
+                    "action": {
+                        "type": "uri",
+                        "label": "Go to back3",
+                        "uri": "https://back3-hw.zrinf.io/"
+                    }
+                }
+            ]
+        }
+    }
+
+
+    try {
+        if (res.picture) {
+            data.hero.url = res.picture.data.url
+        }
+        if (res.fan_count) {
+            let item = {
+                type: "text",
+                text: `page count ${res.fan_count}`
+            }
+            data.body.contents.push(item)
+        }
         if (res.id) {
-            data = {
+            let item = {
                 type: "text",
                 text: `page_id ${res.id}`
             }
-            item.push(data)
+            data.body.contents.push(item)
         }
     } catch (error) {
         console.log(error)
     } finally {
-        return item
+        return data
     }
 
 }
