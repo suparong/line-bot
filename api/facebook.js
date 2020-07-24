@@ -19,12 +19,13 @@ async function request(page) {
     try {
         let res = await got.get(`https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`, { responseType: 'json' })
         console.log("###############################>", res)
-        // if (res.error) return { type: "text", text: `${res.error}` }
-        // let newres = await formateData(res.body)
-        // console.log("###############################>", JSON.stringify(newres))
-        // return newres
+        if (res.error) return { type: "text", text: `${res.error}` }
+        let newres = await formateData(res.body)
+        console.log("###############################>", JSON.stringify(newres))
+        return newres
     } catch (error) {
-        return error
+        console.log("=-=-=---=-=-=-,error)
+        return { type: "text", text: `${res.error}` }
     }
 }
 
