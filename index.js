@@ -38,8 +38,8 @@ async function reply(req) {
         headers,
         body: newres // Automatically stringifies the body to JSON
     }
-    const res = await request(options)
-    console.log('status = ' + JSON.stringify(res));
+    // const res = await request(options)
+    // console.log('status = ' + JSON.stringify(res));
 }
 
 /**

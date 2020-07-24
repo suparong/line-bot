@@ -21,7 +21,7 @@ async function request(page) {
         // console.log("###############################>", res.body)
         if (res.error) return res.error
         let newres = await formateData(res.body)
-        console.log("###############################>", newres)
+        console.log("###############################>", JSON.stringify(newres))
         return newres
     } catch (error) {
         return error
@@ -29,72 +29,70 @@ async function request(page) {
 }
 
 async function formateData(res) {
-    let data =
-    {
-        "type": "flex",
-        "altText": "This is a Flex Message",
-        "contents": [
-            {
-                "type": "bubble",
-                "header": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                        {
-                            "type": "text",
-                            "text": "ใช่เพสนี้หรือป่าวนะ"
-                        }
-                    ]
-                },
-                "hero": {
-                    "type": "image",
-                    "size": "full",
-                    "aspectRatio": "2:1"
-                },
-                "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": []
-                },
-                "footer": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                        {
-                            "type": "button",
-                            "style": "link",
-                            "action": {
-                                "type": "uri",
-                                "label": "Go to back3",
-                                "uri": "https://back3-hw.zrinf.io/"
-                            }
-                        }
-                    ]
-                }
-            }
-        ]
-    }
-
-
-
-
+    let data
+    let item
     try {
+        data =
+        {
+            "type": "flex",
+            "altText": "This is a Flex Message",
+            "contents": [
+                {
+                    "type": "bubble",
+                    "header": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "ใช่เพสนี้หรือป่าวนะ"
+                            }
+                        ]
+                    },
+                    "hero": {
+                        "type": "image",
+                        "size": "full",
+                        "aspectRatio": "2:1"
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": []
+                    },
+                    "footer": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "button",
+                                "style": "link",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "Go to back3",
+                                    "uri": "https://back3-hw.zrinf.io/"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
         if (res.picture) {
-            data.contents.body.contents.hero.url = res.picture.data.url
+            data.contents[0].body.contents.hero.url = res.picture.data.url
         }
         if (res.fan_count) {
-            let item = {
+            item = {
                 type: "text",
                 text: `เพสมีคนถูกใจ ${res.fan_count} คน`
             }
-            data.contents.body.contents.push(item)
+            data.contents[0].body.contents.push(item)
         }
         if (res.id) {
-            let item = {
+            item = {
                 type: "text",
                 text: `เพสนี้ ID นี้นะ ${res.id}`
             }
-            data.contents.body.contents.push(item)
+            data.contents[0].body.contents.push(item)
         }
     } catch (error) {
         console.log(error)
