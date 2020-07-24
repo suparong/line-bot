@@ -49,7 +49,7 @@ async function formateData(res) {
                 "hero": {
                     "type": "image",
                     "size": "full",
-                    "url": ""
+                    "url": "",
                     "aspectRatio": "2:1"
                 },
                 "body": {
