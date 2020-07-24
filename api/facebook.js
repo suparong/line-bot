@@ -45,7 +45,7 @@ async function formateData(res) {
                 "footer": {
                     "backgroundColor": "#42b3f4"
                 }
-            }
+            },
             "header": {
                 "type": "box",
                 "layout": "vertical",
