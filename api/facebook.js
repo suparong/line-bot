@@ -25,12 +25,12 @@ async function request(page) {
             }, json: true
         }
         let res = await rq(options)
-        console.log("###############################>", res)
+        // console.log("###############################>", res)
         let newres = await formateData(res)
-        console.log("###############################>", JSON.stringify(newres))
+        // console.log("###############################>", JSON.stringify(newres))
         return newres
     } catch (error) {
-        console.log("=-=-=---=-=-=-", JSON.stringify(error.statusCode))
+        // console.log("=-=-=---=-=-=-", JSON.stringify(error.statusCode))
         return { type: "text", text: `${error}` }
     }
 }
