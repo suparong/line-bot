@@ -18,7 +18,7 @@ async function facebook(message) {
 async function request(page) {
     try {
         let res = await got.get(`https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`, { responseType: 'json' })
-        // console.log("###############################>", res.body)
+        console.log("###############################>", res.body)
         if (res.error) return { type: "text", text: `${res.error}` }
         let newres = await formateData(res.body)
         console.log("###############################>", JSON.stringify(newres))
