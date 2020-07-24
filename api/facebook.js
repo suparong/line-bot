@@ -87,14 +87,14 @@ async function formateData(res) {
                 type: "text",
                 text: `เพสมีคนถูกใจ ${res.fan_count} คน`
             }
-            data.contents.body.contents.body.contents.push(item)
+            data.contents.body.contents..push(item)
         }
         if (res.id) {
             let item = {
                 type: "text",
                 text: `เพสนี้ ID นี้นะ ${res.id}`
             }
-            data.contents.body.contents.body.contents.push(item)
+            data.contents.body.contents..push(item)
         }
     } catch (error) {
         console.log(error)
