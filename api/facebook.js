@@ -15,7 +15,7 @@ async function facebook(message) {
         let name = urlParams.get('add')
         console.log("+++++>", name)
         let pages = await searchPages(name)
-        let item = await getInfoPage(pages)
+        let item = await getInfoPage(pages.data)
         return item
     } catch (error) {
         return { type: "text", text: `${error}` }
