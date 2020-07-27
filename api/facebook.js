@@ -1,92 +1,122 @@
 const got = require('got')
 const rq = require('request-promise')
-const query = "about,picture{url},fan_count,name"
-const access_token = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
-
+const QUERY = "about,picture{url},fan_count,name"
+const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
+const URL = "https://graph.facebook.com/v4.0"
 
 async function facebook(message) {
     /**
-     * message = "(fb,facebook)&page=AAAAAA"
+     * message = "(fb,facebook)&add=AAAAAA"
      */
     let urlParams = new URLSearchParams(message)
     // console.log("11111111111", urlParams)
-    let page = urlParams.get('page')
+    let name = urlParams.get('add')
     // console.log("+++++>", page)
-    let item = await request(page)
+    let paegs = searchPages(name)
+    let item = await getInfoPage(pages)
     return item
 }
 
-async function request(page) {
+async function searchPages(name) {
     try {
-        var options = {
+        let options = {
             'method': 'GET',
-            'url': `https://graph.facebook.com/v4.0/${page}?fields=${query}&access_token=${access_token}`,
+            'url': `${URL}/search?type=place&q=${name}&access_token=${ACCESS_TOKEN}&fields=link,name`,
             'headers': {
             }, json: true
         }
-        let res = await rq(options)
-        let newres = await formateData(res)
-        return newres
+        let pages = await rq(options)
+        return pages
+    } catch (error) {
+        return { type: "text", text: `${error}` }
+    }
+}
+
+async function getInfoPage(pages) {
+    let data = {
+        "type": "flex",
+        "altText": "This is a Flex Message",
+        "contents": {
+            "type": "carousel"
+        }
+    }
+    let pages = await Promise.all(pages.map(page => pagesInfo(page)))
+    data.contents.contents.push(pages)
+    // return pages
+}
+
+const pagesInfo = async (page) => {
+    const info = await searchPageInfo(page)
+    return info
+}
+
+async function searchPageInfo(page) {
+    try {
+        let options = {
+            'method': 'GET',
+            'url': `${URL}/${page.link}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
+            'headers': {
+            }, json: true
+        }
+        let pageInfo = await rq(options)
+        let newPageInfo = await formateData(pageInfo)
+        return newPageInfo
     } catch (error) {
         return { type: "text", text: `${error}` }
     }
 }
 
 async function formateData(res) {
-    let data = {
-        "type": "flex",
-        "altText": "This is a Flex Message",
-        "contents": {
-            "type": "bubble",
-            "styles": {
-                "footer": {
-                    "backgroundColor": "#42b3f4"
-                }
-            },
-            "header": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                    {
-                        "type": "text",
-                        "text": "ใช่เพสนี้ป่าวนะ"
-                    }
-                ]
-            },
-            "hero": {
-                "type": "image",
-                "size": "full",
-                "url": "",
-                "aspectRatio": "2:1"
-            },
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": []
-            },
+    let pageInfo = {
+        "type": "bubble",
+        "styles": {
             "footer": {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "sm",
-                "contents": [
-                    {
-                        "type": "button",
-                        "style": "link",
-                        "color": "#FFFFFF",
-                        "height": "sm",
-                        "action": {
-                            "type": "uri",
-                            "label": "Go to back3",
-                            "uri": "https://back3-hw.zrinf.io/"
-                        }
-                    }
-                ]
+                "backgroundColor": "#42b3f4"
             }
+        },
+        "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+                {
+                    "type": "text",
+                    "text": "ใช่เพสนี้ป่าวนะ"
+                }
+            ]
+        },
+        "hero": {
+            "type": "image",
+            "size": "full",
+            "url": "",
+            "aspectRatio": "2:1"
+        },
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": []
+        },
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+                {
+                    "type": "button",
+                    "style": "link",
+                    "color": "#FFFFFF",
+                    "height": "sm",
+                    "action": {
+                        "type": "uri",
+                        "label": "Go to back3",
+                        "uri": "https://back3-hw.zrinf.io/"
+                    }
+                }
+            ]
         }
     }
     try {
         if (res.picture) {
-            data.contents.hero.url = res.picture.data.url
+            pageInfo.hero.url = res.picture.data.url
         }
         if (res.name) {
             item = {
@@ -96,7 +126,7 @@ async function formateData(res) {
                 "color": "#666666",
                 "text": `ชื่อ :  ${res.name}`
             }
-            data.contents.body.contents.push(item)
+            pageInfo.body.contents.push(item)
         }
         if (res.fan_count) {
             item = {
@@ -107,7 +137,7 @@ async function formateData(res) {
                 "text": `คนถูกใจ ${res.fan_count} คน`,
                 "wrap": true
             }
-            data.contents.body.contents.push(item)
+            pageInfo.body.contents.push(item)
         }
         if (res.id) {
             item = {
@@ -117,12 +147,12 @@ async function formateData(res) {
                 "color": "#666666",
                 "text": `ID นี้นะ :  ${res.id}`
             }
-            data.contents.body.contents.push(item)
+            pageInfo.body.contents.push(item)
         }
     } catch (error) {
         console.log(error)
     } finally {
-        return data
+        return pageInfo
     }
 
 }
