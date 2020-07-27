@@ -67,7 +67,7 @@ async function setBody(req) {
     let body
     try {
         // let reply_token = req.body.events[0].replyToken
-        console.log(req.body.events[0])
+        console.log(req.body.events[0])g
         let user_token = req.body.events[0].source.userId
         let msg = req.body.events[0].message.text
         body = {
@@ -87,6 +87,9 @@ async function setBody(req) {
         } else if (_.includes(message, "hi") || _.includes(message, "hello")) {
             console.log("hi")
             body.messages.push({ type: "text", text: `hi` })
+        } else if (_.includes(message, "submit")) {
+            console.log("submit")
+            body.messages.push({ type: "text", text: `submit` })
         } else {
             console.log("other")
             body.messages.push({ type: "text", text: `what` })
