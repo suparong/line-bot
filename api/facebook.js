@@ -3,6 +3,7 @@ const rq = require('request-promise')
 const QUERY = "about,picture{url},fan_count,name"
 const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
 const URL = "https://graph.facebook.com/v4.0"
+let _ = require('lodash')
 
 async function facebook(message) {
     try {
@@ -23,18 +24,14 @@ async function facebook(message) {
 }
 
 async function searchPages(name) {
-    try {
-        let options = {
-            'method': 'GET',
-            'url': `${URL}/search?type=place&q=${name}&access_token=${ACCESS_TOKEN}&fields=link,name`,
-            'headers': {
-            }, json: true
-        }
-        let pages = await rq(options)
-        return pages
-    } catch (error) {
-        return { type: "text", text: `${error}` }
+    let options = {
+        'method': 'GET',
+        'url': `${URL}/search?type=place&q=${name}&access_token=${ACCESS_TOKEN}&fields=link,name`,
+        'headers': {
+        }, json: true
     }
+    let pages = await rq(options)
+    return pages
 }
 
 async function getInfoPage(pages) {
@@ -56,19 +53,15 @@ const pageInfo = async (page) => {
 }
 
 async function searchPageInfo(page) {
-    try {
-        let options = {
-            'method': 'GET',
-            'url': `${URL}/${page.link}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
-            'headers': {
-            }, json: true
-        }
-        let pageInfo = await rq(options)
-        let newPageInfo = await formateData(pageInfo)
-        return newPageInfo
-    } catch (error) {
-        return { type: "text", text: `${error}` }
+    let options = {
+        'method': 'GET',
+        'url': `${URL}/${page.link}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
+        'headers': {
+        }, json: true
     }
+    let pageInfo = await rq(options)
+    let newPageInfo = await formateData(pageInfo)
+    return newPageInfo
 }
 
 async function formateData(res) {
