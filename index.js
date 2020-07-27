@@ -73,7 +73,7 @@ async function setBody(req) {
         body = {
             "to": user_token,
             "messages": []
-        }
+        }g
 
         let message = msg.toLowerCase()
 
@@ -88,7 +88,7 @@ async function setBody(req) {
             console.log("hi")
             body.messages.push({ type: "text", text: `hi` })
         } else if (_.includes(message, "submit")) {
-            console.log("submit")g
+            console.log("submit")
             body.messages.push({ type: "text", text: `return true RO false in DB` })
         } else {
             console.log("other")
