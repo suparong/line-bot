@@ -38,7 +38,7 @@ async function searchPages(name) {
 }
 
 async function getInfoPage(pages) {
-    let data = {
+    let pagesInfo = {
         "type": "flex",
         "altText": "This is a Flex Message",
         "contents": {
@@ -50,6 +50,7 @@ async function getInfoPage(pages) {
         console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         data.contents.contents = pagesInfo
     } finally {
+        console.log("=======", JSON.stringify(data))
         return data
     }
 
