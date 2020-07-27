@@ -107,7 +107,7 @@ async function formateData(res, zone) {
             "contents": [
                 {
                     "type": "button",
-                    "style": "primary",
+                    "style": "link",
                     "color": "#FFFFFF",
                     "height": "sm",
                     "action": {
