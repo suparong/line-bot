@@ -42,14 +42,16 @@ async function getInfoPage(pages) {
             "type": "carousel"
         }
     }
-    console.log("pages =======>", pages)
+    try {
 
-    // let pagesInfo = await Promise.all(pages.map(page => pageInfo(page)))
-    // let pagesInfo = await _.each(pages, (page) => searchPageInfo(page))
-    let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page)));
-    console.log("pagesInfo =====================>", pagesInfo)
-    // data.contents.contents = pagesInfo
-    return data
+        console.log("pages =======>", pages)
+        let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page)));
+        console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
+        data.contents.contents = pagesInfo
+    } finally {
+        return data
+    }
+
 }
 
 async function searchPageInfo(page) {
