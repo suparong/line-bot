@@ -14,6 +14,7 @@ async function facebook(message) {
         // console.log("11111111111", urlParams)
         let name = urlParams.get('add')
         console.log("+++++>", name)
+        name = encodeURIComponent(name)
         let pages = await searchPages(name)
         console.log("pages =======>", pages.data)
         let item = await getInfoPage(pages.data)

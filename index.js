@@ -39,7 +39,7 @@ async function reply(req) {
         body: newres // Automatically stringifies the body to JSON
     }
     const res = await request(options)
-    console.log('status = ' + JSON.stringify(res));
+    console.log('status = ' + JSON.stringify("DONE"));
 }
 
 /**
