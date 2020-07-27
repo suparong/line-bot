@@ -27,10 +27,11 @@ async function facebook(message) {
 async function searchPages(name) {
     let options = {
         'method': 'GET',
-        'url': `${URL}/search?type=place&q=${name}&access_token=${ACCESS_TOKEN}&fields=link,name`,
+        'url': `${URL}/search?type=place&q=${name}&fields=link,name&access_token=${ACCESS_TOKEN}`,
         'headers': {
         }, json: true
     }
+    console.log("=======================11", options)
     let pages = await rq(options)
     return pages
 }
