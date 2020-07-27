@@ -110,9 +110,9 @@ async function formateData(res) {
                     "color": "#FFFFFF",
                     "height": "sm",
                     "action": {
-                        "type": "uri",
+                        "type": "message",
                         "label": "submit",
-                        "uri": "https://back3-hw.zrinf.io/"
+                        "text": "aaaaaaaa"
                     }
                 }
             ]
