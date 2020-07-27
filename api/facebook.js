@@ -38,7 +38,7 @@ async function searchPages(name) {
 }
 
 async function getInfoPage(pages) {
-    let pagesInfo = {
+    let info = {
         "type": "flex",
         "altText": "This is a Flex Message",
         "contents": {
@@ -48,10 +48,10 @@ async function getInfoPage(pages) {
     try {
         let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page)));
         console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
-        data.contents.contents = pagesInfo
+        info.contents.contents = pagesInfo
     } finally {
-        console.log("=======", JSON.stringify(data))
-        return data
+        console.log("=======", JSON.stringify(info))
+        return info
     }
 
 }
