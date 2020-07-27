@@ -73,7 +73,7 @@ async function setBody(req) {
         body = {
             "to": user_token,
             "messages": []
-        }g
+        }
 
         let message = msg.toLowerCase()
 
