@@ -15,6 +15,7 @@ async function facebook(message) {
         let name = urlParams.get('add')
         console.log("+++++>", name)
         let pages = await searchPages(name)
+        console.log("pages =======>", pages)
         let item = await getInfoPage(pages.data)
         return item
     } catch (error) {
@@ -43,8 +44,6 @@ async function getInfoPage(pages) {
         }
     }
     try {
-
-        console.log("pages =======>", pages)
         let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page)));
         console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         data.contents.contents = pagesInfo
@@ -107,7 +106,7 @@ async function formateData(res) {
                     "height": "sm",
                     "action": {
                         "type": "uri",
-                        "label": "Go to back3",
+                        "label": "submit",
                         "uri": "https://back3-hw.zrinf.io/"
                     }
                 }
