@@ -70,7 +70,8 @@ async function searchPageInfo(page, zone) {
     return newPageInfo
 }
 
-async function formateData(res) {
+async function formateData(res, zone) {
+    zone = zone || "none"
     let pageInfo = {
         "type": "bubble",
         "styles": {
@@ -106,13 +107,13 @@ async function formateData(res) {
             "contents": [
                 {
                     "type": "button",
-                    "style": "link",
+                    "style": "primary",
                     "color": "#FFFFFF",
                     "height": "sm",
                     "action": {
                         "type": "message",
                         "label": "submit",
-                        "text": "aaaaaaaa"
+                        "text": 
                     }
                 }
             ]
@@ -152,6 +153,7 @@ async function formateData(res) {
                 "text": `ID นี้นะ :  ${res.id}`
             }
             pageInfo.body.contents.push(item)
+            pageInfo.footer.contents.action = `&submit=${res.id},zone=${zone}`
         }
     } catch (error) {
         console.log(error)
