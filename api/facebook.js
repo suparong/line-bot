@@ -50,7 +50,7 @@ async function getInfoPage(pages) {
         console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         info.contents.contents.push(pagesInfo)
     } catch (error) {
-        console.log("-------------------", error)
+        console.log("-------------------g", error)
     } finally {
         console.log("=======", JSON.stringify(info))
         return info
@@ -61,7 +61,7 @@ async function getInfoPage(pages) {
 async function searchPageInfo(page) {
     let options = {
         'method': 'GET',
-        'url': `${URL}/${page.link}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
+        'url': `${URL_API}/${page.link}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
         'headers': {
         }, json: true
     }
