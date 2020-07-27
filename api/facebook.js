@@ -43,9 +43,11 @@ async function getInfoPage(pages) {
         }
     }
     console.log("pages =======>", pages)
+
     // let pagesInfo = await Promise.all(pages.map(page => pageInfo(page)))
     let pagesInfo = await _.each(pages, (page) => searchPageInfo(page))
-    data.contents.contents = pagesInfo
+    console.log("pagesInfo =====================>", pagesInfo)
+    // data.contents.contents = pagesInfo
     return data
 }
 
