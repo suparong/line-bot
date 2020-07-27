@@ -11,11 +11,11 @@ async function facebook(message) {
         * message = "(fb,facebook)&add=AAAAAA"
         */
         let urlParams = new URLSearchParams(message)
-        console.log("11111111111", urlParams)
+        // console.log("11111111111", urlParams)
         let name = urlParams.get('add')
         console.log("+++++>", name)
         let pages = await searchPages(name)
-        console.log("pages =======>", pages)
+        console.log("pages =======>", pages.data)
         let item = await getInfoPage(pages.data)
         return item
     } catch (error) {
@@ -31,9 +31,9 @@ async function searchPages(name) {
         'headers': {
         }, json: true
     }
-    console.log("=======================11", options)
+    // console.log("=======================11", options)
     let pages = await rq(options)
-    console.log("searchPages ===============+>", pages)
+    // console.log("searchPages ===============+>", pages)
     return pages
 }
 
