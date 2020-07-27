@@ -27,7 +27,7 @@ async function facebook(message) {
 async function searchPages(name) {
     let options = {
         'method': 'GET',
-        'url': `${URL_API}/search?type=place&q=${name}&fields=link,name&access_token=${ACCESS_TOKEN}`,
+        'url': `${URL_API}/search?type=place&q=${name}&fields=link,name&limit=5&access_token=${ACCESS_TOKEN}`,
         'headers': {
         }, json: true
     }
@@ -47,10 +47,10 @@ async function getInfoPage(pages) {
     }
     try {
         let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page)));
-        console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
+        // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         info.contents.contents = pagesInfo
     } finally {
-        console.log("=======", JSON.stringify(info))
+        // console.log("=======", JSON.stringify(info))
         return info
     }
 
