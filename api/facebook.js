@@ -42,7 +42,9 @@ async function getInfoPage(pages) {
             "type": "carousel"
         }
     }
-    let pagesInfo = await Promise.all(pages.map(page => pageInfo(page)))
+    console.log("pages =======>", pages)
+    // let pagesInfo = await Promise.all(pages.map(page => pageInfo(page)))
+    let pagesInfo = await _.each(paegs, (page) => pageInfo(page))
     data.contents.contents.push(pagesInfo)
     // return pages
 }
