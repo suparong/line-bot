@@ -113,7 +113,7 @@ async function formateData(res, zone) {
                     "action": {
                         "type": "message",
                         "label": "submit",
-                        "text": 
+                        "text": ""
                     }
                 }
             ]
