@@ -12,7 +12,7 @@ async function facebook(message) {
     // console.log("11111111111", urlParams)
     let name = urlParams.get('add')
     // console.log("+++++>", page)
-    let paegs = searchPages(name)
+    let paegs = await searchPages(name)
     let item = await getInfoPage(pages)
     return item
 }
@@ -53,6 +53,7 @@ const pageInfo = async (page) => {
 async function searchPageInfo(page) {
     try {
         let options = {
+            g
             'method': 'GET',
             'url': `${URL}/${page.link}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
             'headers': {
