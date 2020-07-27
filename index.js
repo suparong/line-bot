@@ -67,7 +67,7 @@ async function setBody(req) {
     let body
     try {
         // let reply_token = req.body.events[0].replyToken
-        console.log(req.body.events[0])g
+        console.log(req.body.events[0])
         let user_token = req.body.events[0].source.userId
         let msg = req.body.events[0].message.text
         body = {
@@ -88,7 +88,7 @@ async function setBody(req) {
             console.log("hi")
             body.messages.push({ type: "text", text: `hi` })
         } else if (_.includes(message, "submit")) {
-            console.log("submit")
+            console.log("submit")g
             body.messages.push({ type: "text", text: `return true RO false in DB` })
         } else {
             console.log("other")
