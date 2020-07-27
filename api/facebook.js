@@ -8,16 +8,17 @@ let _ = require('lodash')
 async function facebook(message) {
     try {
         /**
-        * message = "(fb,facebook)&add=AAAAAA"
+        * message = "(fb,facebook)&add=AAAAAA,zone=th"
         */
         let urlParams = new URLSearchParams(message)
         // console.log("11111111111", urlParams)
         let name = urlParams.get('add')
-        console.log("+++++>", name)
+        let zone = urlParams.get('zone')
+        console.log("+++++>", name, "zone : ", zone)
         name = encodeURIComponent(name)
         let pages = await searchPages(name)
         console.log("pages =======>", pages.data)
-        let item = await getInfoPage(pages.data)
+        let item = await getInfoPage(pages.data, zone)
         return item
     } catch (error) {
         return { type: "text", text: `${error}` }
@@ -38,16 +39,16 @@ async function searchPages(name) {
     return pages
 }
 
-async function getInfoPage(pages) {
+async function getInfoPage(pages, zone) {
     let info = {
         "type": "flex",
-        "altText": "This is a Flex Message",
+        "altText": "เพสนี้หรือป่าวนะ",
         "contents": {
             "type": "carousel"
         }
     }
     try {
-        let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page)));
+        let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page, zone)));
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         info.contents.contents = pagesInfo
     } finally {
@@ -57,7 +58,7 @@ async function getInfoPage(pages) {
 
 }
 
-async function searchPageInfo(page) {
+async function searchPageInfo(page, zone) {
     let options = {
         'method': 'GET',
         'url': `${URL_API}/${page.link}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
@@ -65,7 +66,7 @@ async function searchPageInfo(page) {
         }, json: true
     }
     let pageInfo = await rq(options)
-    let newPageInfo = await formateData(pageInfo)
+    let newPageInfo = await formateData(pageInfo, zone)
     return newPageInfo
 }
 
@@ -91,7 +92,7 @@ async function formateData(res) {
             "type": "image",
             "size": "full",
             "url": "",
-            "aspectRatio": "2:1"
+            "aspectRatio": "1:1"
         },
         "body": {
             "type": "box",
