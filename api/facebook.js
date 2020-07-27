@@ -5,16 +5,21 @@ const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMt
 const URL = "https://graph.facebook.com/v4.0"
 
 async function facebook(message) {
-    /**
-     * message = "(fb,facebook)&add=AAAAAA"
-     */
-    let urlParams = new URLSearchParams(message)
-    // console.log("11111111111", urlParams)
-    let name = urlParams.get('add')
-    // console.log("+++++>", page)
-    let paegs = await searchPages(name)
-    let item = await getInfoPage(pages)
-    return item
+    try {
+        /**
+        * message = "(fb,facebook)&add=AAAAAA"
+        */
+        let urlParams = new URLSearchParams(message)
+        console.log("11111111111", urlParams)
+        let name = urlParams.get('add')
+        console.log("+++++>", name)
+        let paegs = await searchPages(name)
+        let item = await getInfoPage(pages)
+        return item
+    } catch (error) {
+        return { type: "text", text: `${error}` }
+    }
+
 }
 
 async function searchPages(name) {
