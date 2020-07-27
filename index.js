@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 
 // app.post('/webhook', (req, res) => res.sendStatus(200))
 app.post('/webhook', (req, res) => {
-    console.log("11111111", req)
+    console.log("11111111")
     reply(req)
 })
 app.listen(port)
@@ -67,6 +67,7 @@ async function setBody(req) {
     let body
     try {
         // let reply_token = req.body.events[0].replyToken
+        console.log(req.body.events[0])
         let user_token = req.body.events[0].source.userId
         let msg = req.body.events[0].message.text
         body = {
