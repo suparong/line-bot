@@ -45,12 +45,12 @@ async function getInfoPage(pages) {
     console.log("pages =======>", pages)
 
     // let pagesInfo = await Promise.all(pages.map(page => pageInfo(page)))
-    let pagesInfo = await _.each(pages, (page) => searchPageInfo(page))
+    // let pagesInfo = await _.each(pages, (page) => searchPageInfo(page))
+    let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page)));
     console.log("pagesInfo =====================>", pagesInfo)
     // data.contents.contents = pagesInfo
     return data
 }
-
 
 async function searchPageInfo(page) {
     let options = {
