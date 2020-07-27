@@ -13,7 +13,7 @@ async function facebook(message) {
         console.log("11111111111", urlParams)
         let name = urlParams.get('add')
         console.log("+++++>", name)
-        let paegs = await searchPages(name)
+        let pages = await searchPages(name)
         let item = await getInfoPage(pages)
         return item
     } catch (error) {
