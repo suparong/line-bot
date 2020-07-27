@@ -2,7 +2,7 @@ const got = require('got')
 const rq = require('request-promise')
 const QUERY = "about,picture{url},fan_count,name"
 const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
-const URL = "https://graph.facebook.com/v4.0"
+const URL_API = "https://graph.facebook.com/v4.0"
 let _ = require('lodash')
 
 async function facebook(message) {
@@ -27,12 +27,13 @@ async function facebook(message) {
 async function searchPages(name) {
     let options = {
         'method': 'GET',
-        'url': `${URL}/search?type=place&q=${name}&fields=link,name&access_token=${ACCESS_TOKEN}`,
+        'url': `${URL_API}/search?type=place&q=${name}&fields=link,name&access_token=${ACCESS_TOKEN}`,
         'headers': {
         }, json: true
     }
     console.log("=======================11", options)
     let pages = await rq(options)
+    console.log("searchPages ===============+>", pages)
     return pages
 }
 
