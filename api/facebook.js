@@ -53,7 +53,6 @@ const pageInfo = async (page) => {
 async function searchPageInfo(page) {
     try {
         let options = {
-            g
             'method': 'GET',
             'url': `${URL}/${page.link}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
             'headers': {
