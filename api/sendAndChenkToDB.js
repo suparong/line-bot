@@ -1,7 +1,7 @@
 const rq = require('request-promise')
 const _ = require('lodash')
 
-async function checkpage(message) {
+async function checkPage(message) {
     /**
     *  &submit=117339288819900,zone=none
     */
@@ -37,14 +37,14 @@ async function checkpage(message) {
 
 
 }
-async function checkconfig() {
+async function checkConfig() {
     /**
      * nope
      */
 }
 
 module.exports = {
-    checkpage,
-    checkconfig
+    checkPage,
+    checkConfig
 }
 

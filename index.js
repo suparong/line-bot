@@ -9,7 +9,7 @@ const app = express()
 const port = process.env.PORT || 4000
 
 const { facebook } = require('./api/facebook')
-const { checkpage, checkconfig } = require('./api/sendAndChenkToDB')
+const { checkPage, checkConfig } = require('./api/sendAndChenkToDB')
 
 const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
 
@@ -31,7 +31,7 @@ async function reply(req) {
     }
 
     let newres = await setBody(req)
-    // console.log("=============>", newres)
+    console.log("=============>", newres)
     /**
      * url :reply,push,multicast,Broadcast
      */
@@ -92,7 +92,7 @@ async function setBody(req) {
             body.messages.push({ type: "text", text: `hi` })
         } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
             console.log("submit")
-            let data = await checkpage(message)
+            let data = await checkPage(message)
             body.messages.push(data)
         } else {
             console.log("other")
