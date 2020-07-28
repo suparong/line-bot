@@ -3,11 +3,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const got = require('got')
-const request = require('request-promise')
+const rq = require('request-promise')
+const _ = require('lodash')
 const app = express()
 const port = process.env.PORT || 4000
+
 const { facebook } = require('./api/facebook')
-const _ = require('lodash')
+const { checkpage, checkconfig } = require('./api/sendAndChenkToDB')
+
 const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -38,7 +41,7 @@ async function reply(req) {
         headers,
         body: newres // Automatically stringifies the body to JSON
     }
-    const res = await request(options)
+    const res = await rq(options)
     console.log('status = ' + JSON.stringify("DONE"));
 }
 
@@ -87,9 +90,10 @@ async function setBody(req) {
         } else if (_.includes(message, "hi") || _.includes(message, "hello")) {
             console.log("hi")
             body.messages.push({ type: "text", text: `hi` })
-        } else if (_.includes(message, "submit")) {
+        } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
             console.log("submit")
-            body.messages.push({ type: "text", text: `return true RO false in DB` })
+            let data = await checkpage(message)
+            body.messages.push(data)
         } else {
             console.log("other")
             body.messages.push({ type: "text", text: `what` })
