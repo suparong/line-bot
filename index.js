@@ -35,6 +35,11 @@ async function reply(req) {
     /**
      * url :reply,push,multicast,Broadcast
      */
+    pushBody(newres)
+
+}
+
+async function pushBody(newres) {
     let options = {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/push',
