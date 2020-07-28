@@ -46,7 +46,7 @@ async function checkPage(message) {
         }
 
     } catch (error) {
-        console.log("ERROR : "error)
+        console.log("ERROR : ", error)
     }
 
 }
