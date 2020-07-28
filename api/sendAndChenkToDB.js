@@ -19,7 +19,7 @@ async function checkPage(message) {
         body: JSON.stringify({ "zone": `${zone}` })
     }
     console.log("options =========>", options)
-    let res = {
+    let body = {
         "status": false,
         "type": 1
     }
@@ -31,15 +31,15 @@ async function checkPage(message) {
      * }
      */
 
-    if (res.status === false && res.type === "1") {
+    if (body.status === false && body.type === "1") {
         console.log("1")
         return { type: "text", text: `มีคนส่งไปแล้วนะ` }
     }
-    if (res.status === false && res.type === "2") {
+    if (body.status === false && body.type === "2") {
         console.log("2")
         return { type: "text", text: `มีในระบบเราแล้วนะ` }
     }
-    if (res.status === true && res.type === "3") {
+    if (body.status === true && body.type === "3") {
         console.log("3")
         return { type: "text", text: `ส่งให้แล้วนะ รอ approve นะ` }
     }
