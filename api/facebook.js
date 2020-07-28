@@ -91,7 +91,7 @@ async function formateData(res, zone) {
         },
         "hero": {
             "type": "image",
-            "size": "full",
+            "size": "sm",
             "url": "",
             "aspectRatio": "1:1"
         },
@@ -153,8 +153,8 @@ async function formateData(res, zone) {
                 "text": `ID นี้นะ :  ${res.id}`
             }
             pageInfo.body.contents.push(item)
-            pageInfo.footer.contents[0].action.text = `OK เช็คให้นะ`
-            pageInfo.footer.contents[0].action.url = `&submit=${res.id},zone=${zone}`
+            // pageInfo.footer.contents[0].action.text = `OK เช็คให้นะ`
+            pageInfo.footer.contents[0].action.text = `&submit=${res.id},zone=${zone}`
         }
     } catch (error) {
         console.log(error)
