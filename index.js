@@ -25,11 +25,6 @@ app.listen(port)
 
 async function reply(req) {
 
-    let headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    }
-
     let newres = await setBody(req)
     console.log("=============>", newres)
     /**
@@ -40,6 +35,10 @@ async function reply(req) {
 }
 
 async function pushBody(newres) {
+    let headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
     let options = {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/push',
