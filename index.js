@@ -1,11 +1,11 @@
 // Reply with two static messages
-
 const express = require('express')
 const bodyParser = require('body-parser')
 const rq = require('request-promise')
 const _ = require('lodash')
 const app = express()
-const port = process.env.PORT || 4000
+require('dotenv').config()
+const port = process.env.PORT_API || 4000
 
 const { facebook } = require('./api/facebook')
 const { checkPage, checkConfig } = require('./api/sendAndChenkToDB')
@@ -20,7 +20,11 @@ app.post('/webhook', (req, res) => {
     console.log("11111111")
     reply(req)
 })
-app.listen(port)
+
+app.listen(port, async () => {
+    console.log('Starting  version 1.0');
+    console.log('Starting node.js on port ' + `${port}`);
+});
 
 async function reply(req) {
 
