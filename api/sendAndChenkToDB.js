@@ -1,5 +1,6 @@
 const rq = require('request-promise')
 const _ = require('lodash')
+const { URLSearchParams } = require('url')
 
 async function checkPage(message) {
     try {
