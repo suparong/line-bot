@@ -2,7 +2,6 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const got = require('got')
 const rq = require('request-promise')
 const _ = require('lodash')
 const app = express()
