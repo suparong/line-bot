@@ -19,12 +19,13 @@ async function checkPage(message) {
             },
             body: JSON.stringify({ "zone": `${zone}` })
         }
-        console.log("options =========>", options)
+        // console.log("options =========>", options)
         // let body = {
         //     "status": false,
         //     "type": 1
         // }
         let body = await rq(options)
+        console.log("============+>", body)
         /**
          * {
          * "status": false || true,
