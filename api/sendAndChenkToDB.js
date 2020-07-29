@@ -17,7 +17,7 @@ async function checkPage(message) {
                 'page_id': `${page_id}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "zone": `${zone}` })
+            "body": JSON.stringify({ "zone": `${zone}` })
         }
         // console.log("options =========>", options)
         // let body = {
