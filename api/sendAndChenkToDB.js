@@ -18,7 +18,8 @@ async function checkPage(message) {
                 'page_id': `${page_id}`,
                 'Content-Type': 'application/json'
             },
-            "body": JSON.stringify({ "zone": `${zone}` })
+            "body": JSON.stringify({ "zone": `${zone}` }),
+            json: true
         }
         // console.log("options =========>", options)
         // let body = {
@@ -33,6 +34,7 @@ async function checkPage(message) {
          * "type": 1 || 2 || 3
          * }
          */
+
 
         if (body.status === false && body.type === 1) {
             console.log("1")
