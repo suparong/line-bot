@@ -18,8 +18,7 @@ async function checkPage(message) {
                 'page_id': `${page_id}`,
                 'Content-Type': 'application/json'
             },
-            "body": JSON.stringify({ "zone": `${zone}` }),
-            json: true
+            "body": JSON.stringify({ "zone": `${zone}` })
         }
         // console.log("options =========>", options)
         // let body = {
@@ -27,7 +26,7 @@ async function checkPage(message) {
         //     "type": 1
         // }
         let body = await rq(options)
-        console.log("============+>", body)
+        console.log("============+>", body.body)
         /**
          * {
          * "status": false || true,
