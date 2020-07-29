@@ -7,13 +7,13 @@ async function checkPage(message) {
         /**
         *  &submit=117339288819900,zone=none
         */
-        console.log("message ==============>", message)
+        // console.log("message ==============>", message)
         let urlParams = new URLSearchParams(message)
         let page_id = urlParams.get('submit')
         let zone = urlParams.get('zone')
         let options = {
             'method': 'POST',
-            'url': '192.168.19.23:8082/checkPage',
+            'url': 'http://192.168.19.23:8082/checkPage',
             'headers': {
                 'page_id': `${page_id}`,
                 'Content-Type': 'application/json'

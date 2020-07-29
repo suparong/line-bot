@@ -17,7 +17,8 @@ app.use(bodyParser.json())
 
 // app.post('/webhook', (req, res) => res.sendStatus(200))
 app.post('/webhook', (req, res) => {
-    console.log("11111111")
+    // console.log("11111111")
+    console.log('webhook')
     reply(req)
 })
 
@@ -29,7 +30,7 @@ app.listen(port, async () => {
 async function reply(req) {
 
     let newres = await setBody(req)
-    console.log("=============>", newres)
+    // console.log("=============>", newres)
     /**
      * url :reply,push,multicast,Broadcast
      */
