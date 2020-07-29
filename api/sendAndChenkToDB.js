@@ -12,7 +12,7 @@ async function checkPage(message) {
         let zone = urlParams.get('zone')
         let options = {
             'method': 'POST',
-            'url': 'http://localhost:8080/checkPage',
+            'url': '192.168.19.23:8082/checkPage',
             'headers': {
                 'page_id': `${page_id}`,
                 'Content-Type': 'application/json'
@@ -20,11 +20,11 @@ async function checkPage(message) {
             body: JSON.stringify({ "zone": `${zone}` })
         }
         console.log("options =========>", options)
-        let body = {
-            "status": false,
-            "type": 1
-        }
-        // let res = await rq(options)
+        // let body = {
+        //     "status": false,
+        //     "type": 1
+        // }
+        let body = await rq(options)
         /**
          * {
          * "status": false || true,
