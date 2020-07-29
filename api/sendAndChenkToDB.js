@@ -26,7 +26,8 @@ async function checkPage(message) {
         //     "type": 1
         // }
         let body = await rq(options)
-        console.log("============+>", body.body)
+        let newbody = JSON.parse(body)
+        console.log("============+>", newbody)
         /**
          * {
          * "status": false || true,
@@ -35,13 +36,13 @@ async function checkPage(message) {
          */
 
 
-        if (body.status === false && body.type === 1) {
+        if (newbody.status === false && newbody.type === 1) {
             console.log("1")
             return { type: "text", text: `มีคนส่งไปแล้วนะ` }
-        } else if (body.status === false && body.type === 2) {
+        } else if (newbody.status === false && newbody.type === 2) {
             console.log("2")
             return { type: "text", text: `มีในระบบเราแล้วนะ` }
-        } else if (body.status === true && body.type === 3) {
+        } else if (newbody.status === true && newbody.type === 3) {
             console.log("3")
             return { type: "text", text: `ส่งให้แล้วนะ รอ approve นะ` }
         }
