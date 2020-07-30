@@ -20,9 +20,9 @@ async function facebook(message) {
             console.log("+++++>", name, "zone : ", zone)
         } else {
             console.log("222222222222")
-            let urlParams = URLSearchParams(message)
-            console.log("22222222222", urlParams.key())
-            return
+            let urlParams = new URLSearchParams(message)
+            console.log("22222222222", urlParams)
+
         }
 
         // let pages = await searchPages(name)
