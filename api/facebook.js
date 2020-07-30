@@ -11,17 +11,26 @@ async function facebook(message) {
         /**
         * message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
         */
-        let urlParams = new URLSearchParams(message)
-        console.log("11111111111", urlParams)
-        console.log("11111111111", urlParams[0])
-        // let name = urlParams.get('add')
-        // let zone = urlParams.get('zone')
-        // console.log("+++++>", name, "zone : ", zone)
-        // name = encodeURIComponent(name)
+        if (_.includes(message, "fb"){
+            let urlParams = new URLSearchParams(message)
+            console.log("11111111111", urlParams)
+            let name = urlParams.get('add')
+            let zone = urlParams.get('zone')
+            name = encodeURIComponent(name)
+            console.log("+++++>", name, "zone : ", zone)
+        } else {
+            console.log("2222222222")
+            const URL_FB = new URL(message)
+            console.log("+++++++++++++>", URL_FB)
+            console.log("=============>", URL_FB.pathname)
+        }
+
         // let pages = await searchPages(name)
         // console.log("pages =======>", pages.data)
         // let item = await getInfoPage(pages.data, zone)
         // return item
+
+
 
     } catch (error) {
         return { type: "text", text: `${error}` }
