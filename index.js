@@ -89,24 +89,28 @@ async function setBody(req) {
         let message = msg.toLowerCase()
         console.log(typeof (message), message)
 
-        if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
-            console.log("fb")
-            let data = await facebook(message)
-            body.messages.push(data)
-        } else if (_.includes(message, "web")) {
-            console.log("web")
-            body.messages.push({ type: "text", text: `web` })
-        } else if (_.includes(message, "hi") || _.includes(message, "hello")) {
-            console.log("hi")
-            body.messages.push({ type: "text", text: `hi` })
-        } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
-            console.log("submit")
-            let data = await checkPage(message)
-            body.messages.push(data)
-        } else {
-            console.log("other")
-            body.messages.push({ type: "text", text: `what` })
+        if (message.indexOf("facebook") === 12) {
+            console.log("facebook")
         }
+
+        // if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
+        //     console.log("fb")
+        //     let data = await facebook(message)
+        //     body.messages.push(data)
+        // } else if (_.includes(message, "web")) {
+        //     console.log("web")
+        //     body.messages.push({ type: "text", text: `web` })
+        // } else if (_.includes(message, "hi") || _.includes(message, "hello")) {
+        //     console.log("hi")
+        //     body.messages.push({ type: "text", text: `hi` })
+        // } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
+        //     console.log("submit")
+        //     let data = await checkPage(message)
+        //     body.messages.push(data)
+        // } else {
+        //     console.log("other")
+        //     body.messages.push({ type: "text", text: `what` })
+        // }
 
     } catch (error) {
         console.log(error)
