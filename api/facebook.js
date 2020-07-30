@@ -15,7 +15,7 @@ async function facebook(message) {
         */
         let urlParams = new URLSearchParams(message)
         if (_.includes(message, "fb")) {
-            console.log("11111111111", urlParams)
+            // console.log("11111111111", urlParams)
             let name = urlParams.get('add')
             let zone = urlParams.get('zone')
             name = encodeURIComponent(name)
@@ -23,11 +23,10 @@ async function facebook(message) {
             let item = await getPage(name, zone)
             return item
         } else {
-            console.log("222222222222")
+            // console.log("222222222222")
             let name = await getPathFromUrl(message)
             let zone = urlParams.get('zone')
             name = encodeURIComponent(name)
-            console.log("+++++>", name, "zone : ", zone)
             let item = await getPage(name, zone)
             return item
 
@@ -73,9 +72,10 @@ async function searchPage(page, zone) {
         }, json: true
     }
     let pageInfo = await rq(options)
+    console.log("+++++>", pageInfo.id, "zone : ", zone)
     let pageInDB = await checkPage(pageInfo.id)
     let newPage = JSON.parse(pageInDB)
-    console.log("===========>", newPage, JSON.stringify(newPage.status), typeof (newPage))
+    // console.log("===========>", newPage, JSON.stringify(newPage.status), typeof (newPage))
     /**
          * {
          * "status": false ,
