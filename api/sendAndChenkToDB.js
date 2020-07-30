@@ -14,9 +14,8 @@ async function checkPage(pageInfo) {
             }
         }
         let body = await rq(options)
-        let newbody = JSON.parse(body)
-        console.log("============+>", newbody)
-        return newbody
+        console.log("11111111111111111111111111", body)
+        return JSON.parse(body)
 
     } catch (error) {
         console.log("ERROR : ", error)
