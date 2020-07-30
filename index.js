@@ -7,7 +7,7 @@ const app = express()
 require('dotenv').config()
 const port = process.env.PORT_API || 4000
 
-const { facebook } = require('./api/facebook')
+const { facebook, getPageInfo } = require('./api/facebook')
 
 const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
 
