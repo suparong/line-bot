@@ -54,6 +54,7 @@ async function getPage(page, zone) {
         let pagesInfo = await searchPage(page, zone)
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         if (pagesInfo.type === "text") {
+            console.log("textttttttttttt")
             return pagesInfo
         }
         info.contents = pagesInfo
