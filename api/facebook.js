@@ -81,10 +81,10 @@ async function searchPage(page, zone) {
          * }
          */
     if (pageInDB.status === false && pageInDB.type === 1) {
-        console.log("1")
+        // console.log("1")
         return { type: "text", text: `มีคนส่งไปแล้วนะ` }
     } else if (pageInDB.status === false && pageInDB.type === 2) {
-        console.log("2")
+        // console.log("2")
         return { type: "text", text: `มีในระบบเราแล้วนะ` }
     } else {
         let newPageInfo = await formateData(pageInfo, zone)
