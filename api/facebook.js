@@ -194,7 +194,7 @@ async function getPageInfo(message) {
     let zone = urlParams.get('zone') || "none"
 
     const PageInfo = await searchPageInfo(page_id, zone)
-    console.log(PageInfo)
+    // console.log(PageInfo)
     const resDB = await insertPage(PageInfo)
     if (resDB === true) {
         return { type: "text", text: `ส่งให้แล้วนะ` }

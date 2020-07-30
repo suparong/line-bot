@@ -29,7 +29,7 @@ app.listen(port, async () => {
 async function reply(req) {
 
     let newres = await setBody(req)
-    console.log("=============>", newres)
+    // console.log("=============>", newres)
     /**
      * url :reply,push,multicast,Broadcast
      */
@@ -77,7 +77,7 @@ async function setBody(req) {
     let body
     try {
         // let reply_token = req.body.events[0].replyToken
-        console.log(req.body.events[0])
+        // console.log(req.body.events[0])
         let user_token = req.body.events[0].source.userId
         let msg = req.body.events[0].message.text
         body = {
