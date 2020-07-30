@@ -60,7 +60,7 @@ async function searchPages(name) {
     return pages
 }
 
-async function getInfoPage(pages, zone) {
+async function getInfoPage(page, zone) {
     console.log("+++++++++++++++++ getInfoPage")
     let info = {
         "type": "flex",
@@ -71,7 +71,7 @@ async function getInfoPage(pages, zone) {
     }
     try {
         // let pagesInfo = await searchPageInfo(page, zone)
-        let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page, zone)));
+        let pagesInfo = await searchPageInfo(page, zone)
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         info.contents.contents = pagesInfo
     } catch (error) {
