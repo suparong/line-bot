@@ -8,6 +8,7 @@ require('dotenv').config()
 const port = process.env.PORT_API || 4000
 
 const { facebook, getPageInfo } = require('./api/facebook')
+const { help } = require('./api/help')
 
 const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
 
@@ -100,12 +101,16 @@ async function setBody(req) {
             body.messages.push(data)
         } else if (_.includes(message, "help")) {
             console.log("help")
-            // let data = await getPageInfo(message)
-            // body.messages.push(data)
-            body.messages.push({ type: "text", text: `help` })
+            let data = await help()
+            body.messages.push(data)
+            // body.messages.push({ type: "text", text: `help` })
         } else {
             console.log("other")
-            body.messages.push({ type: "text", text: `what` })
+            body.messages.push({
+                type: "sticker",
+                packageId: 11537,
+                stickerId: 52002744
+            })
         }
         // if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
         //     console.log("fb")
