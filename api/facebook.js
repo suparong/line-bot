@@ -20,9 +20,9 @@ async function facebook(message) {
             console.log("+++++>", name, "zone : ", zone)
         } else {
             console.log("2222222222")
-            const URL_FB = new URL(message)
-            console.log("+++++++++++++>", URL_FB)
-            console.log("=============>", URL_FB.pathname)
+            const url = new URL(message)
+            console.log("+++++++++++++>", url)
+            console.log("=============>", url.pathname)
         }
 
         // let pages = await searchPages(name)
