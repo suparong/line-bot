@@ -76,8 +76,7 @@ async function getInfoPage(page, zone) {
         info.contents.contents = pagesInfo
     } catch (error) {
         console.log(error)
-    }
-    finally {
+    } finally {
         // console.log("=======", JSON.stringify(info))
         return info
     }
@@ -92,7 +91,6 @@ async function searchPageInfo(page, zone) {
         'headers': {
         }, json: true
     }
-    console.log(options)
     let pageInfo = await rq(options)
     let newPageInfo = await formateData(pageInfo, zone)
     return newPageInfo

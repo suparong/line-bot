@@ -30,7 +30,7 @@ app.listen(port, async () => {
 async function reply(req) {
 
     let newres = await setBody(req)
-    // console.log("=============>", newres)
+    console.log("=============>", newres)
     /**
      * url :reply,push,multicast,Broadcast
      */
@@ -49,7 +49,7 @@ async function pushBody(newres) {
         headers,
         body: newres // Automatically stringifies the body to JSON
     }
-    // const res = await rq(options)
+    const res = await rq(options)
     console.log('status = ' + JSON.stringify("DONE"));
 }
 
