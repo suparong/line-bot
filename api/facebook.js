@@ -20,7 +20,7 @@ async function facebook(message) {
             console.log("+++++>", name, "zone : ", zone)
         } else {
             let urlParams = new URLSearchParams(message)
-            console.log("22222222222", searchParams.keys()[0])
+            console.log("22222222222", urlParams.key())
 
         }
 
