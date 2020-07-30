@@ -195,7 +195,7 @@ async function getPageInfo(message) {
 
     const PageInfo = await searchPageInfo(page_id, zone)
     console.log(PageInfo)
-    const resDB = insertPage(PageInfo, zone)
+    const resDB = insertPage(PageInfo)
     if (resDB) return { type: "text", text: `ส่งให้แล้วนะ` }
     if (!resDB) return { type: "text", text: `เหมือนมีเพสนี้แล้วนะ` }
 }
