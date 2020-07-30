@@ -82,10 +82,10 @@ async function searchPage(page, zone) {
          * "type": 1 || 2 
          * }
          */
-    if (pageInDB.status === false && pageInDB.type === 1) {
+    if (newPage.status === false && newPage.type === 1) {
         // console.log("1")
         return { type: "text", text: `มีคนส่งไปแล้วนะ` }
-    } else if (pageInDB.status === false && pageInDB.type === 2) {
+    } else if (newPage.status === false && newPage.type === 2) {
         // console.log("2")
         return { type: "text", text: `มีในระบบเราแล้วนะ` }
     } else {
