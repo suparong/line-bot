@@ -34,6 +34,8 @@ async function facebook(message) {
 
     } catch (error) {
         return { type: "text", text: `${error}` }
+    } finally {
+        console.log("eeee")
     }
 
 }
