@@ -8,7 +8,6 @@ require('dotenv').config()
 const port = process.env.PORT_API || 4000
 
 const { facebook } = require('./api/facebook')
-const { checkPage, checkConfig } = require('./api/sendAndChenkToDB')
 
 const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
 
@@ -95,8 +94,14 @@ async function setBody(req) {
             console.log("facebook")
             let data = await facebook(message)
             body.messages.push(data)
+        } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
+            //     console.log("submit")
+            await getPageInfo(message)
+            // body.messages.push(data)
+        } else {
+            console.log("other")
+            body.messages.push({ type: "text", text: `what` })
         }
-
         // if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
         //     console.log("fb")
         //     let data = await facebook(message)

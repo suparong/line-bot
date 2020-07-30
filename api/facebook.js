@@ -1,9 +1,11 @@
 const rq = require('request-promise')
 const QUERY = "about,picture{url},fan_count,name"
+const QUERY_INFO = "link,name,fan_count,talking_about_count,rating_count,category_list,artists_we_like,country_page_likes,picture{url}"
 const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
 const URL_API = "https://graph.facebook.com/v4.0"
 let _ = require('lodash')
 const { URLSearchParams } = require('url')
+const { checkPage, checkConfig, insertPage } = require('./sendAndChenkToDB')
 
 async function facebook(message) {
     console.log("===============>", message)
@@ -18,7 +20,7 @@ async function facebook(message) {
             let zone = urlParams.get('zone')
             name = encodeURIComponent(name)
             console.log("+++++>", name, "zone : ", zone)
-            let item = await getInfoPage(name, zone)
+            let item = await getPage(name, zone)
             return item
         } else {
             console.log("222222222222")
@@ -26,16 +28,10 @@ async function facebook(message) {
             let zone = urlParams.get('zone')
             name = encodeURIComponent(name)
             console.log("+++++>", name, "zone : ", zone)
-            let item = await getInfoPage(name, zone)
+            let item = await getPage(name, zone)
             return item
 
         }
-        // let pages = await searchPages(name)
-        // console.log("pages =======>", pages.data)
-        // let item = await getInfoPage(pages.data, zone)
-        // return item
-
-
 
     } catch (error) {
         return { type: "text", text: `${error}` }
@@ -47,20 +43,8 @@ function getPathFromUrl(url) {
     return url.split("?")[0];
 }
 
-async function searchPages(name) {
-    let options = {
-        'method': 'GET',
-        'url': `${URL_API}/search?type=place&q=${name}&fields=link,name&limit=5&access_token=${ACCESS_TOKEN}`,
-        'headers': {
-        }, json: true
-    }
-    // console.log("=======================11", options)
-    let pages = await rq(options)
-    // console.log("searchPages ===============+>", pages)
-    return pages
-}
 
-async function getInfoPage(page, zone) {
+async function getPage(page, zone) {
     console.log("+++++++++++++++++ getInfoPage")
     let info = {
         "type": "flex",
@@ -68,7 +52,7 @@ async function getInfoPage(page, zone) {
     }
     try {
         // let pagesInfo = await searchPageInfo(page, zone)
-        let pagesInfo = await searchPageInfo(page, zone)
+        let pagesInfo = await searchPage(page, zone)
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         info.contents = pagesInfo
     } catch (error) {
@@ -80,8 +64,8 @@ async function getInfoPage(page, zone) {
 
 }
 
-async function searchPageInfo(page, zone) {
-    console.log("+++++++++++++++++ searchPageInfo")
+async function searchPage(page, zone) {
+    console.log("+++++++++++++++++ searchPage")
     let options = {
         'method': 'GET',
         'url': `${URL_API}/${page}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
@@ -89,8 +73,25 @@ async function searchPageInfo(page, zone) {
         }, json: true
     }
     let pageInfo = await rq(options)
-    let newPageInfo = await formateData(pageInfo, zone)
-    return newPageInfo
+    ///doing check DB
+    let pageInDB = await checkPage(pageInfo.id)
+    /**
+         * {
+         * "status": false ,
+         * "type": 1 || 2 
+         * }
+         */
+    if (pageInDB.status === false && pageInDB.type === 1) {
+        console.log("1")
+        return { type: "text", text: `มีคนส่งไปแล้วนะ` }
+    } else if (pageInDB.status === false && pageInDB.type === 2) {
+        console.log("2")
+        return { type: "text", text: `มีในระบบเราแล้วนะ` }
+    } else {
+        let newPageInfo = await formateData(pageInfo, zone)
+        return newPageInfo
+    }
+
 }
 
 async function formateData(res, zone) {
@@ -188,8 +189,32 @@ async function formateData(res, zone) {
 
 }
 
+async function getPageInfo(message) {
+    let urlParams = new URLSearchParams(message)
+    let page_id = urlParams.get('submit')
+    let zone = urlParams.get('zone') || "none"
+
+    const PageInfo = await searchPageInfo(page_id, zone)
+    console.log(PageInfo)
+    // const resDB = insertPage(PageInfo, zone)
+    // if (resDB) return
+
+}
+
+async function searchPageInfo(page_id, zone) {
+    console.log("+++++++++++++++++ searchPageInfo")
+    let options = {
+        'method': 'GET',
+        'url': `${URL_API}/${page_id}?fields=${QUERY_INFO}&access_token=${ACCESS_TOKEN}`,
+        'headers': {
+        }, json: true
+    }
+    let pageInfo = await rq(options)
+    return pageInfo
+}
 
 
 module.exports = {
-    facebook
+    facebook,
+    getPageInfo
 }
