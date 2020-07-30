@@ -73,7 +73,7 @@ async function getInfoPage(pages, zone) {
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         info.contents.contents = pagesInfo
     } finally {
-        // console.log("=======", JSON.stringify(info))
+        console.log("=======", JSON.stringify(info))
         return info
     }
 
