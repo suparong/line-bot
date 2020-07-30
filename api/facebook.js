@@ -54,7 +54,6 @@ async function getPage(page, zone) {
         let pagesInfo = await searchPage(page, zone)
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         if (pagesInfo.type === "text") {
-            console.log("textttttttttttt")
             return pagesInfo
         } else {
             info.contents = pagesInfo
@@ -105,7 +104,7 @@ async function searchPage(page, zone) {
     } catch (error) {
         return {
             // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `ทำอะไรผิดป่าวววว` }] }
-            type: "text", text: `ทำอะไรผิดป่าวววว`
+            type: "text", text: `ใช่linkเพจหรือป่าว`
         }
     }
 
@@ -128,7 +127,7 @@ async function formateData(res, zone) {
             "contents": [
                 {
                     "type": "text",
-                    "text": "ใช่เพสนี้ป่าวนะ"
+                    "text": "ใช่เพจนี้ป่าวนะ"
                 }
             ]
         },
@@ -219,7 +218,7 @@ async function getPageInfo(message) {
     if (resDB) {
         return { type: "text", text: `ส่งให้แล้วนะ` }
     } else {
-        return { type: "text", text: `เหมือนมีเพสนี้แล้วนะ` }
+        return { type: "text", text: `เหมือนมีเพจนี้แล้วนะ` }
     }
 }
 
