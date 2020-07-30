@@ -64,16 +64,13 @@ async function getInfoPage(page, zone) {
     console.log("+++++++++++++++++ getInfoPage")
     let info = {
         "type": "flex",
-        "altText": "เพสนี้หรือป่าวนะ",
-        "contents": {
-            "type": "carousel"
-        }
+        "altText": "เพสนี้หรือป่าวนะ"
     }
     try {
         // let pagesInfo = await searchPageInfo(page, zone)
         let pagesInfo = await searchPageInfo(page, zone)
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
-        info.contents.contents = pagesInfo
+        info.contents = pagesInfo
     } catch (error) {
         console.log(error)
     } finally {
