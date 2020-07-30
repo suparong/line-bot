@@ -209,6 +209,7 @@ async function searchPageInfo(page_id, zone) {
         }, json: true
     }
     let pageInfo = await rq(options)
+    pageInfo.zone = zone
     return pageInfo
 }
 
