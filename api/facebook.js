@@ -12,7 +12,8 @@ async function facebook(message) {
         * message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
         */
         let urlParams = new URLSearchParams(message)
-        console.log("11111111111", JSON.stringify(urlParams))
+        console.log("11111111111", urlParams)
+        console.log("11111111111", urlParams[0])
         // let name = urlParams.get('add')
         // let zone = urlParams.get('zone')
         // console.log("+++++>", name, "zone : ", zone)
