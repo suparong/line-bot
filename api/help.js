@@ -61,7 +61,7 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `   https://www.facebook.com/Mommy-Is-Here&zone=th`,
+                    "text": `   https://www.facebook.com/Mommy-Is-Here/&zone=th`,
                     "wrap": true
                 },
                 {
@@ -69,7 +69,7 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `****** add แล้วไม่ได้เข้าเลยนะ ต้องรอ approve ก่อน`,
+                    "text": `****** กด submit แล้วรอ approve นะจ๊ะ`,
                     "wrap": true
                 }
             ]
