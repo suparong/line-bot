@@ -45,7 +45,7 @@ function getPathFromUrl(url) {
 
 
 async function getPage(page, zone) {
-    console.log("+++++++++++++++++ getInfoPage")
+    console.log("+++++++++++++++++ getPage")
     let info = {
         "type": "flex",
         "altText": "เพสนี้หรือป่าวนะ"
@@ -75,6 +75,7 @@ async function searchPage(page, zone) {
     let pageInfo = await rq(options)
     ///doing check DB
     let pageInDB = await checkPage(pageInfo.id)
+    console.log("=============++>", pageInDB)
     /**
          * {
          * "status": false ,
