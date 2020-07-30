@@ -66,7 +66,7 @@ async function getPage(page, zone) {
 }
 
 async function searchPage(page, zone) {
-    // console.log("+++++++++++++++++ searchPage")
+    console.log("+++++++++++++++++ searchPage", page)
     try {
         let options = {
             'method': 'GET',
