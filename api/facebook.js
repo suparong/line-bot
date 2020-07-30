@@ -21,8 +21,8 @@ async function facebook(message) {
         } else {
             console.log("2222222222")
             const url = new URL(message)
-            console.log("+++++++++++++>", url)
-            console.log("=============>", url.pathname)
+            console.log("+++++++++++++>", encodeURI(url))
+            console.log("=============>")
         }
 
         // let pages = await searchPages(name)
