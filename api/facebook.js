@@ -62,15 +62,16 @@ async function searchPages(name) {
 
 async function getInfoPage(pages, zone) {
     console.log("+++++++++++++++++ getInfoPage")
-    let info = {
-        "type": "flex",
-        "altText": "เพสนี้หรือป่าวนะ",
-        "contents": {
-            "type": "carousel"
-        }
-    }
     try {
-        let pagesInfo = await searchPageInfo(page, zone)
+        let info = {
+            "type": "flex",
+            "altText": "เพสนี้หรือป่าวนะ",
+            "contents": {
+                "type": "carousel"
+            }
+        }
+        // let pagesInfo = await searchPageInfo(page, zone)
+        let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page, zone)));
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         info.contents.contents = pagesInfo
     } finally {
