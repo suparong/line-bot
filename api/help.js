@@ -38,7 +38,7 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `1.ใส่ link page (ex.https://www.facebook.com/TidPromo)`,
+                    "text": `   1.ใส่ link page (ex.https://www.facebook.com/TidPromo)`,
                     "wrap": true
                 },
                 {
@@ -46,7 +46,7 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `2.ใส่ zone มาด้วย ถ้าไม่ใส่มาจะเป็น none`,
+                    "text": `   2.ใส่ zone มาด้วย ถ้าไม่ใส่มาจะเป็น none`,
                     "wrap": true
                 },
                 {
@@ -61,7 +61,7 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `https://www.facebook.com/Mommy-Is-Here&zone=th`,
+                    "text": `   https://www.facebook.com/Mommy-Is-Here&zone=th`,
                     "wrap": true
                 },
                 {
