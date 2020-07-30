@@ -6,20 +6,22 @@ let _ = require('lodash')
 const { URLSearchParams } = require('url')
 
 async function facebook(message) {
+    console.log("===============>", message)
     try {
         /**
-        * message = "(fb,facebook)&add=AAAAAA,zone=th"
+        * message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
         */
         let urlParams = new URLSearchParams(message)
-        // console.log("11111111111", urlParams)
-        let name = urlParams.get('add')
+        console.log("11111111111", urlParams)
+        // let name = urlParams.get('add')
         let zone = urlParams.get('zone')
-        console.log("+++++>", name, "zone : ", zone)
-        name = encodeURIComponent(name)
-        let pages = await searchPages(name)
-        console.log("pages =======>", pages.data)
-        let item = await getInfoPage(pages.data, zone)
-        return item
+        // console.log("+++++>", name, "zone : ", zone)
+        // name = encodeURIComponent(name)
+        // let pages = await searchPages(name)
+        // console.log("pages =======>", pages.data)
+        // let item = await getInfoPage(pages.data, zone)
+        // return item
+
     } catch (error) {
         return { type: "text", text: `${error}` }
     }
