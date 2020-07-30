@@ -49,7 +49,7 @@ async function pushBody(newres) {
         headers,
         body: newres // Automatically stringifies the body to JSON
     }
-    const res = await rq(options)
+    // const res = await rq(options)
     console.log('status = ' + JSON.stringify("DONE"));
 }
 
@@ -89,10 +89,11 @@ async function setBody(req) {
         let message = msg.toLowerCase()
         console.log(typeof (message), message)
         /**
-         * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126
+         * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
          */
         if (message.indexOf("facebook") === 12 || _.includes(message, "fb")) {
             console.log("facebook")
+            await facebook(message)
         }
 
         // if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
