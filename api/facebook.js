@@ -87,6 +87,7 @@ async function searchPageInfo(page, zone) {
         }, json: true
     }
     let pageInfo = await rq(options)
+    console.log("=========", pageInfo)
     let newPageInfo = await formateData(pageInfo, zone)
     return newPageInfo
 }
