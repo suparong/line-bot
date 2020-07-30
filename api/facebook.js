@@ -74,7 +74,7 @@ async function searchPage(page, zone) {
     }
     let pageInfo = await rq(options)
     let pageInDB = await checkPage(pageInfo.id)
-    pageInDB = JSON.parse(pageInDB)
+    console.log("===========>", pageInDB, pageInDB.status)
     /**
          * {
          * "status": false ,
@@ -197,9 +197,8 @@ async function getPageInfo(message) {
     const PageInfo = await searchPageInfo(page_id, zone)
     // console.log(PageInfo)
     const resDB = await insertPage(PageInfo)
-    resDB = JSON.parse(resDB)
     console.log("=============>", resDB)
-    if (resDB === true) {
+    if (resDB) {
         return { type: "text", text: `ส่งให้แล้วนะ` }
     } else {
         return { type: "text", text: `เหมือนมีเพสนี้แล้วนะ` }
