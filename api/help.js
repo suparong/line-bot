@@ -36,7 +36,7 @@ async function formatHelp() {
                 {
                     "type": "text",
                     "margin": "md",
-                    "size": "sm",
+                    "size": "md",
                     "color": "#666666",
                     "text": `1.ใส่ link page (ex.https://www.facebook.com/TidPromo)`,
                     "wrap": true
@@ -44,7 +44,7 @@ async function formatHelp() {
                 {
                     "type": "text",
                     "margin": "md",
-                    "size": "sm",
+                    "size": "md",
                     "color": "#666666",
                     "text": `2.ใส่ zone มาด้วย ถ้าไม่ใส่มาจะเป็น none`,
                     "wrap": true
@@ -52,7 +52,7 @@ async function formatHelp() {
                 {
                     "type": "text",
                     "margin": "md",
-                    "size": "sm",
+                    "size": "md",
                     "color": "#666666",
                     "text": `ตัวอย่าง`,
                     "wrap": true
@@ -60,7 +60,7 @@ async function formatHelp() {
                 {
                     "type": "text",
                     "margin": "md",
-                    "size": "sm",
+                    "size": "md",
                     "color": "#666666",
                     "text": `https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th
                     Mommy-Is-Here-108444714131126&zone=th`,
@@ -76,8 +76,7 @@ async function formatHelp() {
                 {
                     "type": "text",
                     "margin": "md",
-                    "size": "sm",
-                    "color": "#666666",
+                    "size": "md",
                     "text": `****** add แล้วไม่ได้เข้าเลยนะ ต้องรอ approve ก่อน`,
                     "wrap": true
                 }
