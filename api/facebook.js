@@ -61,6 +61,7 @@ async function searchPages(name) {
 }
 
 async function getInfoPage(pages, zone) {
+    console.log("+++++++++++++++++ getInfoPage")
     let info = {
         "type": "flex",
         "altText": "เพสนี้หรือป่าวนะ",
@@ -73,26 +74,28 @@ async function getInfoPage(pages, zone) {
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         info.contents.contents = pagesInfo
     } finally {
-        console.log("=======", JSON.stringify(info))
+        // console.log("=======", JSON.stringify(info))
         return info
     }
 
 }
 
 async function searchPageInfo(page, zone) {
+    console.log("+++++++++++++++++ searchPageInfo")
     let options = {
         'method': 'GET',
         'url': `${URL_API}/${page}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
         'headers': {
         }, json: true
     }
+    console.log(options)
     let pageInfo = await rq(options)
-    console.log("=========", pageInfo)
     let newPageInfo = await formateData(pageInfo, zone)
     return newPageInfo
 }
 
 async function formateData(res, zone) {
+    console.log("+++++++++++++++++ formateData")
     zone = zone || "none"
     let pageInfo = {
         "type": "bubble",

@@ -10,7 +10,7 @@ async function checkPage(message) {
         // console.log("message ==============>", message)
         let urlParams = new URLSearchParams(message)
         let page_id = urlParams.get('submit')
-        let zone = urlParams.get('zone')
+        let zone = urlParams.get('zone') || "none"
         let options = {
             'method': 'POST',
             'url': 'http://192.168.19.23:8082/checkPage',
