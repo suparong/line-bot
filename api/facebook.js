@@ -84,10 +84,14 @@ async function searchPage(page, zone) {
          */
     if (newPage.status === false && newPage.type === 1) {
         // console.log("1")
-        return { type: "text", text: `มีคนส่งไปแล้วนะ` }
+        return {
+            "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีคนส่งไปแล้วนะ` }] }
+        }
     } else if (newPage.status === false && newPage.type === 2) {
         // console.log("2")
-        return { type: "text", text: `มีในระบบเราแล้วนะ` }
+        return {
+            "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีในระบบเราแล้วนะ` }] }
+        }
     } else {
         let newPageInfo = await formateData(pageInfo, zone)
         return newPageInfo
