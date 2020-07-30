@@ -98,6 +98,10 @@ async function setBody(req) {
             //     console.log("submit")
             let data = await getPageInfo(message)
             body.messages.push(data)
+        } else if (_.includes(message, "help")) {
+            console.log("help")
+            // let data = await getPageInfo(message)
+            body.messages.push(data)
         } else {
             console.log("other")
             body.messages.push({ type: "text", text: `what` })

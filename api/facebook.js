@@ -47,7 +47,7 @@ async function getPage(page, zone) {
     // console.log("+++++++++++++++++ getPage")
     let info = {
         "type": "flex",
-        "altText": "เพสนี้หรือป่าวนะ"
+        "altText": "new messages"
     }
     try {
         // let pagesInfo = await searchPageInfo(page, zone)
@@ -65,37 +65,44 @@ async function getPage(page, zone) {
 
 async function searchPage(page, zone) {
     // console.log("+++++++++++++++++ searchPage")
-    let options = {
-        'method': 'GET',
-        'url': `${URL_API}/${page}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
-        'headers': {
-        }, json: true
-    }
-    let pageInfo = await rq(options)
-    console.log("+++++>", pageInfo.id, "zone : ", zone)
-    let pageInDB = await checkPage(pageInfo.id)
-    let newPage = JSON.parse(pageInDB)
-    // console.log("===========>", newPage, JSON.stringify(newPage.status), typeof (newPage))
-    /**
-         * {
-         * "status": false ,
-         * "type": 1 || 2 
-         * }
-         */
-    if (newPage.status === false && newPage.type === 1) {
-        // console.log("1")
-        return {
-            "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีคนส่งไปแล้วนะ` }] }
+    try {
+        let options = {
+            'method': 'GET',
+            'url': `${URL_API}/${page}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
+            'headers': {
+            }, json: true
         }
-    } else if (newPage.status === false && newPage.type === 2) {
-        // console.log("2")
-        return {
-            "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีในระบบเราแล้วนะ` }] }
+        let pageInfo = await rq(options)
+        console.log("+++++>", pageInfo.id, "zone : ", zone)
+        let pageInDB = await checkPage(pageInfo.id)
+        let newPage = JSON.parse(pageInDB)
+        // console.log("===========>", newPage, JSON.stringify(newPage.status), typeof (newPage))
+        /**
+             * {
+             * "status": false ,
+             * "type": 1 || 2 
+             * }
+             */
+        if (newPage.status === false && newPage.type === 1) {
+            // console.log("1")
+            return {
+                "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีคนส่งไปแล้วนะ` }] }
+            }
+        } else if (newPage.status === false && newPage.type === 2) {
+            // console.log("2")
+            return {
+                "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีในระบบเราแล้วนะ` }] }
+            }
+        } else {
+            let newPageInfo = await formateData(pageInfo, zone)
+            return newPageInfo
         }
-    } else {
-        let newPageInfo = await formateData(pageInfo, zone)
-        return newPageInfo
+    } catch (error) {
+        return {
+            "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `ทำอะไรผิดป่าวววว` }] }
+        }
     }
+
 
 }
 
