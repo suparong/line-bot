@@ -18,15 +18,18 @@ async function facebook(message) {
             let zone = urlParams.get('zone')
             name = encodeURIComponent(name)
             console.log("+++++>", name, "zone : ", zone)
+            let item = await getInfoPage(name, zone)
+            return item
         } else {
             console.log("222222222222")
             let name = await getPathFromUrl(message)
             let zone = urlParams.get('zone')
             name = encodeURIComponent(name)
             console.log("+++++>", name, "zone : ", zone)
+            let item = await getInfoPage(name, zone)
+            return item
 
         }
-
         // let pages = await searchPages(name)
         // console.log("pages =======>", pages.data)
         // let item = await getInfoPage(pages.data, zone)
@@ -81,7 +84,7 @@ async function getInfoPage(pages, zone) {
 async function searchPageInfo(page, zone) {
     let options = {
         'method': 'GET',
-        'url': `${URL_API}/${page.link}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
+        'url': `${URL_API}/${page}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
         'headers': {
         }, json: true
     }
