@@ -93,7 +93,8 @@ async function setBody(req) {
          */
         if (message.indexOf("facebook") === 12 || _.includes(message, "fb")) {
             console.log("facebook")
-            await facebook(message)
+            let data = await facebook(message)
+            body.messages.push(data)
         }
 
         // if (_.includes(message, "faecbook") || _.includes(message, "fb")) {

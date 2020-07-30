@@ -71,7 +71,7 @@ async function getInfoPage(pages, zone) {
         }
     }
     try {
-        let pagesInfo = await Promise.all(pages.map(async page => searchPageInfo(page, zone)));
+        let pagesInfo = await searchPageInfo(page, zone)
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         info.contents.contents = pagesInfo
     } finally {
