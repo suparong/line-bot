@@ -11,8 +11,8 @@ async function facebook(message) {
         /**
         * message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
         */
+        let urlParams = new URLSearchParams(message)
         if (_.includes(message, "fb")) {
-            let urlParams = new URLSearchParams(message)
             console.log("11111111111", urlParams)
             let name = urlParams.get('add')
             let zone = urlParams.get('zone')
@@ -20,8 +20,10 @@ async function facebook(message) {
             console.log("+++++>", name, "zone : ", zone)
         } else {
             console.log("222222222222")
-            let urlParams = new URLSearchParams(message)
-            console.log("22222222222", urlParams)
+            let name = await getPathFromUrl(message)
+            let zone = urlParams.get('zone')
+            name = encodeURIComponent(name)
+            console.log("22222222222", name)
 
         }
 
@@ -38,6 +40,10 @@ async function facebook(message) {
         console.log("eeee")
     }
 
+}
+
+function getPathFromUrl(url) {
+    return url.split("?")[0];
 }
 
 async function searchPages(name) {
