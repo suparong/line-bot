@@ -53,6 +53,9 @@ async function getPage(page, zone) {
         // let pagesInfo = await searchPageInfo(page, zone)
         let pagesInfo = await searchPage(page, zone)
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
+        if (pagesInfo.type === "text") {
+            return pagesInfo
+        }
         info.contents = pagesInfo
     } catch (error) {
         console.log(error)
@@ -86,21 +89,24 @@ async function searchPage(page, zone) {
         if (newPage.status === false && newPage.type === 1) {
             // console.log("1")
             return {
-                "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีคนส่งไปแล้วนะ` }] }
-            }
-        } else if (newPage.status === false && newPage.type === 2) {
-            // console.log("2")
-            return {
-                "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีในระบบเราแล้วนะ` }] }
-            }
-        } else {
-            let newPageInfo = await formateData(pageInfo, zone)
-            return newPageInfo
+                // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีคนส่งไปแล้วนะ` }] }
+                { type: "text", text: `มีคนส่งไปแล้วนะ` }
         }
-    } catch (error) {
+    } else if (newPage.status === false && newPage.type === 2) {
+        // console.log("2")
         return {
-            "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `ทำอะไรผิดป่าวววว` }] }
-        }
+                // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีในระบบเราแล้วนะ` }] }
+                { type: "text", text: `มีในระบบเราแล้วนะ` }
+    }
+} else {
+    let newPageInfo = await formateData(pageInfo, zone)
+    return newPageInfo
+}
+    } catch (error) {
+    return {
+            // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `ทำอะไรผิดป่าวววว` }] }
+            { type: "text", text: `ทำอะไรผิดป่าวววว` }
+}
     }
 
 
