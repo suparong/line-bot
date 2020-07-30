@@ -101,7 +101,8 @@ async function setBody(req) {
         } else if (_.includes(message, "help")) {
             console.log("help")
             // let data = await getPageInfo(message)
-            body.messages.push(data)
+            // body.messages.push(data)
+            body.messages.push({ type: "text", text: `help` })
         } else {
             console.log("other")
             body.messages.push({ type: "text", text: `what` })
