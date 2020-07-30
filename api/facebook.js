@@ -27,7 +27,8 @@ async function facebook(message) {
             let name = await getPathFromUrl(message)
             let zone = urlParams.get('zone')
             name = encodeURIComponent(name)
-            let item = await getPage(name, zone)
+            var newname = str.split("&")
+            let item = await getPage(newname[0], zone)
             return item
 
         }
