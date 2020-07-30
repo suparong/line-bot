@@ -74,7 +74,7 @@ async function searchPage(page, zone) {
     }
     let pageInfo = await rq(options)
     console.log("=============>", pageInfo)
-    let pageInDB = await checkPage(pageInfo)
+    let pageInDB = await checkPage(pageInfo.id)
     console.log("=============++>", pageInDB)
     /**
          * {
