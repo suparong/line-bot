@@ -87,6 +87,7 @@ async function setBody(req) {
         }
 
         let message = msg.toLowerCase()
+        console.log(typeof (message), message)
 
         if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
             console.log("fb")
