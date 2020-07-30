@@ -13,7 +13,7 @@ async function checkPage(page_id) {
             }
         }
         let body = await rq(options)
-        console.log("11111111111111111111111111", body)
+        // console.log("11111111111111111111111111", body)
         return body
 
     } catch (error) {
@@ -35,7 +35,7 @@ async function insertPage(pageInfo) {
 
         }
         let body = await rq(options)
-        console.log("11111111111111111111111111", body)
+        // console.log("11111111111111111111111111", body)
         return body
 
     } catch (error) {

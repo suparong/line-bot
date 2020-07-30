@@ -8,7 +8,7 @@ const { URLSearchParams } = require('url')
 const { checkPage, checkConfig, insertPage } = require('./sendAndChenkToDB')
 
 async function facebook(message) {
-    console.log("===============>", message)
+    // console.log("===============>", message)
     try {
         /**
         * message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
@@ -45,7 +45,7 @@ function getPathFromUrl(url) {
 
 
 async function getPage(page, zone) {
-    console.log("+++++++++++++++++ getPage")
+    // console.log("+++++++++++++++++ getPage")
     let info = {
         "type": "flex",
         "altText": "เพสนี้หรือป่าวนะ"
@@ -65,7 +65,7 @@ async function getPage(page, zone) {
 }
 
 async function searchPage(page, zone) {
-    console.log("+++++++++++++++++ searchPage")
+    // console.log("+++++++++++++++++ searchPage")
     let options = {
         'method': 'GET',
         'url': `${URL_API}/${page}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
@@ -94,7 +94,7 @@ async function searchPage(page, zone) {
 }
 
 async function formateData(res, zone) {
-    console.log("+++++++++++++++++ formateData")
+    // console.log("+++++++++++++++++ formateData")
     zone = zone || "none"
     let pageInfo = {
         "type": "bubble",
@@ -204,7 +204,7 @@ async function getPageInfo(message) {
 }
 
 async function searchPageInfo(page_id, zone) {
-    console.log("+++++++++++++++++ searchPageInfo")
+    // console.log("+++++++++++++++++ searchPageInfo")
     let options = {
         'method': 'GET',
         'url': `${URL_API}/${page_id}?fields=${QUERY_INFO}&access_token=${ACCESS_TOKEN}`,
