@@ -90,23 +90,23 @@ async function searchPage(page, zone) {
             // console.log("1")
             return {
                 // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีคนส่งไปแล้วนะ` }] }
-                { type: "text", text: `มีคนส่งไปแล้วนะ` }
-        }
-    } else if (newPage.status === false && newPage.type === 2) {
-        // console.log("2")
-        return {
+                type: "text", text: `มีคนส่งไปแล้วนะ`
+            }
+        } else if (newPage.status === false && newPage.type === 2) {
+            // console.log("2")
+            return {
                 // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีในระบบเราแล้วนะ` }] }
-                { type: "text", text: `มีในระบบเราแล้วนะ` }
-    }
-} else {
-    let newPageInfo = await formateData(pageInfo, zone)
-    return newPageInfo
-}
+                type: "text", text: `มีในระบบเราแล้วนะ`
+            }
+        } else {
+            let newPageInfo = await formateData(pageInfo, zone)
+            return newPageInfo
+        }
     } catch (error) {
-    return {
+        return {
             // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `ทำอะไรผิดป่าวววว` }] }
-            { type: "text", text: `ทำอะไรผิดป่าวววว` }
-}
+            type: "text", text: `ทำอะไรผิดป่าวววว`
+        }
     }
 
 
