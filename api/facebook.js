@@ -56,13 +56,12 @@ async function getPage(page, zone) {
         if (pagesInfo.type === "text") {
             console.log("textttttttttttt")
             return pagesInfo
+        } else {
+            info.contents = pagesInfo
+            return info
         }
-        info.contents = pagesInfo
     } catch (error) {
         console.log(error)
-    } finally {
-        // console.log("=======", JSON.stringify(info))
-        return info
     }
 
 }
