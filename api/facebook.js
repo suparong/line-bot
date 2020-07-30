@@ -11,7 +11,7 @@ async function facebook(message) {
         /**
         * message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
         */
-        if (_.includes(message, "fb"){
+        if (_.includes(message, "fb")) {
             let urlParams = new URLSearchParams(message)
             console.log("11111111111", urlParams)
             let name = urlParams.get('add')
