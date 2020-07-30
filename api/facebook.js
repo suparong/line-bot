@@ -74,7 +74,8 @@ async function searchPage(page, zone) {
     }
     let pageInfo = await rq(options)
     let pageInDB = await checkPage(pageInfo.id)
-    console.log("===========>", pageInDB, JSON.stringify(pageInDB.status), typeof (pageInDB))
+    let newPage = JSON.parse(pageInDB)
+    console.log("===========>", newPage, JSON.stringify(newPage.status), typeof (newPage))
     /**
          * {
          * "status": false ,
