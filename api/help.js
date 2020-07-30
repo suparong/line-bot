@@ -14,44 +14,41 @@ async function help() {
 async function formatHelp() {
     return {
         "type": "bubble",
-        "body": {
+        "body":
+        {
             "type": "box",
-            "layout": "vertical",
+            "layout": "horizontal",
             "contents": [
                 {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                        {
-                            "type": "text",
-                            "text": "วิธี add page Facebook",
-                            "size": "md"
-                        },
-                        {
-                            "type": "text",
-                            "text": "1.ใส่ link page (ex.https://www.facebook.com/TidPromo)",
-                            "size": "md"
-                        },
-                        {
-                            "type": "text",
-                            "text": "ใส่ zone มาด้วย ถ้าไม่ใส่มาจะเป็น none",
-                            "size": "md"
-                        },
-                        {
-                            "type": "text",
-                            "text": "Ex.https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th",
-                            "size": "md"
-                        },
-                        {
-                            "type": "text",
-                            "text": "****** add แล้วไม่ได้เข้าเลยนะ ต้องรอ approve ก่อน",
-                            "size": "lg"
-                        }
-                    ]
+                    "type": "text",
+                    "text": "วิธี add page Facebook",
+                    "size": "md"
+                },
+                {
+                    "type": "text",
+                    "text": "1.ใส่ link page (ex.https://www.facebook.com/TidPromo)",
+                    "size": "md"
+                },
+                {
+                    "type": "text",
+                    "text": "ใส่ zone มาด้วย ถ้าไม่ใส่มาจะเป็น none",
+                    "size": "md"
+                },
+                {
+                    "type": "text",
+                    "text": "Ex.https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th",
+                    "size": "md"
+                },
+                {
+                    "type": "text",
+                    "text": "****** add แล้วไม่ได้เข้าเลยนะ ต้องรอ approve ก่อน",
+                    "size": "lg"
                 }
             ]
         }
+
     }
+
 }
 
 module.exports = {
