@@ -23,7 +23,7 @@ async function facebook(message) {
             let name = await getPathFromUrl(message)
             let zone = urlParams.get('zone')
             name = encodeURIComponent(name)
-            console.log("22222222222", name)
+            console.log("+++++>", name, "zone : ", zone)
 
         }
 
