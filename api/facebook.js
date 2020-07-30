@@ -13,6 +13,7 @@ async function facebook(message) {
         */
         let urlParams = new URLSearchParams(message)
         console.log("11111111111", urlParams)
+        console.log(window.location = message)
         // let name = urlParams.get('add')
         // let zone = urlParams.get('zone')
         // console.log("+++++>", name, "zone : ", zone)
