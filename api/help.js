@@ -23,78 +23,34 @@ async function formatHelp() {
                     "layout": "baseline",
                     "contents": [
                         {
-                            "type": "icon",
-                            "url": "https://example.com/flex/images/icon.png",
+                            "type": "text",
+                            "text": "วิธี add page Facebook",
                             "size": "md"
+                            "wrap": true
                         },
                         {
                             "type": "text",
-                            "text": "The quick brown fox jumps over the lazy dog",
+                            "text": "1.ใส่ link page (ex.https://www.facebook.com/TidPromo)",
                             "size": "md"
-                        }
-                    ]
-                },
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
+                            "wrap": true
+                        },
                         {
-                            "type": "icon",
-                            "url": "https://example.com/flex/images/icon.png",
+                            "type": "text",
+                            "text": "ใส่ zone มาด้วย ถ้าไม่ใส่มาจะเป็น none",
+                            "size": "md"
+                            "wrap": true
+                        },
+                        {
+                            "type": "text",
+                            "text": "Ex.https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th",
+                            "size": "md"
+                            "wrap": true
+                        },
+                        {
+                            "type": "text",
+                            "text": "****** add แล้วไม่ได้เข้าเลยนะ ต้องรอ approve ก่อน",
                             "size": "lg"
-                        },
-                        {
-                            "type": "text",
-                            "text": "The quick brown fox jumps over the lazy dog",
-                            "size": "lg"
-                        }
-                    ]
-                },
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                        {
-                            "type": "icon",
-                            "url": "https://example.com/flex/images/icon.png",
-                            "size": "xl"
-                        },
-                        {
-                            "type": "text",
-                            "text": "The quick brown fox jumps over the lazy dog",
-                            "size": "xl"
-                        }
-                    ]
-                },
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                        {
-                            "type": "icon",
-                            "url": "https://example.com/flex/images/icon.png",
-                            "size": "xxl"
-                        },
-                        {
-                            "type": "text",
-                            "text": "The quick brown fox jumps over the lazy dog",
-                            "size": "xxl"
-                        }
-                    ]
-                },
-                {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                        {
-                            "type": "icon",
-                            "url": "https://example.com/flex/images/icon.png",
-                            "size": "3xl"
-                        },
-                        {
-                            "type": "text",
-                            "text": "The quick brown fox jumps over the lazy dog",
-                            "size": "3xl"
+                            "wrap": true
                         }
                     ]
                 }
