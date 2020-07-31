@@ -90,13 +90,13 @@ async function searchPage(page, zone) {
             // console.log("1")
             return {
                 // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีคนส่งไปแล้วนะ` }] }
-                type: "text", text: `มีคนส่งไปแล้วนะ`
+                type: "text", text: `This page is waiting for approval.`
             }
         } else if (newPage.status === false && newPage.type === 2) {
             // console.log("2")
             return {
                 // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `มีในระบบเราแล้วนะ` }] }
-                type: "text", text: `มีในระบบเราแล้วนะ`
+                type: "text", text: `This page already exists.`
             }
         } else {
             let newPageInfo = await formateData(pageInfo, zone)
@@ -105,7 +105,7 @@ async function searchPage(page, zone) {
     } catch (error) {
         return {
             // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `ทำอะไรผิดป่าวววว` }] }
-            type: "text", text: `ใช่linkเพจหรือป่าว`
+            type: "text", text: `Please check your link url again. Make sure that you send Facebook page’s link.`
         }
     }
 
@@ -128,7 +128,7 @@ async function formateData(res, zone) {
             "contents": [
                 {
                     "type": "text",
-                    "text": "ใช่เพจนี้ป่าวนะ"
+                    "text": "This page already exists."
                 }
             ]
         },
@@ -172,7 +172,7 @@ async function formateData(res, zone) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `ชื่อ :  ${res.name}`
+                "text": `Page Name : ${res.name}`
             }
             pageInfo.body.contents.push(item)
         }
@@ -182,7 +182,7 @@ async function formateData(res, zone) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `คนถูกใจ ${res.fan_count} คน`,
+                "text": `${res.fan_count} People Like`,
                 "wrap": true
             }
             pageInfo.body.contents.push(item)
@@ -193,7 +193,7 @@ async function formateData(res, zone) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `ID นี้นะ :  ${res.id}`
+                "text": `Page ID : ${res.id}`
             }
             pageInfo.body.contents.push(item)
             // pageInfo.footer.contents[0].action.text = `OK เช็คให้นะ`
@@ -217,9 +217,9 @@ async function getPageInfo(message) {
     const resDB = await insertPage(PageInfo)
     // console.log("=============>", resDB)
     if (resDB) {
-        return { type: "text", text: `ส่งให้แล้วนะ` }
+        return { type: "text", text: `Your page is sent for waiting for approval.` }
     } else {
-        return { type: "text", text: `เหมือนมีเพจนี้แล้วนะ` }
+        return { type: "text", text: `This page already exists.` }
     }
 }
 

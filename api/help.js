@@ -25,7 +25,7 @@ async function formatHelp() {
             "contents": [
                 {
                     "type": "text",
-                    "text": "วิธี add page Facebook"
+                    "text": "How To Add Facebook Page"
                 }
             ]
         },
@@ -38,7 +38,14 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `   1.ใส่ link page (Ex.https://www.facebook.com/TidPromo)`,
+                    "text": `   1. Send Facebook page’s link with zone`,
+                    "wrap": true
+                }, {
+                    "type": "text",
+                    "margin": "md",
+                    "size": "sm",
+                    "color": "#666666",
+                    "text": `   Ex.https://www.facebook.com/TidPromo/&zone=th`,
                     "wrap": true
                 },
                 {
@@ -46,14 +53,14 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `   2.ใส่ zone มาด้วย ถ้าไม่ใส่มาจะเป็น none `,
+                    "text": `    Zone List in Zanroo system:`,
                     "wrap": true
                 }, {
                     "type": "text",
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `zone ที่มีในระบบ : th, jp, ph, mm, my, au, kr, sg, hk, id, tw, kh, vn, us, in, nz, nl, fr, de, ru, ae, eg, lk, br, mx, la, pk, gb, bn, ca`,
+                    "text": `   th, jp, ph, mm, my, au, kr, sg, hk, id, tw, kh, vn, us, in, nz, nl, fr, de, ru, ae, eg, lk, br, mx, la, pk, gb, bn, ca`,
                     "wrap": true
                 },
                 {
@@ -68,7 +75,7 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `   https://www.facebook.com/Mommy-Is-Here/&zone=th`,
+                    "text": `   2. If your page does not exist in our system, page info will be shown.`,
                     "wrap": true
                 },
                 {
@@ -76,7 +83,7 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `****** กด submit แล้วรอ approve นะจ๊ะ`,
+                    "text": `   3. Submit your page and wait for an approval.`,
                     "wrap": true
                 }
             ]
