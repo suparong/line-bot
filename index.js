@@ -28,7 +28,7 @@ app.post('/statusApprove', async (req, res) => {
     // let newbody = JSON.parse(req)
     let readyToSend = await formatData(req.body)
     console.log("======", readyToSend)
-    pushBody(readyToSend)
+    pushBody(JSON.stringify(readyToSend))
     // res.status(200).send(readyToSend)
 })
 
