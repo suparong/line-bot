@@ -104,6 +104,11 @@ async function setBody(req) {
             let data = await help()
             body.messages.push(data)
             // body.messages.push({ type: "text", text: `help` })
+        } else if (_.includes(message, "web")) {
+            console.log("web")
+            // let data = await help()
+            // body.messages.push(data)
+            body.messages.push({ type: "text", text: `web` })
         } else {
             console.log("other")
             body.messages.push({

@@ -38,7 +38,7 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `   1.ใส่ link page (ex.https://www.facebook.com/TidPromo)`,
+                    "text": `   1.ใส่ link page (Ex.https://www.facebook.com/TidPromo)`,
                     "wrap": true
                 },
                 {
@@ -46,7 +46,14 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `   2.ใส่ zone มาด้วย ถ้าไม่ใส่มาจะเป็น none`,
+                    "text": `   2.ใส่ zone มาด้วย ถ้าไม่ใส่มาจะเป็น none `,
+                    "wrap": true
+                }, {
+                    "type": "text",
+                    "margin": "md",
+                    "size": "sm",
+                    "color": "#666666",
+                    "text": `Ex. th,jp,ph,mm,my,au,kr,sg,hk,id,tw,kh,vn,us,in,nz,nl,fr,de,ru,ae,eg,lk,br,mx,la,pk,gb,bn,ca`,
                     "wrap": true
                 },
                 {
