@@ -53,7 +53,7 @@ async function formatHelp() {
                     "margin": "md",
                     "size": "sm",
                     "color": "#666666",
-                    "text": `zone ทีี่มีในระบบ : th, jp, ph, mm, my, au, kr, sg, hk, id, tw, kh, vn, us, in, nz, nl, fr, de, ru, ae, eg, lk, br, mx, la, pk, gb, bn, ca`,
+                    "text": `zone ที่มีในระบบ : th, jp, ph, mm, my, au, kr, sg, hk, id, tw, kh, vn, us, in, nz, nl, fr, de, ru, ae, eg, lk, br, mx, la, pk, gb, bn, ca`,
                     "wrap": true
                 },
                 {
