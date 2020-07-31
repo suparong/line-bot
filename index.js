@@ -22,6 +22,16 @@ app.post('/webhook', (req, res) => {
     reply(req)
 })
 
+app.post('/statusApprove', async (req, res) => {
+    // console.log("11111111")
+    console.log('statusApprove', req.body)
+    // let newbody = JSON.parse(req)
+    let readyToSend = await formatData(req.body)
+    // console.log("======", readyToSend)
+    pushBody(readyToSend)
+    res.status(200).send(readyToSend)
+})
+
 app.listen(port, async () => {
     console.log('Starting  version 1.1');
     console.log('Starting node.js on port ' + `${port}`);
@@ -143,4 +153,15 @@ async function setBody(req) {
     }
 
 
+}
+
+async function formatData(body) {
+    try {
+        return {
+            "to": `${body.line_token}`,
+            "messages": [{ type: "text", text: `Page "${body.page_name}" has been approved` }]
+        }
+    } catch (error) {
+        console.log("=======>", error)
+    }
 }
