@@ -207,12 +207,12 @@ async function formateData(res, zone) {
 
 }
 
-async function getPageInfo(message) {
+async function getPageInfo(message, user_token) {
     let urlParams = new URLSearchParams(message)
     let page_id = urlParams.get('submit')
     let zone = urlParams.get('zone') || "none"
 
-    const PageInfo = await searchPageInfo(page_id, zone)
+    const PageInfo = await searchPageInfo(page_id, zone, user_token)
     // console.log(PageInfo)
     const resDB = await insertPage(PageInfo)
     // console.log("=============>", resDB)
@@ -223,7 +223,7 @@ async function getPageInfo(message) {
     }
 }
 
-async function searchPageInfo(page_id, zone) {
+async function searchPageInfo(page_id, zone, user_token) {
     // console.log("+++++++++++++++++ searchPageInfo")
     let options = {
         'method': 'GET',
@@ -233,6 +233,7 @@ async function searchPageInfo(page_id, zone) {
     }
     let pageInfo = await rq(options)
     pageInfo.zone = zone
+    pageInfo.line_token = user_token
     return pageInfo
 }
 

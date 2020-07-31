@@ -97,7 +97,7 @@ async function setBody(req) {
             body.messages.push(data)
         } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
             //     console.log("submit")
-            let data = await getPageInfo(message)
+            let data = await getPageInfo(message, user_token)
             body.messages.push(data)
         } else if (_.includes(message, "help")) {
             console.log("help")
