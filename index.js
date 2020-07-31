@@ -24,10 +24,10 @@ app.post('/webhook', (req, res) => {
 
 app.post('/statusApprove', async (req, res) => {
     // console.log("11111111")
-    console.log('statusApprove', req.body)
+    // console.log('statusApprove', req.body)
     // let newbody = JSON.parse(req)
     let readyToSend = await formatData(req.body)
-    // console.log("======", readyToSend)
+    console.log("======", readyToSend)
     pushBody(readyToSend)
     // res.status(200).send(readyToSend)
 })
@@ -127,25 +127,6 @@ async function setBody(req) {
                 stickerId: 52002744
             })
         }
-        // if (_.includes(message, "faecbook") || _.includes(message, "fb")) {
-        //     console.log("fb")
-        //     let data = await facebook(message)
-        //     body.messages.push(data)
-        // } else if (_.includes(message, "web")) {
-        //     console.log("web")
-        //     body.messages.push({ type: "text", text: `web` })
-        // } else if (_.includes(message, "hi") || _.includes(message, "hello")) {
-        //     console.log("hi")
-        //     body.messages.push({ type: "text", text: `hi` })
-        // } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
-        //     console.log("submit")
-        //     let data = await checkPage(message)
-        //     body.messages.push(data)
-        // } else {
-        //     console.log("other")
-        //     body.messages.push({ type: "text", text: `what` })
-        // }
-
     } catch (error) {
         console.log(error)
     } finally {
@@ -158,7 +139,7 @@ async function setBody(req) {
 async function formatData(body) {
     try {
         return {
-            "to": `${body.line_token}`,
+            "to": body.line_token,
             "messages": [{ type: "text", text: `Page ${body.page_name} has been approved` }]
         }
     } catch (error) {
