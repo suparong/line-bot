@@ -140,7 +140,7 @@ async function formatData(body) {
     try {
         return {
             "to": body.line_token,
-            "messages": [{ type: "text", text: `Page ${body.page_name} has been approved` }]
+            "messages": [{ type: "text", text: `Page "${body.page_name}" has been approved` }]
         }
     } catch (error) {
         console.log("=======>", error)
