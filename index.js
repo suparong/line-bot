@@ -23,7 +23,7 @@ app.post('/webhook', (req, res) => {
 })
 
 app.listen(port, async () => {
-    console.log('Starting  version 1.0');
+    console.log('Starting  version 1.1');
     console.log('Starting node.js on port ' + `${port}`);
 });
 
