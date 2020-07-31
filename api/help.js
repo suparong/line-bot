@@ -67,13 +67,6 @@ async function formatHelp() {
                     "type": "text",
                     "margin": "md",
                     "size": "sm",
-                    "text": `ตัวอย่าง`,
-                    "wrap": true
-                },
-                {
-                    "type": "text",
-                    "margin": "md",
-                    "size": "sm",
                     "color": "#666666",
                     "text": `   2. If your page does not exist in our system, page info will be shown.`,
                     "wrap": true
