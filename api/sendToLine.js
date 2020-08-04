@@ -1,10 +1,14 @@
 
-const { facebook, getPageInfo } = require('./facebook')
-const { help } = require('./help')
 const rq = require('request-promise')
 const _ = require('lodash')
 
 const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
+
+const { facebook, getPageInfo } = require('./facebook')
+const { help } = require('./help')
+const { web } = require('./web')
+
+
 
 async function reply(req) {
 
@@ -17,22 +21,8 @@ async function reply(req) {
 
 }
 
-async function pushBody(newres) {
-    let headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    }
-    let options = {
-        method: 'POST',
-        uri: 'https://api.line.me/v2/bot/message/push',
-        headers,
-        body: newres // Automatically stringifies the body to JSON
-    }
-    const res = await rq(options)
-    console.log('status = ' + JSON.stringify("DONE"));
-}
-
-/**
+async function setBody(req) {
+    /**
  *  messages In
  * {
   "events": [
@@ -53,7 +43,6 @@ async function pushBody(newres) {
   ]
 }
  */
-async function setBody(req) {
     let body
     try {
         // let reply_token = req.body.events[0].replyToken
@@ -86,7 +75,7 @@ async function setBody(req) {
             // body.messages.push({ type: "text", text: `help` })
         } else if (_.includes(message, "web")) {
             console.log("web")
-            // let data = await help()
+            await web(message)
             // body.messages.push(data)
             body.messages.push({ type: "text", text: `web` })
         } else {
@@ -117,6 +106,21 @@ async function formatData(body) {
     }
 }
 
+
+async function pushBody(newres) {
+    let headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    let options = {
+        method: 'POST',
+        uri: 'https://api.line.me/v2/bot/message/push',
+        headers,
+        body: newres // Automatically stringifies the body to JSON
+    }
+    const res = await rq(options)
+    console.log('status = ' + JSON.stringify("DONE"));
+}
 
 
 module.exports = {
