@@ -90,7 +90,7 @@ async function web(message) {
     ]
     let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
     info.contents.body.contents = newFormat
-    console.log("==============", info)
+    console.log("==============", JSON.stringify(info))
     // return info
 }
 
