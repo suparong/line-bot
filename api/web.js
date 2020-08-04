@@ -117,47 +117,35 @@ async function formateData(domain, list) {
     //     "backgroundColor": "#80ffff"
     // }
 
-    return [
-        {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-                {
-                    "type": "text",
-                    "wrap": true,
-                    "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
-                }
-            ],
-            "backgroundColor": "#c0c0c0"
-        },
-        {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-                {
-                    "type": "separator",
-                    "color": "#ff0000"
-                },
-                {
-                    "type": "text",
-                    "text": "flex=2",
-                    "flex": 2
-                },
-                {
-                    "type": "separator",
-                    "color": "#ff0000"
-                },
-                {
-                    "type": "text",
-                    "text": "flex=3",
-                    "flex": 3
-                },
-                {
-                    "type": "separator",
-                    "color": "#ff0000"
-                }
-            ]
-        }]
+    return {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+            {
+                "type": "separator",
+                "color": "#ff0000"
+            },
+            {
+                "type": "text",
+                "text": "flex=2",
+                "flex": 2
+            },
+            {
+                "type": "separator",
+                "color": "#ff0000"
+            },
+            {
+                "type": "text",
+                "text": "flex=3",
+                "flex": 3
+            },
+            {
+                "type": "separator",
+                "color": "#ff0000"
+            }
+        ]
+    }
+
 
 }
 
