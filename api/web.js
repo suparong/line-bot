@@ -10,11 +10,13 @@ async function web(message) {
             "type": "bubble",
             "body": {
                 "type": "box",
-                "layout": "horizontal",
+                "layout": "vertical",
+                "spacing": "md",
                 "contents": [
                     {
                         "type": "box",
                         "layout": "vertical",
+                        // "margin": "md",
                         "contents": [
                             {
                                 "type": "text",
@@ -31,6 +33,7 @@ async function web(message) {
                     {
                         "type": "box",
                         "layout": "vertical",
+                        // "margin": "md",
                         "contents": [
                             {
                                 "type": "text",
