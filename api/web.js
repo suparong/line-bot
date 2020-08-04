@@ -25,6 +25,10 @@ async function web(message) {
                         "backgroundColor": "#c0c0c0"
                     },
                     {
+                        "type": "separator",
+                        "color": "#ff0000"
+                    },
+                    {
                         "type": "box",
                         "layout": "vertical",
                         "contents": [
