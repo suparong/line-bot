@@ -1,8 +1,6 @@
 // Reply with two static messages
 const express = require('express')
 const bodyParser = require('body-parser')
-const rq = require('request-promise')
-const _ = require('lodash')
 const app = express()
 require('dotenv').config()
 const port = process.env.PORT_API || 4000
@@ -13,8 +11,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.post('/webhook', (req, res) => {
-    console.log('webhook')
-    reply(req)
+    // console.log('webhook')
+    // reply(req)
+    res.status(200)
 })
 
 app.post('/statusApprove', async (req, res) => {
