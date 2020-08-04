@@ -56,37 +56,31 @@ async function web(message) {
             "channel": "news",
             "zone": "th",
             "running_page": true
-        },
-        {
-            "domain": "thaipbs.or.th2",
-            "channel": "news",
-            "zone": "th",
-            "running_page": false
-        },
-        {
-            "domain": "citizenthaipbs.net3",
-            "channel": "news",
-            "zone": "th",
-            "running_page": true
-        },
-        {
-            "domain": "thaipbs.or.th4",
-            "channel": "news",
-            "zone": "th",
-            "running_page": false
-        },
-        {
-            "domain": "citizenthaipbs.net5",
-            "channel": "news",
-            "zone": "th",
-            "running_page": true
-        },
-        {
-            "domain": "thaipbs.or.th6",
-            "channel": "news",
-            "zone": "th",
-            "running_page": false
         }
+        // {
+        //     "domain": "thaipbs.or.th2",
+        //     "channel": "news",
+        //     "zone": "th",
+        //     "running_page": false
+        // },
+        // {
+        //     "domain": "citizenthaipbs.net3",
+        //     "channel": "news",
+        //     "zone": "th",
+        //     "running_page": true
+        // },
+        // {
+        //     "domain": "thaipbs.or.th4",
+        //     "channel": "news",
+        //     "zone": "th",
+        //     "running_page": false
+        // },
+        // {
+        //     "domain": "citizenthaipbs.net5",
+        //     "channel": "news",
+        //     "zone": "th",
+        //     "running_page": true
+        // }
     ]
     let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
     info.contents.body.contents = newFormat
