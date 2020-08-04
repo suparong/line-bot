@@ -16,7 +16,6 @@ async function web(message) {
                     {
                         "type": "box",
                         "layout": "vertical",
-                        // "margin": "md",
                         "contents": [
                             {
                                 "type": "text",
@@ -24,16 +23,15 @@ async function web(message) {
                                 "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
                             }
                         ],
-                        "backgroundColor": "#c0c0c0"
+                        "backgroundColor": "#e7e7e7"
                     },
                     {
                         "type": "separator",
-                        "color": "#ff0000"
+                        "color": "#ffffff"
                     },
                     {
                         "type": "box",
                         "layout": "vertical",
-                        // "margin": "md",
                         "contents": [
                             {
                                 "type": "text",
@@ -41,7 +39,7 @@ async function web(message) {
                                 "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
                             }
                         ],
-                        "backgroundColor": "#c0c0c0"
+                        "backgroundColor": "#e7e7e7"
                     }
                 ]
             }
