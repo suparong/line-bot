@@ -7,6 +7,7 @@ async function web(message) {
     if (_.includes("http") || _.includes("https")) {
         let url_domain = new URL(domain)
         console.log("============> 1", url_domain.host)
+        console.log("============> 1", url_domain.hostname)
     } else {
         console.log("============> 2", domain)
     }
