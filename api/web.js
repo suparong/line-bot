@@ -8,7 +8,7 @@ async function web(message) {
     if (_.includes(domain, "http") || _.includes(domain, "https")) {
         let url_domain = new URL(domain)
         let newDomain = (url_domain.host).split("www.")
-        if (_.includes(url_domain, "www")) {
+        if (_.includes(url_domain.host, "www")) {
             domain = newDomain[1]
             console.log("============> 1", domain)
         } else {
