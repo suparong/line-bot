@@ -2,7 +2,7 @@ const _ = require('lodash')
 
 async function web(message) {
     console.log("============>", message)
-    let webArray = name.split("=")
+    let webArray = message.split("=")
     const domain = webArray[1]
     if (_.includes("http") || _.includes("https")) {
         let url_domain = new URL(domain)
