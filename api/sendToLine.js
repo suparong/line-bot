@@ -1,6 +1,8 @@
 
 const { facebook, getPageInfo } = require('./facebook')
 const { help } = require('./help')
+const rq = require('request-promise')
+const _ = require('lodash')
 
 const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
 
