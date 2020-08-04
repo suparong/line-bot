@@ -2,9 +2,9 @@
 const rq = require('request-promise')
 const _ = require('lodash')
 
-const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
+// const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
 // token-test
-// const token = '5SkakfzFqmm4f6iJWoHiJGo9FCTbvrypA4R/m0NmJT44uKGQgbGiovZmiVzGHHdm0gveyiL4GO7E4W2y54zLnjmozXS8Kmr/6ClReqc4nF4h+5bVT9N6bNw0tboimv+T6UMNxh9Uy6e3JSiwFN1MgwdB04t89/1O/w1cDnyilFU='
+const token = '5SkakfzFqmm4f6iJWoHiJGo9FCTbvrypA4R/m0NmJT44uKGQgbGiovZmiVzGHHdm0gveyiL4GO7E4W2y54zLnjmozXS8Kmr/6ClReqc4nF4h+5bVT9N6bNw0tboimv+T6UMNxh9Uy6e3JSiwFN1MgwdB04t89/1O/w1cDnyilFU='
 
 const { facebook, getPageInfo } = require('./facebook')
 const { help } = require('./help')
