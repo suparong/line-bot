@@ -15,7 +15,7 @@ async function web(message) {
             },
             "header": {
                 "type": "box",
-                "layout": "vertical",
+                "layout": "horizontal",
                 "contents": [
                     {
                         "type": "text",
@@ -25,7 +25,7 @@ async function web(message) {
             },
             "body": {
                 "type": "box",
-                "layout": "vertical"
+                "layout": "horizontal"
                 // "contents": [
                 //     //doing
                 // ]
@@ -89,38 +89,77 @@ async function web(message) {
 }
 
 async function formateData(domain, list) {
-    let pageInfo = {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-            {
-                "type": "text",
-                "text": `Domain : ${list.domain}`,
-                "wrap": true
-            },
-            {
-                "type": "text",
-                "text": `Channel : ${list.channel}`,
-                "wrap": true
-            },
-            {
-                "type": "text",
-                "text": `Zone : ${list.zone}`,
-                "wrap": true
-            },
-            {
-                "type": "text",
-                "text": `Running_Page : ${list.running_page}`,
-                "wrap": true
-            }
-        ],
-        "backgroundColor": "#80ffff"
-    }
+    // let pageInfo = {
+    //     "type": "box",
+    //     "layout": "horizontal",
+    //     "contents": [
+    //         {
+    //             "type": "text",
+    //             "text": `Domain : ${list.domain}`,
+    //             "wrap": true
+    //         },
+    //         {
+    //             "type": "text",
+    //             "text": `Channel : ${list.channel}`,
+    //             "wrap": true
+    //         },
+    //         {
+    //             "type": "text",
+    //             "text": `Zone : ${list.zone}`,
+    //             "wrap": true
+    //         },
+    //         {
+    //             "type": "text",
+    //             "text": `Running_Page : ${list.running_page}`,
+    //             "wrap": true
+    //         }
+    //     ],
+    //     "backgroundColor": "#80ffff"
+    // }
 
-    return pageInfo
+    return [
+        {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+                {
+                    "type": "text",
+                    "wrap": true,
+                    "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
+                }
+            ],
+            "backgroundColor": "#c0c0c0"
+        },
+        {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+                {
+                    "type": "separator",
+                    "color": "#ff0000"
+                },
+                {
+                    "type": "text",
+                    "text": "flex=2",
+                    "flex": 2
+                },
+                {
+                    "type": "separator",
+                    "color": "#ff0000"
+                },
+                {
+                    "type": "text",
+                    "text": "flex=3",
+                    "flex": 3
+                },
+                {
+                    "type": "separator",
+                    "color": "#ff0000"
+                }
+            ]
 
-}
+        }
 
 module.exports = {
-    web
-}
+            web
+        }
