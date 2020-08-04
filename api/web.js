@@ -157,9 +157,10 @@ async function formateData(domain, list) {
                     "color": "#ff0000"
                 }
             ]
+        }]
 
-        }
+}
 
 module.exports = {
-            web
-        }
+    web
+}
