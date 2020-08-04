@@ -10,11 +10,11 @@ const { reply, formatData } = require('./api/sendToLine')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.post('/webhook', (req, res) => {
-    // console.log('webhook')
-    // reply(req)
-    res.status(200)
-})
+app.post('/webhook', (req, res) => res.sendStatus(200))
+// app.post('/webhook', (req, res) => {
+//     // console.log('webhook')
+//     reply(req)
+// })
 
 app.post('/statusApprove', async (req, res) => {
     let readyToSend = await formatData(req.body)
