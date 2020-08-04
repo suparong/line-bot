@@ -29,86 +29,38 @@ async function web(message) {
                         "layout": "vertical",
                         "contents": [
                             {
-                                "type": "separator",
-                                "color": "#ff0000"
-                            },
-                            {
                                 "type": "text",
-                                "text": "flex=2",
-                                "flex": 2
-                            },
-                            {
-                                "type": "separator",
-                                "color": "#ff0000"
-                            },
-                            {
-                                "type": "text",
-                                "text": "flex=3",
-                                "flex": 3
-                            },
-                            {
-                                "type": "separator",
-                                "color": "#ff0000"
+                                "wrap": true,
+                                "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
                             }
-                        ]
+                        ],
+                        "backgroundColor": "#c0c0c0"
                     }
                 ]
             }
         }
     }
-    // console.log("============>", message)
-    // let webArray = message.split("=")
-    // let domain = webArray[1]
-    // if (_.includes(domain, "http") || _.includes(domain, "https")) {
-    //     let url_domain = new URL(domain)
-    //     let newDomain = (url_domain.host).split("www.")
-    //     if (_.includes(url_domain.host, "www")) {
-    //         domain = newDomain[1]
-    //         // console.log("============> 1", domain)
-    //     } else {
-    //         domain = newDomain[0]
-    //         // console.log("============> 2", domain)
-    //     }
-    // }
-    // // console.log("============> 4", domain)
-    // info.contents.header.contents.text = domain
-    // // let configList = await checkConfig(domain)
-    // // console.log("=========", configList)
-    // let configList = [
-    //     {
-    //         "domain": "citizenthaipbs.net1",
-    //         "channel": "news",
-    //         "zone": "th",
-    //         "running_page": true
-    //     }
-    //     // {
-    //     //     "domain": "thaipbs.or.th2",
-    //     //     "channel": "news",
-    //     //     "zone": "th",
-    //     //     "running_page": false
-    //     // },
-    //     // {
-    //     //     "domain": "citizenthaipbs.net3",
-    //     //     "channel": "news",
-    //     //     "zone": "th",
-    //     //     "running_page": true
-    //     // },
-    //     // {
-    //     //     "domain": "thaipbs.or.th4",
-    //     //     "channel": "news",
-    //     //     "zone": "th",
-    //     //     "running_page": false
-    //     // },
-    //     // {
-    //     //     "domain": "citizenthaipbs.net5",
-    //     //     "channel": "news",
-    //     //     "zone": "th",
-    //     //     "running_page": true
-    //     // }
-    // ]
-    // let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
-    // info.contents.body.contents = newFormat
-    // console.log("==============", JSON.stringify(info))
+    console.log("============>", message)
+    let webArray = message.split("=")
+    let domain = webArray[1]
+    if (_.includes(domain, "http") || _.includes(domain, "https")) {
+        let url_domain = new URL(domain)
+        let newDomain = (url_domain.host).split("www.")
+        if (_.includes(url_domain.host, "www")) {
+            domain = newDomain[1]
+            // console.log("============> 1", domain)
+        } else {
+            domain = newDomain[0]
+            // console.log("============> 2", domain)
+        }
+    }
+    // console.log("============> 4", domain)
+    info.contents.header.contents.text = domain
+    // let configList = await checkConfig(domain)
+    // console.log("=========", configList)
+    let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
+    info.contents.body.contents = newFormat
+    console.log("==============", JSON.stringify(info))
     return info
 }
 
