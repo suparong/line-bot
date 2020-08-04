@@ -5,7 +5,7 @@ const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMt
 const URL_API = "https://graph.facebook.com/v4.0"
 let _ = require('lodash')
 const { URLSearchParams } = require('url')
-const { checkPage, checkConfig, insertPage } = require('./sendAndChenkToDB')
+const { checkPage, insertPage } = require('./sendToApi')
 
 async function facebook(message) {
     // console.log("===============>", message)
