@@ -20,7 +20,23 @@ async function web(message) {
                             {
                                 "type": "text",
                                 "wrap": true,
-                                "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
+                                "text": "1"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "2"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "3"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "4"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "5"
                             }
                         ],
                         "backgroundColor": "#e7e7e7"
@@ -36,7 +52,23 @@ async function web(message) {
                             {
                                 "type": "text",
                                 "wrap": true,
-                                "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
+                                "text": "1"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "2"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "3"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "4"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "5"
                             }
                         ],
                         "backgroundColor": "#e7e7e7"
@@ -52,7 +84,23 @@ async function web(message) {
                             {
                                 "type": "text",
                                 "wrap": true,
-                                "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
+                                "text": "1"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "2"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "3"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "4"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "5"
                             }
                         ],
                         "backgroundColor": "#e7e7e7"
@@ -68,7 +116,23 @@ async function web(message) {
                             {
                                 "type": "text",
                                 "wrap": true,
-                                "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
+                                "text": "1"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "2"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "3"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "4"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "5"
                             }
                         ],
                         "backgroundColor": "#e7e7e7"
@@ -84,7 +148,23 @@ async function web(message) {
                             {
                                 "type": "text",
                                 "wrap": true,
-                                "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
+                                "text": "1"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "2"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "3"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "4"
+                            }, {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "5"
                             }
                         ],
                         "backgroundColor": "#e7e7e7"
