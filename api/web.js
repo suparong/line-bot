@@ -40,6 +40,54 @@ async function web(message) {
                             }
                         ],
                         "backgroundColor": "#e7e7e7"
+                    },
+                    {
+                        "type": "separator",
+                        "color": "#ffffff"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
+                            }
+                        ],
+                        "backgroundColor": "#e7e7e7"
+                    },
+                    {
+                        "type": "separator",
+                        "color": "#ffffff"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
+                            }
+                        ],
+                        "backgroundColor": "#e7e7e7"
+                    },
+                    {
+                        "type": "separator",
+                        "color": "#ffffff"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "wrap": true,
+                                "text": "TEXT\nTEXT\nTEXT\nTEXT\nTEXT"
+                            }
+                        ],
+                        "backgroundColor": "#e7e7e7"
                     }
                 ]
             }
