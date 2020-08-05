@@ -17,6 +17,24 @@ async function web(message) {
             // console.log("============> 2", domain)
         }
     }
+    // console.log("============> 4", domain)
+    // info.contents.header.contents.text = domain
+    // let configList = await checkConfig(domain)
+    // console.log("=========", configList)
+    let configList = [
+        {
+            "domain": "citizenthaipbs.net",
+            "channel": "news",
+            "zone": "th",
+            "running_page": true
+        },
+        {
+            "domain": "thaipbs.or.th",
+            "channel": "news",
+            "zone": "th",
+            "running_page": false
+        }
+    ]
 
     let info = {
         "type": "flex",
@@ -48,7 +66,7 @@ async function web(message) {
                     },
                     {
                         "type": "text",
-                        "text": `${domain.length()}`,
+                        "text": `${configList.length()}`,
                         "offsetStart": "-100px",
                         "weight": "regular"
                     }
@@ -62,24 +80,7 @@ async function web(message) {
             }
         }
     }
-    // console.log("============> 4", domain)
-    // info.contents.header.contents.text = domain
-    // let configList = await checkConfig(domain)
-    // console.log("=========", configList)
-    let configList = [
-        {
-            "domain": "citizenthaipbs.net",
-            "channel": "news",
-            "zone": "th",
-            "running_page": true
-        },
-        {
-            "domain": "thaipbs.or.th",
-            "channel": "news",
-            "zone": "th",
-            "running_page": false
-        }
-    ]
+
     let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
     info.contents.body.contents = newFormat
     // console.log("==============", JSON.stringify(info))
