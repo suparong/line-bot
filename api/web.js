@@ -30,10 +30,14 @@ async function web(message) {
                     {
                         "type": "text",
                         "text": `Search : `
+                        "weight": "bold",
+                        "color": "#000E29"
                     },
                     {
                         "type": "text",
-                        "text": `${domain}`
+                        "text": `${domain}`,
+                        "offsetStart": "-50px",
+                        "weight": "regular"
                     }
                 ]
             },
@@ -72,12 +76,12 @@ async function web(message) {
 async function formateData(domain, list) {
     return {
         "type": "box",
-        "layout": "vertical",
+        "layout": "horizontal",
         "contents": [
             {
                 "type": "text",
                 "wrap": true,
-                "text": `Domain : ${list.domain}`,
+                "text": `Domain : `,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
@@ -88,7 +92,7 @@ async function formateData(domain, list) {
             }, {
                 "type": "text",
                 "wrap": true,
-                "text": `Channel : ${list.channel}`,
+                "text": `${list.domain}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
@@ -99,7 +103,7 @@ async function formateData(domain, list) {
             }, {
                 "type": "text",
                 "wrap": true,
-                "text": `Zone : ${list.zone}`,
+                "text": `\nChannel : `,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
@@ -110,7 +114,51 @@ async function formateData(domain, list) {
             }, {
                 "type": "text",
                 "wrap": true,
-                "text": `Running_Page : ${list.running_page}`,
+                "text": `${list.channel}`,
+                "offsetTop": "10px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
+            }, {
+                "type": "text",
+                "wrap": true,
+                "text": `\nZone : ${list.zone}`,
+                "offsetTop": "10px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
+            }, {
+                "type": "text",
+                "wrap": true,
+                "text": `${list.zone}`,
+                "offsetTop": "10px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
+            }, {
+                "type": "text",
+                "wrap": true,
+                "text": `\nRunning_Page : ${list.running_page}`,
+                "offsetTop": "10px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
+            }, {
+                "type": "text",
+                "wrap": true,
+                "text": `${list.running_page}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
