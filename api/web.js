@@ -100,10 +100,15 @@ async function formateData(domain, list) {
                 "size": "sm",
                 "style": "normal",
                 "weight": "regular"
-            }, {
+            },
+            {
+                "type": "separator",
+                "color": "#ff0000"
+            },
+            {
                 "type": "text",
                 "wrap": true,
-                "text": `\nChannel : `,
+                "text": `Channel : `,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
@@ -123,9 +128,12 @@ async function formateData(domain, list) {
                 "style": "normal",
                 "weight": "regular"
             }, {
+                "type": "separator",
+                "color": "#ff0000"
+            }, {
                 "type": "text",
                 "wrap": true,
-                "text": `\nZone : `,
+                "text": `Zone : `,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
@@ -145,9 +153,12 @@ async function formateData(domain, list) {
                 "style": "normal",
                 "weight": "regular"
             }, {
+                "type": "separator",
+                "color": "#ff0000"
+            }, {
                 "type": "text",
                 "wrap": true,
-                "text": `\nRunning_Page : ${list.running_page}`,
+                "text": `Running_Page : ${list.running_page}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
