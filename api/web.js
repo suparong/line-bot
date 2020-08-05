@@ -55,7 +55,8 @@ async function web(message) {
                         "type": "text",
                         "text": `${domain}`,
                         "offsetStart": "0px",
-                        "weight": "regular"
+                        "weight": "regular",
+                        "offsetBottom": "0px"
                     },
                     {
                         "type": "text",
