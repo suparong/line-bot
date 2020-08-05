@@ -36,7 +36,8 @@ async function web(message) {
             "body": {
                 "type": "box",
                 "layout": "vertical",
-                "spacing": "md"
+                "spacing": "md",
+                "offsetTop": "1px"
             }
         }
     }
@@ -72,19 +73,35 @@ async function formateData(domain, list) {
             {
                 "type": "text",
                 "wrap": true,
-                "text": ` Domain : ${list.domain}`
+                "text": `Domain : ${list.domain}`,
+                "offsetTop": "10px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px"
             }, {
                 "type": "text",
                 "wrap": true,
-                "text": ` Channel : ${list.channel}`
+                "text": `Channel : ${list.channel}`,
+                "offsetTop": "10px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px"
             }, {
                 "type": "text",
                 "wrap": true,
-                "text": ` Zone : ${list.zone}`
+                "text": `Zone : ${list.zone}`,
+                "offsetTop": "10px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px"
             }, {
                 "type": "text",
                 "wrap": true,
-                "text": `Running_Page : ${list.running_page}`
+                "text": `Running_Page : ${list.running_page}`,
+                "offsetTop": "10px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px"
             }
         ],
         "backgroundColor": "#e7e7e7"
