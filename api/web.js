@@ -76,7 +76,7 @@ async function web(message) {
 async function formateData(domain, list) {
     return {
         "type": "box",
-        "layout": "horizontal",
+        "layout": "vertical",
         "contents": [
             {
                 "type": "text",
