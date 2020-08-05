@@ -88,22 +88,19 @@ async function formateData(domain, list) {
                 "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
-                "weight": "regular"
+                "weight": "bold",
+                "color": "#000E29"
             }, {
                 "type": "text",
                 // "wrap": true,
                 "text": `${list.domain}`,
-                "offsetTop": "10px",
+                "offsetTop": "-9px",
                 "offsetBottom": "10px",
-                "offsetStart": "10px",
+                "offsetStart": "90px",
                 "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
                 "weight": "regular"
-            },
-            {
-                "type": "separator",
-                "color": "#ff0000"
             },
             {
                 "type": "text",
@@ -115,21 +112,19 @@ async function formateData(domain, list) {
                 "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
-                "weight": "regular"
+                "weight": "bold",
+                "color": "#000E29"
             }, {
                 "type": "text",
                 // "wrap": true,
                 "text": `${list.channel}`,
-                "offsetTop": "10px",
+                "offsetTop": "-9px",
                 "offsetBottom": "10px",
-                "offsetStart": "10px",
+                "offsetStart": "90px",
                 "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
                 "weight": "regular"
-            }, {
-                "type": "separator",
-                "color": "#ff0000"
             }, {
                 "type": "text",
                 "wrap": true,
@@ -140,39 +135,38 @@ async function formateData(domain, list) {
                 "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
-                "weight": "regular"
+                "weight": "bold",
+                "color": "#000E29"
             }, {
                 "type": "text",
                 // "wrap": true,
                 "text": `${list.zone}`,
-                "offsetTop": "10px",
+                "offsetTop": "-9px",
                 "offsetBottom": "10px",
-                "offsetStart": "10px",
+                "offsetStart": "90px",
                 "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
                 "weight": "regular"
-            }, {
-                "type": "separator",
-                "color": "#ff0000"
             }, {
                 "type": "text",
                 "wrap": true,
-                "text": `Running_Page : ${list.running_page}`,
+                "text": `Running_Page : `,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
                 "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
-                "weight": "regular"
+                "weight": "bold",
+                "color": "#000E29"
             }, {
                 "type": "text",
                 // "wrap": true,
                 "text": `${list.running_page}`,
-                "offsetTop": "10px",
+                "offsetTop": "-9px",
                 "offsetBottom": "10px",
-                "offsetStart": "10px",
+                "offsetStart": "90px",
                 "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
