@@ -45,7 +45,7 @@ async function web(message) {
                 "type": "box",
                 "layout": "vertical",
                 "spacing": "md",
-                "offsetTop": "-30px"
+                "offsetTop": "-40px"
             }
         }
     }
