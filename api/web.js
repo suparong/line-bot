@@ -102,7 +102,7 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                // "wrap": true,
+                "wrap": true,
                 "text": `\nChannel : `,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
@@ -124,8 +124,8 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                // "wrap": true,
-                "text": `\nZone : ${list.zone}`,
+                "wrap": true,
+                "text": `\nZone : `,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
@@ -146,7 +146,7 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                // "wrap": true,
+                "wrap": true,
                 "text": `\nRunning_Page : ${list.running_page}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
