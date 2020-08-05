@@ -104,7 +104,9 @@ async function formateData(domain, list) {
                 "offsetEnd": "10px"
             }
         ],
-        "backgroundColor": "#e7e7e7"
+        "backgroundColor": "#e7e7e7",
+        "width": "400px",
+        "height": "100px"
     }
 
 
