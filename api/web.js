@@ -29,7 +29,7 @@ async function web(message) {
                 "contents": [
                     {
                         "type": "text",
-                        "text": `Search : `
+                        "text": `Search : `,
                         "weight": "bold",
                         "color": "#000E29"
                     },
