@@ -85,7 +85,7 @@ async function formateData(domain, list) {
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
-                "offsetEnd": "10px"
+                "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
                 "weight": "regular"
@@ -96,7 +96,7 @@ async function formateData(domain, list) {
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
-                "offsetEnd": "10px"
+                "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
                 "weight": "regular"
@@ -107,7 +107,7 @@ async function formateData(domain, list) {
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
-                "offsetEnd": "10px"
+                "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
                 "weight": "regular"
@@ -118,7 +118,7 @@ async function formateData(domain, list) {
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
-                "offsetEnd": "10px"
+                "offsetEnd": "10px",
                 "size": "sm",
                 "style": "normal",
                 "weight": "regular"
