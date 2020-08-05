@@ -66,7 +66,7 @@ async function web(message) {
                     },
                     {
                         "type": "text",
-                        "text": `${configList.length()}`,
+                        "text": configList.length(),
                         "offsetStart": "-100px",
                         "weight": "regular"
                     }
