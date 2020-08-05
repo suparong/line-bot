@@ -54,20 +54,20 @@ async function web(message) {
                     {
                         "type": "text",
                         "text": `${domain}`,
-                        "offsetStart": "-50px",
+                        "offsetStart": "0px",
                         "weight": "regular"
                     },
                     {
                         "type": "text",
                         "text": `Total : `,
                         "weight": "bold",
-                        "offsetStart": "-80px",
+                        "offsetStart": "60px",
                         "color": "#000E29"
                     },
                     {
                         "type": "text",
                         "text": `${configList.length}`,
-                        "offsetStart": "-100px",
+                        "offsetStart": "50px",
                         "weight": "regular"
                     }
                 ]
