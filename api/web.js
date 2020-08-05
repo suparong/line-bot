@@ -80,7 +80,7 @@ async function formateData(domain, list) {
         "contents": [
             {
                 "type": "text",
-                "wrap": true,
+                // "wrap": true,
                 "text": `Domain : `,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
@@ -91,7 +91,7 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                "wrap": true,
+                // "wrap": true,
                 "text": `${list.domain}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
@@ -102,7 +102,7 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                "wrap": true,
+                // "wrap": true,
                 "text": `\nChannel : `,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
@@ -113,7 +113,7 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                "wrap": true,
+                // "wrap": true,
                 "text": `${list.channel}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
@@ -124,7 +124,7 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                "wrap": true,
+                // "wrap": true,
                 "text": `\nZone : ${list.zone}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
@@ -135,7 +135,7 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                "wrap": true,
+                // "wrap": true,
                 "text": `${list.zone}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
@@ -146,7 +146,7 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                "wrap": true,
+                // "wrap": true,
                 "text": `\nRunning_Page : ${list.running_page}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
@@ -157,7 +157,7 @@ async function formateData(domain, list) {
                 "weight": "regular"
             }, {
                 "type": "text",
-                "wrap": true,
+                // "wrap": true,
                 "text": `${list.running_page}`,
                 "offsetTop": "10px",
                 "offsetBottom": "10px",
