@@ -38,6 +38,19 @@ async function web(message) {
                         "text": `${domain}`,
                         "offsetStart": "-50px",
                         "weight": "regular"
+                    },
+                    {
+                        "type": "text",
+                        "text": `Total : `,
+                        "weight": "bold",
+                        "offsetStart": "-80px",
+                        "color": "#000E29"
+                    },
+                    {
+                        "type": "text",
+                        "text": `${domain.length()}`,
+                        "offsetStart": "-100px",
+                        "weight": "regular"
                     }
                 ]
             },
