@@ -25,19 +25,15 @@ async function web(message) {
             "type": "bubble",
             "header": {
                 "type": "box",
-                "layout": "vertical",
+                "layout": "horizontal",
                 "contents": [
                     {
                         "type": "text",
-                        "text": `Search : `,
-                        "size": "lg",
-                        "weight": "bold"
+                        "text": `Search : `
                     },
                     {
                         "type": "text",
-                        "text": `${domain}`,
-                        "size": "lg",
-                        "weight": "bold"
+                        "text": `${domain}`
                     }
                 ]
             },
