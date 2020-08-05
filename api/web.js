@@ -29,7 +29,15 @@ async function web(message) {
                 "contents": [
                     {
                         "type": "text",
-                        "text": `Search ${domain}`
+                        "text": `Search : `,
+                        "size": "lg",
+                        "weight": "bold"
+                    },
+                    {
+                        "type": "text",
+                        "text": `${domain}`,
+                        "size": "lg",
+                        "weight": "bold"
                     }
                 ]
             },
@@ -37,7 +45,7 @@ async function web(message) {
                 "type": "box",
                 "layout": "vertical",
                 "spacing": "md",
-                "offsetTop": "1px"
+                "offsetTop": "-30px"
             }
         }
     }
@@ -78,6 +86,9 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
                 "offsetEnd": "10px"
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
             }, {
                 "type": "text",
                 "wrap": true,
@@ -86,6 +97,9 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
                 "offsetEnd": "10px"
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
             }, {
                 "type": "text",
                 "wrap": true,
@@ -94,6 +108,9 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
                 "offsetEnd": "10px"
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
             }, {
                 "type": "text",
                 "wrap": true,
@@ -102,6 +119,9 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
                 "offsetEnd": "10px"
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
             }
         ],
         "backgroundColor": "#e7e7e7",
