@@ -118,11 +118,11 @@ async function formateData(domain, list) {
                 "type": "text",
                 // "wrap": true,
                 "text": `${list.domain}`,
-                "offsetTop": "-9px",
+                "offsetTop": "-8px",
                 "offsetBottom": "10px",
                 "offsetStart": "80px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             },
@@ -142,11 +142,11 @@ async function formateData(domain, list) {
                 "type": "text",
                 // "wrap": true,
                 "text": `${list.channel}`,
-                "offsetTop": "-24px",
+                "offsetTop": "-23px",
                 "offsetBottom": "10px",
                 "offsetStart": "80px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             }, {
@@ -169,7 +169,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "80px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             }, {
@@ -192,14 +192,14 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "125px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             }, {
                 "type": "text",
                 "wrap": true,
                 "text": `Created_Time : `,
-                "offsetTop": "-35px",
+                "offsetTop": "-50px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
                 "offsetEnd": "10px",
@@ -211,18 +211,18 @@ async function formateData(domain, list) {
                 "type": "text",
                 // "wrap": true,
                 "text": `${created_time[0]}`,
-                "offsetTop": "-54px",
+                "offsetTop": "-68px",
                 "offsetBottom": "10px",
-                "offsetStart": "125px",
+                "offsetStart": "120px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             }, {
                 "type": "text",
                 "wrap": true,
                 "text": `Sys_Time : `,
-                "offsetTop": "-35px",
+                "offsetTop": "-65px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
                 "offsetEnd": "10px",
@@ -234,18 +234,18 @@ async function formateData(domain, list) {
                 "type": "text",
                 // "wrap": true,
                 "text": `${sys_time[0]}`,
-                "offsetTop": "-54px",
+                "offsetTop": "-83px",
                 "offsetBottom": "10px",
-                "offsetStart": "125px",
+                "offsetStart": "90px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             }, {
                 "type": "text",
                 "wrap": true,
                 "text": `Cts : `,
-                "offsetTop": "-35px",
+                "offsetTop": "-80px",
                 "offsetBottom": "10px",
                 "offsetStart": "10px",
                 "offsetEnd": "10px",
@@ -257,18 +257,18 @@ async function formateData(domain, list) {
                 "type": "text",
                 // "wrap": true,
                 "text": `${cts[0]}`,
-                "offsetTop": "-54px",
+                "offsetTop": "-98px",
                 "offsetBottom": "10px",
-                "offsetStart": "125px",
+                "offsetStart": "50px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             }
         ],
         "backgroundColor": "#D6E2FF",
         "width": "300px",
-        "height": "110px"
+        "height": "170px"
     }
 
 
