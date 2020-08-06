@@ -122,7 +122,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "80px",
                 "offsetEnd": "10px",
-                "size": "xs",
+                "size": "sm",
                 "style": "normal",
                 "weight": "regular"
             },
@@ -146,7 +146,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "80px",
                 "offsetEnd": "10px",
-                "size": "xs",
+                "size": "sm",
                 "style": "normal",
                 "weight": "regular"
             }, {
@@ -169,7 +169,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "80px",
                 "offsetEnd": "10px",
-                "size": "xs",
+                "size": "sm",
                 "style": "normal",
                 "weight": "regular"
             }, {
@@ -192,7 +192,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "125px",
                 "offsetEnd": "10px",
-                "size": "xs",
+                "size": "sm",
                 "style": "normal",
                 "weight": "regular"
             }, {
@@ -215,7 +215,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "120px",
                 "offsetEnd": "10px",
-                "size": "xs",
+                "size": "sm",
                 "style": "normal",
                 "weight": "regular"
             }, {
@@ -238,7 +238,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "90px",
                 "offsetEnd": "10px",
-                "size": "xs",
+                "size": "sm",
                 "style": "normal",
                 "weight": "regular"
             }, {
@@ -261,7 +261,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "50px",
                 "offsetEnd": "10px",
-                "size": "xs",
+                "size": "sm",
                 "style": "normal",
                 "weight": "regular"
             }
