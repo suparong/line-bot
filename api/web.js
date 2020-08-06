@@ -267,7 +267,7 @@ async function formateData(domain, list) {
             }
         ],
         "backgroundColor": "#D6E2FF",
-        "width": "300px",
+        "width": "200px",
         "height": "170px"
     }
 
