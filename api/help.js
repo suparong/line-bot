@@ -32,6 +32,8 @@ async function formatHelp() {
         "body": {
             "type": "box",
             "layout": "vertical",
+            "spacing": "md",
+            "offsetTop": "-25px"
             "contents": [
                 {
                     "type": "text",
