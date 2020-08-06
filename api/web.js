@@ -95,6 +95,9 @@ async function web(message) {
 }
 
 async function formateData(domain, list) {
+    let created_time = list.created_time.split(".")
+    let sys_time = list.sys_time.split(".")
+    let cts = list.cts.split(".")
     return {
         "type": "box",
         "layout": "vertical",
@@ -207,7 +210,7 @@ async function formateData(domain, list) {
             }, {
                 "type": "text",
                 // "wrap": true,
-                "text": `${list.created_time}`,
+                "text": `${created_time[0]}`,
                 "offsetTop": "-54px",
                 "offsetBottom": "10px",
                 "offsetStart": "125px",
@@ -230,7 +233,7 @@ async function formateData(domain, list) {
             }, {
                 "type": "text",
                 // "wrap": true,
-                "text": `${list.sys_time}`,
+                "text": `${sys_time[0]}`,
                 "offsetTop": "-54px",
                 "offsetBottom": "10px",
                 "offsetStart": "125px",
@@ -253,7 +256,7 @@ async function formateData(domain, list) {
             }, {
                 "type": "text",
                 // "wrap": true,
-                "text": `${list.cts}`,
+                "text": `${cts[0]}`,
                 "offsetTop": "-54px",
                 "offsetBottom": "10px",
                 "offsetStart": "125px",
@@ -264,7 +267,7 @@ async function formateData(domain, list) {
             }
         ],
         "backgroundColor": "#D6E2FF",
-        "width": "250px",
+        "width": "300px",
         "height": "110px"
     }
 
