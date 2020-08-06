@@ -45,7 +45,7 @@ async function insertPage(pageInfo) {
 
 async function checkConfig(domain) {
     /**
-     * nope
+     * domain = "land-house"
      */
     let options = {
         'method': 'POST',
