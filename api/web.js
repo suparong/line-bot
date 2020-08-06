@@ -23,16 +23,22 @@ async function web(message) {
     // console.log("=========", configList)
     let configList = [
         {
-            "domain": "citizenthaipbs.net",
-            "channel": "news",
+            "domain": "land-house.info",
+            "channel": "commerce",
             "zone": "th",
-            "running_page": true
+            "running_page": false,
+            "created_time": "2020-07-24T18:38:03.116Z",
+            "sys_time": "2018-02-20T06:49:32.303Z",
+            "cts": "2020-07-24T18:38:02.551Z"
         },
         {
-            "domain": "thaipbs.or.th",
-            "channel": "news",
+            "domain": "land-house.info2",
+            "channel": "commerce",
             "zone": "th",
-            "running_page": false
+            "running_page": false,
+            "created_time": "2020-07-24T18:38:03.116Z",
+            "sys_time": "2018-02-20T06:49:32.303Z",
+            "cts": "2020-07-24T18:38:02.551Z"
         }
     ]
 
@@ -179,6 +185,75 @@ async function formateData(domain, list) {
                 "type": "text",
                 // "wrap": true,
                 "text": `${list.running_page}`,
+                "offsetTop": "-54px",
+                "offsetBottom": "10px",
+                "offsetStart": "125px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
+            }, {
+                "type": "text",
+                "wrap": true,
+                "text": `Created_Time : `,
+                "offsetTop": "-35px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "bold",
+                "color": "#000E29"
+            }, {
+                "type": "text",
+                // "wrap": true,
+                "text": `${list.created_time}`,
+                "offsetTop": "-54px",
+                "offsetBottom": "10px",
+                "offsetStart": "125px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
+            }, {
+                "type": "text",
+                "wrap": true,
+                "text": `Sys_Time : `,
+                "offsetTop": "-35px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "bold",
+                "color": "#000E29"
+            }, {
+                "type": "text",
+                // "wrap": true,
+                "text": `${list.sys_time}`,
+                "offsetTop": "-54px",
+                "offsetBottom": "10px",
+                "offsetStart": "125px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "regular"
+            }, {
+                "type": "text",
+                "wrap": true,
+                "text": `Cts : `,
+                "offsetTop": "-35px",
+                "offsetBottom": "10px",
+                "offsetStart": "10px",
+                "offsetEnd": "10px",
+                "size": "sm",
+                "style": "normal",
+                "weight": "bold",
+                "color": "#000E29"
+            }, {
+                "type": "text",
+                // "wrap": true,
+                "text": `${list.cts}`,
                 "offsetTop": "-54px",
                 "offsetBottom": "10px",
                 "offsetStart": "125px",
