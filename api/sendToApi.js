@@ -43,10 +43,19 @@ async function insertPage(pageInfo) {
     }
 }
 
-async function checkConfig() {
+async function checkConfig(domain) {
     /**
-     * nope
+     * domain = "land-house"
      */
+    let options = {
+        'method': 'POST',
+        'url': 'http://192.168.19.23:8082/checkConfig',
+        'headers': {
+            'config_name': `${domain}`
+        }
+    }
+    let list = await rq(options)
+    return list
 }
 
 module.exports = {
