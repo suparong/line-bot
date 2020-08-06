@@ -55,7 +55,7 @@ async function checkConfig(domain) {
         }
     }
     let list = await rq(options)
-    return list
+    return JSON.parse(list)
 }
 
 module.exports = {

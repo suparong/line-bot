@@ -95,9 +95,15 @@ async function web(message) {
 }
 
 async function formateData(domain, list) {
-    let created_time = list.created_time.split(".")
-    let sys_time = list.sys_time.split(".")
-    let cts = list.cts.split(".")
+    let created_time = null
+    let sys_time = null
+    let cts = null
+    if (list.created_time && list.sys_time && list.cts) {
+        created_time = list.created_time.split(".")
+        sys_time = list.sys_time.split(".")
+        cts = list.cts.split(".")
+    }
+
     return {
         "type": "box",
         "layout": "vertical",
