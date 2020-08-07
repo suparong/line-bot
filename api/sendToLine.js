@@ -74,9 +74,9 @@ async function setBody(req) {
                 body.messages.push(data)
             } else if (_.includes(message, "web")) {
                 console.log("=========> WEB")
-                await getConfigInfo(message, user_token)
-                // body.messages.push(data)
-                body.messages.push({ type: "text", text: `submit WEB` })
+                let data = await getConfigInfo(message, user_token)
+                body.messages.push(data)
+                // body.messages.push({ type: "text", text: `submit WEB` })
             }
         } else if (_.includes(message, "help")) {
             console.log("help")

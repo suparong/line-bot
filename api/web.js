@@ -205,7 +205,7 @@ async function web(message) {
                 }
             }
         } else if (configList.status === false && configList.type === 1) {
-            return { type: "text", text: `This config is waiting for approval.` }
+            return { type: "text", text: `This website is waiting for approval.` }
         }
     } catch (error) {
         console.log("============> error", error)
@@ -413,8 +413,13 @@ async function getConfigInfo(message, user_token) {
         "zone": zone,
         "line_token": user_token
     }
-    await insertConfig(configInfo)
+    let resDB = await insertConfig(configInfo)
     // console.log("=========>", configInfo)
+    if (resDB) {
+        return { type: "text", text: `Your website is sent for waiting for approval.` }
+    } else {
+        return { type: "text", text: `This website already exists.` }
+    }
 }
 
 module.exports = {
