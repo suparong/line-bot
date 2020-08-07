@@ -6,8 +6,8 @@ async function help() {
     //     "altText": "new messages"
     // }
     let sendHelpList = []
-    // let sendHelpFB = await formatHelpFB()
-    // sendHelpList.push(sendHelpFB)
+    let sendHelpFB = await formatHelpFB()
+    sendHelpList.push(sendHelpFB)
     // doing sendHelpWEB
     let sendHelpWEB = await formatHelpWEB()
     sendHelpList.push(sendHelpWEB)
