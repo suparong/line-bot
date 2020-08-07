@@ -102,7 +102,7 @@ async function formatHelpWEB() {
                 "contents": [
                     {
                         "type": "text",
-                        "text": "How To Check Config Website"
+                        "text": "How to Add Website"
                     }
                 ]
             },
@@ -117,7 +117,7 @@ async function formatHelpWEB() {
                         "margin": "md",
                         "size": "sm",
                         "color": "#666666",
-                        "text": "   1. Send Facebook page’s link with zone",
+                        "text": "   1. Send domain name of your website.",
                         "wrap": true
                     },
                     {
@@ -125,7 +125,23 @@ async function formatHelpWEB() {
                         "margin": "md",
                         "size": "sm",
                         "color": "#666666",
-                        "text": "   Ex.https://www.facebook.com/TidPromo/&zone=th",
+                        "text": "   E.x. If you want message from web “thairath”, send web=thairath",
+                        "wrap": true
+                    },
+                    {
+                        "type": "text",
+                        "margin": "md",
+                        "size": "sm",
+                        "color": "#666666",
+                        "text": "   2. If your website does not exist in our system, config for your website will be shown.",
+                        "wrap": true
+                    },
+                    {
+                        "type": "text",
+                        "margin": "md",
+                        "size": "sm",
+                        "color": "#666666",
+                        "text": "   3. Submit your website and wait for and approval.",
                         "wrap": true
                     }
                 ]
