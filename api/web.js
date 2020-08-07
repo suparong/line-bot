@@ -19,59 +19,64 @@ async function web(message) {
     }
     // console.log("============> 4", domain)
     // info.contents.header.contents.text = domain
-    let configList = await checkConfig(domain)
+    // let configList = await checkConfig(domain)
     // console.log("=========", configList)
-
-    let info = {
-        "type": "flex",
-        "altText": "new messages",
-        "contents": {
-            "type": "bubble",
-            "header": {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                    {
-                        "type": "text",
-                        "text": `Search : `,
-                        "weight": "bold",
-                        "color": "#000E29"
-                    },
-                    {
-                        "type": "text",
-                        "text": `${domain}`,
-                        "offsetStart": "0px",
-                        "weight": "regular",
-                        "offsetBottom": "0px"
-                    },
-                    {
-                        "type": "text",
-                        "text": `Total : `,
-                        "weight": "bold",
-                        "offsetStart": "60px",
-                        "color": "#000E29"
-                    },
-                    {
-                        "type": "text",
-                        "text": `${configList.length}`,
-                        "offsetStart": "50px",
-                        "weight": "regular"
-                    }
-                ]
-            },
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "md",
-                "offsetTop": "-25px"
+    let configList = false
+    if (configList) {
+        let info = {
+            "type": "flex",
+            "altText": "new messages",
+            "contents": {
+                "type": "bubble",
+                "header": {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": `Search : `,
+                            "weight": "bold",
+                            "color": "#000E29"
+                        },
+                        {
+                            "type": "text",
+                            "text": `${domain}`,
+                            "offsetStart": "0px",
+                            "weight": "regular",
+                            "offsetBottom": "0px"
+                        },
+                        {
+                            "type": "text",
+                            "text": `Total : `,
+                            "weight": "bold",
+                            "offsetStart": "60px",
+                            "color": "#000E29"
+                        },
+                        {
+                            "type": "text",
+                            "text": `${configList.length}`,
+                            "offsetStart": "50px",
+                            "weight": "regular"
+                        }
+                    ]
+                },
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "md",
+                    "offsetTop": "-25px"
+                }
             }
         }
+
+        let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
+        info.contents.body.contents = newFormat
+        // console.log("==============", JSON.stringify(info))
+        return info
+    } else {
+        return { type: "text", text: `This config  does not exists.` }
     }
 
-    let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
-    info.contents.body.contents = newFormat
-    // console.log("==============", JSON.stringify(info))
-    return info
 }
 
 async function formateData(domain, list) {
