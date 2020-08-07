@@ -10,19 +10,22 @@ async function web(message) {
         console.log("++++++++++++++++ zone")
         let webArray = message.split("&")
         console.log("++++++++++++++++ webArray", webArray)
-        domain = webArray[0]
-        let domainArray = domain.split("=")
+
+        let domainArray = webArray[0].split("=")
         console.log("++++++++++++++++ domainArray", domainArray)
         domain = domainArray[1]
-        zone = webArray[1]
-        let zoneArray = domain.split("=")
+
+        let zoneArray = webArray[1].split("=")
         console.log("++++++++++++++++ zoneArray", zoneArray)
         zone = zoneArray[1]
+
+    } else {
+        console.log("++++++++++++++++not zone")
+        let webArray = message.split("=")
+        domain = webArray[1]
+        console.log("==========> domain", domain, "zone ", zone)
     }
-    console.log("++++++++++++++++not zone")
-    let webArray = message.split("=")
-    domain = webArray[1]
-    console.log("==========> domain", domain, "zone ", zone)
+
     // if (_.includes(domain, "http") || _.includes(domain, "https")) {
     //     let url_domain = new URL(domain)
     //     let newDomain = (url_domain.host).split("www.")
