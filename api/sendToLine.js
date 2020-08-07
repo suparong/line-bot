@@ -15,7 +15,7 @@ const { web, getConfigInfo } = require('./web')
 async function reply(req) {
 
     let newres = await setBody(req)
-    console.log("=============>", newres)
+    // console.log("=============>", newres)
     /**
      * url :reply,push,multicast,Broadcast
      */
