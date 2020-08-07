@@ -3,8 +3,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 
-// require('dotenv').config()
-const port = process.env.PORT || 4000
+require('dotenv').config()
+const port = process.env.PORT_API || 4000
 
 const { reply, formatData, pushBody } = require('./api/sendToLine')
 

@@ -39,26 +39,26 @@ async function web(message) {
         }
         // console.log("============> 4", domain)
         // info.contents.header.contents.text = domain
-        // let configList = await checkConfig(domain)
+        let configList = await checkConfig(domain)
         // console.log("=========", configList)
 
         ///////////
-        let configList = {
-            "status": true,
-            "type": 3,
-            "data": [
-                {
-                    "status": true,
-                    "domain": "http://www.apakes.com",
-                    "channel": "blog",
-                    "zone": "id",
-                    "running_page": false,
-                    "created_time": null,
-                    "sys_time": null,
-                    "cts": null
-                }
-            ]
-        }
+        // let configList = {
+        //     "status": true || false,
+        //     "type": 3 || 2 || 1,
+        //     "data": [
+        //         {
+        //             "status": true,
+        //             "domain": "http://www.apakes.com",
+        //             "channel": "blog",
+        //             "zone": "id",
+        //             "running_page": false,
+        //             "created_time": null,
+        //             "sys_time": null,
+        //             "cts": null
+        //         }
+        //     ]
+        // }
         ///////////
 
         if (configList.status === true && configList.type === 3) {
