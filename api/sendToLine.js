@@ -92,6 +92,7 @@ async function setBody(req) {
             // body.messages.push({ type: "text", text: `web` })
         } else {
             console.log(_.includes(message, "www.facebook.com"))
+            console.log(_.includes(message, "facebook.com"))
 
             console.log("other")
             body.messages.push({
