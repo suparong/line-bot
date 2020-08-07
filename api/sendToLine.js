@@ -73,7 +73,8 @@ async function setBody(req) {
         } else if (_.includes(message, "help")) {
             console.log("help")
             let data = await help()
-            body.messages.push(data)
+            await _.map(data, (a) => { body.messages.push(a) })
+            // body.messages.push(data)
             // body.messages.push({ type: "text", text: `help` })
         } else if (_.includes(message, "web")) {
             console.log("web")

@@ -5,10 +5,13 @@ async function help() {
     //     "type": "flex",
     //     "altText": "new messages"
     // }
-
-    let sendHelp = await formatHelpFB()
-    // info.contents = sendHelp
-    return sendHelp
+    let sendHelpList = []
+    // let sendHelpFB = await formatHelpFB()
+    // sendHelpList.push(sendHelpFB)
+    // doing sendHelpWEB
+    let sendHelpWEB = await formatHelpWEB()
+    sendHelpList.push(sendHelpWEB)
+    return sendHelpList
 }
 
 async function formatHelpFB() {
@@ -17,11 +20,6 @@ async function formatHelpFB() {
         "altText": "new messages",
         "contents": {
             "type": "bubble",
-            "styles": {
-                "footer": {
-                    "backgroundColor": "#42b3f4"
-                }
-            },
             "header": {
                 "type": "box",
                 "layout": "vertical",
@@ -90,8 +88,50 @@ async function formatHelpFB() {
             }
         }
     }
+}
 
-
+async function formatHelpWEB() {
+    return {
+        "type": "flex",
+        "altText": "new messages",
+        "contents": {
+            "type": "bubble",
+            "header": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "How To Check Config Website"
+                    }
+                ]
+            },
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "md",
+                "offsetTop": "-25px",
+                "contents": [
+                    {
+                        "type": "text",
+                        "margin": "md",
+                        "size": "sm",
+                        "color": "#666666",
+                        "text": "   1. Send Facebook page’s link with zone",
+                        "wrap": true
+                    },
+                    {
+                        "type": "text",
+                        "margin": "md",
+                        "size": "sm",
+                        "color": "#666666",
+                        "text": "   Ex.https://www.facebook.com/TidPromo/&zone=th",
+                        "wrap": true
+                    }
+                ]
+            }
+        }
+    }
 }
 
 module.exports = {

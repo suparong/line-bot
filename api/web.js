@@ -21,26 +21,6 @@ async function web(message) {
     // info.contents.header.contents.text = domain
     let configList = await checkConfig(domain)
     // console.log("=========", configList)
-    // let configList = [
-    //     {
-    //         "domain": "land-house.info",
-    //         "channel": "commerce",
-    //         "zone": "th",
-    //         "running_page": false,
-    //         "created_time": "2020-07-24T18:38:03.116Z",
-    //         "sys_time": "2018-02-20T06:49:32.303Z",
-    //         "cts": "2020-07-24T18:38:02.551Z"
-    //     },
-    //     {
-    //         "domain": "land-house.info2",
-    //         "channel": "commerce",
-    //         "zone": "th",
-    //         "running_page": false,
-    //         "created_time": "2020-07-24T18:38:03.116Z",
-    //         "sys_time": "2018-02-20T06:49:32.303Z",
-    //         "cts": "2020-07-24T18:38:02.551Z"
-    //     }
-    // ]
 
     let info = {
         "type": "flex",
