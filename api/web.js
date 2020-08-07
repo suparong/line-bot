@@ -93,7 +93,7 @@ async function web(message) {
                             },
                             {
                                 "type": "text",
-                                "text": `${configList.length}`,
+                                "text": `${configList.data.length}`,
                                 "offsetStart": "50px",
                                 "weight": "regular"
                             }
