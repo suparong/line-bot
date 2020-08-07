@@ -6,7 +6,7 @@ async function web(message) {
     let domain
     let zone
     console.log("============>", message)
-    if (_.includes(message, "zone")) {
+    if (_.includes(message, "&zone=")) {
         console.log("++++++++++++++++not zone")
         let webArray = message.split("&")
         domain = webArray[0]
