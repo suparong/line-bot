@@ -27,7 +27,7 @@ async function insertPage(pageInfo) {
     try {
         let options = {
             'method': 'POST',
-            'url': 'http://192.168.19.23:8082/insertApprove',
+            'url': 'http://192.168.19.23:8082/facebookApprove',
             'headers': {
                 'Content-Type': 'application/json'
             },
