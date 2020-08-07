@@ -25,77 +25,138 @@ async function web(message) {
         domain = webArray[1]
     }
     console.log("==========> domain", domain, "zone ", zone)
-    // if (_.includes(domain, "http") || _.includes(domain, "https")) {
-    //     let url_domain = new URL(domain)
-    //     let newDomain = (url_domain.host).split("www.")
-    //     if (_.includes(url_domain.host, "www")) {
-    //         domain = newDomain[1]
-    //         // console.log("============> 1", domain)
-    //     } else {
-    //         domain = newDomain[0]
-    //         // console.log("============> 2", domain)
-    //     }
-    // }
-    // // console.log("============> 4", domain)
-    // // info.contents.header.contents.text = domain
-    // // let configList = await checkConfig(domain)
-    // // console.log("=========", configList)
-    // let configList = false
-    // if (configList) {
-    //     let info = {
-    //         "type": "flex",
-    //         "altText": "new messages",
-    //         "contents": {
-    //             "type": "bubble",
-    //             "header": {
-    //                 "type": "box",
-    //                 "layout": "horizontal",
-    //                 "contents": [
-    //                     {
-    //                         "type": "text",
-    //                         "text": `Search : `,
-    //                         "weight": "bold",
-    //                         "color": "#000E29"
-    //                     },
-    //                     {
-    //                         "type": "text",
-    //                         "text": `${domain}`,
-    //                         "offsetStart": "0px",
-    //                         "weight": "regular",
-    //                         "offsetBottom": "0px"
-    //                     },
-    //                     {
-    //                         "type": "text",
-    //                         "text": `Total : `,
-    //                         "weight": "bold",
-    //                         "offsetStart": "60px",
-    //                         "color": "#000E29"
-    //                     },
-    //                     {
-    //                         "type": "text",
-    //                         "text": `${configList.length}`,
-    //                         "offsetStart": "50px",
-    //                         "weight": "regular"
-    //                     }
-    //                 ]
-    //             },
-    //             "body": {
-    //                 "type": "box",
-    //                 "layout": "vertical",
-    //                 "spacing": "md",
-    //                 "offsetTop": "-25px"
-    //             }
-    //         }
-    //     }
+    if (_.includes(domain, "http") || _.includes(domain, "https")) {
+        let url_domain = new URL(domain)
+        let newDomain = (url_domain.host).split("www.")
+        if (_.includes(url_domain.host, "www")) {
+            domain = newDomain[1]
+            // console.log("============> 1", domain)
+        } else {
+            domain = newDomain[0]
+            // console.log("============> 2", domain)
+        }
+    }
+    // console.log("============> 4", domain)
+    // info.contents.header.contents.text = domain
+    // let configList = await checkConfig(domain)
+    // console.log("=========", configList)
+    let configList = false
+    if (configList) {
+        let info = {
+            "type": "flex",
+            "altText": "new messages",
+            "contents": {
+                "type": "bubble",
+                "header": {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": `Search : `,
+                            "weight": "bold",
+                            "color": "#000E29"
+                        },
+                        {
+                            "type": "text",
+                            "text": `${domain}`,
+                            "offsetStart": "0px",
+                            "weight": "regular",
+                            "offsetBottom": "0px"
+                        },
+                        {
+                            "type": "text",
+                            "text": `Total : `,
+                            "weight": "bold",
+                            "offsetStart": "60px",
+                            "color": "#000E29"
+                        },
+                        {
+                            "type": "text",
+                            "text": `${configList.length}`,
+                            "offsetStart": "50px",
+                            "weight": "regular"
+                        }
+                    ]
+                },
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "md",
+                    "offsetTop": "-25px"
+                }
+            }
+        }
 
-    //     let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
-    //     info.contents.body.contents = newFormat
-    //     // console.log("==============", JSON.stringify(info))
-    //     return info
-    // } else {
-    //     return { type: "text", text: `This config  does not exists.` }
+        let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
+        info.contents.body.contents = newFormat
+        // console.log("==============", JSON.stringify(info))
+        return info
+    } else {
+        // return { type: "text", text: `This config  does not exists. ` }
 
-    // }
+        return {
+            "type": "flex",
+            "altText": "new messages",
+            "contents": {
+                "type": "bubble",
+                "header": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": "Webite info"
+                        }
+                    ]
+                },
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "margin": "md",
+                            "size": "sm",
+                            "color": "#666666",
+                            "text": "Domain : Starbuck Home Thais"
+                        },
+                        {
+                            "type": "text",
+                            "margin": "md",
+                            "size": "sm",
+                            "color": "#666666",
+                            "text": "Zone : th"
+                        }
+                    ],
+                    "offsetTop": "-20px"
+                },
+                "footer": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "sm",
+                    "contents": [
+                        {
+                            "type": "button",
+                            "style": "link",
+                            "color": "#FFFFFF",
+                            "height": "sm",
+                            "action": {
+                                "type": "message",
+                                "label": "submit",
+                                "text": "&submit=100253731789838&zone=none"
+                            }
+                        }
+                    ]
+                },
+                "styles": {
+                    "footer": {
+                        "backgroundColor": "#42b3f4"
+                    }
+                }
+            }
+        }
+    }
 
 }
 
