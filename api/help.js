@@ -125,7 +125,7 @@ async function formatHelpWEB() {
                         "margin": "md",
                         "size": "sm",
                         "color": "#666666",
-                        "text": "   E.x. If you want message from web “thairath”, send web=thairath",
+                        "text": "   E.x. If you want message from web “thairath”, send web=https://www.thairath.com",
                         "wrap": true
                     },
                     {
