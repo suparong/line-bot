@@ -5,8 +5,9 @@ const { checkConfig } = require('./sendToApi')
 async function web(message) {
     console.log("============>", message)
     let webArray = message.split("=")
+    console.log("++++++++++++++++", webArray)
     let domain = webArray[1]
-    console.log("==========>", domain)
+    console.log("==========> domain", domain)
     // if (_.includes(domain, "http") || _.includes(domain, "https")) {
     //     let url_domain = new URL(domain)
     //     let newDomain = (url_domain.host).split("www.")
