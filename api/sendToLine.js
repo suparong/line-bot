@@ -93,6 +93,7 @@ async function setBody(req) {
         } else {
             console.log(_.includes(message, "www.facebook.com"))
             console.log(_.includes(message, "facebook.com"))
+            console.log(_.includes(message, "facebook"))
 
             console.log("other")
             body.messages.push({
