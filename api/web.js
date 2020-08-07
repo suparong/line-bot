@@ -378,7 +378,7 @@ async function getConfigInfo(message, user_token) {
     let zone = urlParams.get('zone') || "none"
 
     let configInfo = {
-        "website": config,
+        "_id": config,
         "zone": zone,
         "line_token": user_token
     }
