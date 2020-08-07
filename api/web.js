@@ -4,7 +4,7 @@ const { checkConfig } = require('./sendToApi')
 
 async function web(message) {
     let domain
-    let zone
+    let zone = "none"
     console.log("============>", message)
     if (_.includes(message, "&zone=")) {
         console.log("++++++++++++++++ zone")
@@ -120,37 +120,40 @@ async function web(message) {
                             "contents": [
                                 {
                                     "type": "span",
-                                    "text": "brown_05",
+                                    "text": "Domain : ",
                                     "weight": "bold",
-                                    "color": "#000000"
+                                    "color": "#000000",
+                                    "size": "sm"
                                 },
                                 {
                                     "type": "span",
-                                    "text": "     "
-                                },
-                                {
-                                    "type": "span",
-                                    "text": "I went to the Brown&Cony cafe in Tokyo and took a picture"
+                                    "text": `${domain}`,
+                                    "size": "sm"
                                 }
                             ],
                             "size": "sm",
                             "wrap": true
                         },
                         {
-                            "type": "box",
-                            "layout": "baseline",
+                            "type": "text",
                             "contents": [
                                 {
-                                    "type": "text",
-                                    "text": "1,140,753 Like",
-                                    "size": "sm",
-                                    "color": "#bcbcbc"
+                                    "type": "span",
+                                    "text": "Zone : ",
+                                    "weight": "bold",
+                                    "color": "#000000"
+                                },
+                                {
+                                    "type": "span",
+                                    "text": `${zone}`,
+                                    "size": "sm"
                                 }
                             ],
-                            "spacing": "sm",
-                            "margin": "md"
+                            "size": "sm",
+                            "wrap": true
                         }
-                    ]
+                    ],
+                    "offsetTop": "-20px"
                 },
                 "footer": {
                     "type": "box",
@@ -165,12 +168,10 @@ async function web(message) {
                             "action": {
                                 "type": "message",
                                 "label": "submit",
-                                "text": ""
+                                "text": "asfasdf"
                             }
                         }
-                    ],
-                    "paddingTop": "0px",
-                    "paddingBottom": "0px"
+                    ]
                 },
                 "styles": {
                     "footer": {
