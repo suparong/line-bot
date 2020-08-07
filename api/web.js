@@ -3,11 +3,23 @@ var URL = require('url').URL
 const { checkConfig } = require('./sendToApi')
 
 async function web(message) {
+    let domain
+    let zone
     console.log("============>", message)
-    let webArray = message.split("&")
-    console.log("++++++++++++++++", webArray)
-    let domain = webArray[1]
-    console.log("==========> domain", domain)
+    if (_.includes(message, "zone")) {
+        console.log("++++++++++++++++not zone")
+        let webArray = message.split("&")
+        domain = webArray[0]
+        let domainArray = domain.split("=")
+        domain = domainArray[1]
+        zone = webArray[1]
+        let zoneArray = domain.split("=")
+        zone = zoneArray[1]
+    }
+    console.log("++++++++++++++++ zone")
+    let webArray = message.split("=")
+    domain = webArray[1]
+    console.log("==========> domain", domain, "zone ", zone)
     // if (_.includes(domain, "http") || _.includes(domain, "https")) {
     //     let url_domain = new URL(domain)
     //     let newDomain = (url_domain.host).split("www.")

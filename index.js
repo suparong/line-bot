@@ -6,7 +6,7 @@ const app = express()
 // require('dotenv').config()
 const port = process.env.PORT || 4000
 
-const { reply, formatData } = require('./api/sendToLine')
+const { reply, formatData, pushBody } = require('./api/sendToLine')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
