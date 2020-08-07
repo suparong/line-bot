@@ -9,14 +9,14 @@ async function web(message) {
     if (_.includes(message, "&zone=")) {
         console.log("++++++++++++++++ zone")
         let webArray = message.split("&")
-        console.log("++++++++++++++++ webArray", webArray)
+        // console.log("++++++++++++++++ webArray", webArray)
 
         let domainArray = webArray[0].split("=")
-        console.log("++++++++++++++++ domainArray", domainArray)
+        // console.log("++++++++++++++++ domainArray", domainArray)
         domain = domainArray[1]
 
         let zoneArray = webArray[1].split("=")
-        console.log("++++++++++++++++ zoneArray", zoneArray)
+        // console.log("++++++++++++++++ zoneArray", zoneArray)
         zone = zoneArray[1]
 
     } else {
@@ -24,7 +24,7 @@ async function web(message) {
         let webArray = message.split("=")
         domain = webArray[1]
     }
-    console.log("==========> domain", domain, "zone ", zone)
+    // console.log("==========> domain", domain, "zone ", zone)
     if (_.includes(domain, "http") || _.includes(domain, "https")) {
         let url_domain = new URL(domain)
         let newDomain = (url_domain.host).split("www.")
