@@ -59,7 +59,6 @@ async function setBody(req) {
         let message = msg.toLowerCase()
         console.log(typeof (message), message)
 
-        // if (message.indexOf("facebook") === 12 || _.includes(message, "fb")) {
         if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook")) {
             /**
             * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
@@ -70,10 +69,9 @@ async function setBody(req) {
         } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
             //     console.log("submit")
             if (_.includes(message, "fb")) {
-                console.log("=========> FB")
-                // let data = await getPageInfo(message, user_token)
-                // body.messages.push(data)
-            } else {
+                let data = await getPageInfo(message, user_token)
+                body.messages.push(data)
+            } elseif(_.includes(message, "web")) {
                 console.log("=========> WEB")
                 // let data = await getPageInfo(message, user_token)
                 // body.messages.push(data)
