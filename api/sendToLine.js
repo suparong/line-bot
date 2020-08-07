@@ -60,7 +60,7 @@ async function setBody(req) {
         console.log(typeof (message), message)
 
         // if (message.indexOf("facebook") === 12 || _.includes(message, "fb")) {
-        if (message.indexOf("facebook") === 12) {
+        if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook")) {
             /**
             * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
             */
@@ -91,10 +91,6 @@ async function setBody(req) {
             body.messages.push(data)
             // body.messages.push({ type: "text", text: `web` })
         } else {
-            console.log(_.includes(message, "www.facebook.com"))
-            console.log(_.includes(message, "facebook.com"))
-            console.log(_.includes(message, "facebook"))
-
             console.log("other")
             body.messages.push({
                 type: "sticker",
