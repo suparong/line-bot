@@ -117,7 +117,7 @@ async function formatHelpWEB() {
                         "margin": "md",
                         "size": "sm",
                         "color": "#666666",
-                        "text": "   1. Send domain name of your website.",
+                        "text": "   1. Send domain name with zone",
                         "wrap": true
                     },
                     {
@@ -125,7 +125,7 @@ async function formatHelpWEB() {
                         "margin": "md",
                         "size": "sm",
                         "color": "#666666",
-                        "text": "   E.x. If you want message from web “thairath”, send web=https://www.thairath.com",
+                        "text": "   E.x. If you want message from web “thairath”, send web=https://www.thairath.com&zone=th",
                         "wrap": true
                     },
                     {
