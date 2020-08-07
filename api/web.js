@@ -42,10 +42,13 @@ async function web(message) {
     // console.log("=========", configList)
 
     ///////////
-    let configList = false
+    let configList = {
+        "status": false,
+        "type": 1
+    }
     ///////////
 
-    if (configList) {
+    if (configList.status === true && configList.type === 3) {
         let info = {
             "type": "flex",
             "altText": "new messages",
@@ -92,11 +95,11 @@ async function web(message) {
             }
         }
 
-        let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
+        let newFormat = await Promise.all((configList.data).map(list => formateData(domain, list)))
         info.contents.body.contents = newFormat
         // console.log("==============", JSON.stringify(info))
         return info
-    } else {
+    } else if (configList.status === false && configList.type === 2) {
         // return { type: "text", text: `This config  does not exists. ` }
 
         return {
@@ -188,6 +191,8 @@ async function web(message) {
                 }
             }
         }
+    } else if (configList.status === false && configList.type === 1) {
+        return { type: "text", text: `This config is waiting for approval.` }
     }
 
 }
