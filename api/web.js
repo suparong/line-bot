@@ -120,30 +120,37 @@ async function web(message) {
                             "contents": [
                                 {
                                     "type": "span",
-                                    "text": "Domain :"
+                                    "text": "brown_05",
+                                    "weight": "bold",
+                                    "color": "#000000"
                                 },
                                 {
                                     "type": "span",
-                                    "text": "Starbuck Home Thais"
+                                    "text": "     "
+                                },
+                                {
+                                    "type": "span",
+                                    "text": "I went to the Brown&Cony cafe in Tokyo and took a picture"
                                 }
-                            ]
+                            ],
+                            "size": "sm",
+                            "wrap": true
                         },
                         {
-                            "type": "text",
+                            "type": "box",
+                            "layout": "baseline",
                             "contents": [
                                 {
-                                    "type": "span",
-                                    "text": "Zone :"
-                                },
-                                {
-                                    "type": "span",
-                                    "text": "th"
+                                    "type": "text",
+                                    "text": "1,140,753 Like",
+                                    "size": "sm",
+                                    "color": "#bcbcbc"
                                 }
-                            ]
+                            ],
+                            "spacing": "sm",
+                            "margin": "md"
                         }
-                    ],
-                    "paddingBottom": "0px",
-                    "paddingTop": "10px"
+                    ]
                 },
                 "footer": {
                     "type": "box",
