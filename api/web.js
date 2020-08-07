@@ -23,9 +23,8 @@ async function web(message) {
         console.log("++++++++++++++++not zone")
         let webArray = message.split("=")
         domain = webArray[1]
-        console.log("==========> domain", domain, "zone ", zone)
     }
-
+    console.log("==========> domain", domain, "zone ", zone)
     // if (_.includes(domain, "http") || _.includes(domain, "https")) {
     //     let url_domain = new URL(domain)
     //     let newDomain = (url_domain.host).split("www.")
