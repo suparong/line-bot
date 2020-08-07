@@ -63,7 +63,7 @@ async function insertConfig(configInfo) {
     try {
         let options = {
             'method': 'POST',
-            'url': 'http://192.168.19.23:8082/configApprove'
+            'url': 'http://192.168.19.23:8082/configApprove',
             'headers': {
                 'Content-Type': 'application/json'
             },
