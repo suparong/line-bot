@@ -1,6 +1,6 @@
 const _ = require('lodash')
 var URL = require('url').URL
-const { checkConfig } = require('./sendToApi')
+const { checkConfig, insertConfig } = require('./sendToApi')
 
 async function web(message) {
     let domain
@@ -382,7 +382,8 @@ async function getConfigInfo(message, user_token) {
         "zone": zone,
         "line_token": user_token
     }
-    console.log("=========>", configInfo)
+    await insertConfig(configInfo)
+    // console.log("=========>", configInfo)
 }
 
 module.exports = {

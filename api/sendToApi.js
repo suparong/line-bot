@@ -59,7 +59,25 @@ async function checkConfig(domain) {
 }
 
 async function insertConfig(configInfo) {
+    console.log("================== configInfo")
+    try {
+        let options = {
+            'method': 'POST',
+            'url': '???????????????',
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            "body": JSON.stringify(configInfo)
 
+        }
+        console.log(options)
+        // let body = await rq(options)
+        // console.log("11111111111111111111111111", body)
+        // return body
+
+    } catch (error) {
+        console.log("ERROR : ", error)
+    }
 }
 
 module.exports = {
