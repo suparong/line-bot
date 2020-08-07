@@ -71,7 +71,7 @@ async function setBody(req) {
             if (_.includes(message, "fb")) {
                 let data = await getPageInfo(message, user_token)
                 body.messages.push(data)
-            } elseif(_.includes(message, "web")) {
+            } else if (_.includes(message, "web")) {
                 console.log("=========> WEB")
                 // let data = await getPageInfo(message, user_token)
                 // body.messages.push(data)
