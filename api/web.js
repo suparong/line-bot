@@ -153,7 +153,9 @@ async function web(message) {
                             "wrap": true
                         }
                     ],
-                    "offsetTop": "-20px"
+                    "offsetTop": "-20px",
+                    "paddingTop": "10px",
+                    "paddingBottom": "0px"
                 },
                 "footer": {
                     "type": "box",
@@ -168,10 +170,12 @@ async function web(message) {
                             "action": {
                                 "type": "message",
                                 "label": "submit",
-                                "text": "asfasdf"
+                                "text": `&web&submit=${domain}&zone=${zone}`
                             }
                         }
-                    ]
+                    ],
+                    "paddingTop": "0px",
+                    "paddingBottom": "0px"
                 },
                 "styles": {
                     "footer": {
