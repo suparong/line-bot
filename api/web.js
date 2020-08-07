@@ -20,7 +20,7 @@ async function web(message) {
     // console.log("============> 4", domain)
     // info.contents.header.contents.text = domain
     let configList = await checkConfig(domain)
-    // console.log("=========", configList)
+    console.log("=========", configList)
 
     let info = {
         "type": "flex",
