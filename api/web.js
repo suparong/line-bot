@@ -4,7 +4,7 @@ const { checkConfig } = require('./sendToApi')
 
 async function web(message) {
     console.log("============>", message)
-    let webArray = message.split("=")
+    let webArray = message.split("&")
     console.log("++++++++++++++++", webArray)
     let domain = webArray[1]
     console.log("==========> domain", domain)
