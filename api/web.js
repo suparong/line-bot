@@ -153,7 +153,7 @@ async function web(message) {
                             "wrap": true
                         }
                     ],
-                    "offsetTop": "-20px",
+                    "offsetTop": "-10px",
                     "paddingTop": "10px",
                     "paddingBottom": "0px"
                 },
