@@ -69,6 +69,7 @@ async function setBody(req) {
         } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
             //     console.log("submit")
             if (_.includes(message, "fb")) {
+                console.log("=========> FB")
                 let data = await getPageInfo(message, user_token)
                 body.messages.push(data)
             } else if (_.includes(message, "web")) {
