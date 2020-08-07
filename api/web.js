@@ -380,7 +380,7 @@ async function getConfigInfo(message, user_token) {
     let configInfo = {
         "website": config,
         "zone": zone,
-        "line_token" = user_token
+        "line_token": user_token
     }
     console.log("=========>", configInfo)
 }
