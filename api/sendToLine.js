@@ -60,7 +60,7 @@ async function setBody(req) {
         console.log(typeof (message), message)
 
         // if (message.indexOf("facebook") === 12 || _.includes(message, "fb")) {
-        if (message.indexOf("facebook") === 12 || ) {
+        if (message.indexOf("facebook") === 12) {
             /**
             * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
             */
