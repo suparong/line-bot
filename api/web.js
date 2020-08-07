@@ -44,7 +44,7 @@ async function web(message) {
     ///////////
     let configList = {
         "status": false,
-        "type": 1
+        "type": 2
     }
     ///////////
 
