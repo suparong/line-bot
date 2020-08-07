@@ -106,7 +106,7 @@ async function web(message) {
                     "contents": [
                         {
                             "type": "text",
-                            "text": "Webite info"
+                            "text": "Website info"
                         }
                     ]
                 },
@@ -119,14 +119,27 @@ async function web(message) {
                             "margin": "md",
                             "size": "sm",
                             "color": "#666666",
-                            "text": "Domain : Starbuck Home Thais"
+                            "text": "Domain :"
+                        }, {
+                            "type": "text",
+                            "margin": "md",
+                            "size": "sm",
+                            "color": "#666666",
+                            "text": "Starbuck Home Thais"
                         },
                         {
                             "type": "text",
                             "margin": "md",
                             "size": "sm",
                             "color": "#666666",
-                            "text": "Zone : th"
+                            "text": "Zone :"
+                        },
+                        {
+                            "type": "text",
+                            "margin": "md",
+                            "size": "sm",
+                            "color": "#666666",
+                            "text": "th"
                         }
                     ],
                     "offsetTop": "-20px"
