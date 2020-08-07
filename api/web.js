@@ -40,7 +40,11 @@ async function web(message) {
     // info.contents.header.contents.text = domain
     // let configList = await checkConfig(domain)
     // console.log("=========", configList)
+
+    ///////////
     let configList = false
+    ///////////
+
     if (configList) {
         let info = {
             "type": "flex",
@@ -368,6 +372,20 @@ async function formateData(domain, list) {
 
 }
 
+async function getConfigInfo(message, user_token) {
+    let urlParams = new URLSearchParams(message)
+    let config = urlParams.get('submit')
+    let zone = urlParams.get('zone') || "none"
+
+    let configInfo = {
+        "website": config,
+        "zone": zone,
+        "line_token" = user_token
+    }
+    console.log("=========>", configInfo)
+}
+
 module.exports = {
-    web
+    web,
+    getConfigInfo
 }

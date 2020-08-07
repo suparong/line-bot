@@ -8,7 +8,7 @@ const token = '0zTssGCqCWcU++oW2esVPcVc7aZ6c+/vVnrpU4nGz846s2pPurIEVEtt/xovGTxSO
 
 const { facebook, getPageInfo } = require('./facebook')
 const { help } = require('./help')
-const { web } = require('./web')
+const { web, getConfigInfo } = require('./web')
 
 
 
@@ -74,10 +74,10 @@ async function setBody(req) {
                 body.messages.push(data)
             } else if (_.includes(message, "web")) {
                 console.log("=========> WEB")
-                // let data = await getPageInfo(message, user_token)
+                await getConfigInfo(message, user_token)
                 // body.messages.push(data)
+                body.messages.push({ type: "text", text: `submit WEB` })
             }
-
         } else if (_.includes(message, "help")) {
             console.log("help")
             let data = await help()

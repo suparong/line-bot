@@ -58,9 +58,14 @@ async function checkConfig(domain) {
     return list
 }
 
+async function insertConfig(configInfo) {
+
+}
+
 module.exports = {
     checkPage,
     checkConfig,
-    insertPage
+    insertPage,
+    insertConfig
 }
 
