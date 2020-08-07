@@ -106,7 +106,8 @@ async function web(message) {
                     "contents": [
                         {
                             "type": "text",
-                            "text": "Website info"
+                            "text": "Website info",
+                            "weight": "bold"
                         }
                     ]
                 },
@@ -116,33 +117,33 @@ async function web(message) {
                     "contents": [
                         {
                             "type": "text",
-                            "margin": "md",
-                            "size": "sm",
-                            "color": "#666666",
-                            "text": "Domain :"
-                        }, {
-                            "type": "text",
-                            "margin": "md",
-                            "size": "sm",
-                            "color": "#666666",
-                            "text": "Starbuck Home Thais"
+                            "contents": [
+                                {
+                                    "type": "span",
+                                    "text": "Domain :"
+                                },
+                                {
+                                    "type": "span",
+                                    "text": "Starbuck Home Thais"
+                                }
+                            ]
                         },
                         {
                             "type": "text",
-                            "margin": "md",
-                            "size": "sm",
-                            "color": "#666666",
-                            "text": "Zone :"
-                        },
-                        {
-                            "type": "text",
-                            "margin": "md",
-                            "size": "sm",
-                            "color": "#666666",
-                            "text": "th"
+                            "contents": [
+                                {
+                                    "type": "span",
+                                    "text": "Zone :"
+                                },
+                                {
+                                    "type": "span",
+                                    "text": "th"
+                                }
+                            ]
                         }
                     ],
-                    "offsetTop": "-20px"
+                    "paddingBottom": "0px",
+                    "paddingTop": "10px"
                 },
                 "footer": {
                     "type": "box",
@@ -157,10 +158,12 @@ async function web(message) {
                             "action": {
                                 "type": "message",
                                 "label": "submit",
-                                "text": "&submit=100253731789838&zone=none"
+                                "text": ""
                             }
                         }
-                    ]
+                    ],
+                    "paddingTop": "0px",
+                    "paddingBottom": "0px"
                 },
                 "styles": {
                     "footer": {
