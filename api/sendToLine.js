@@ -64,9 +64,14 @@ async function setBody(req) {
             /**
             * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
             */
-            console.log("facebook")
-            let data = await facebook(message)
-            body.messages.push(data)
+            if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos")) {
+                console.log("messages facebook")
+            } else {
+                console.log("facebook")
+                let data = await facebook(message)
+                body.messages.push(data)
+            }
+
         } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
             console.log("submit")
             if (_.includes(message, "fb")) {
@@ -82,11 +87,6 @@ async function setBody(req) {
             console.log("help")
             let data = await help()
             await _.map(data, (a) => { body.messages.push(a) })
-        } else if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook") && _.includes(message, "posts")) {
-            console.log("messages facebook")
-            // doing
-            await checkMsgFB(message)
-            body.messages.push({ type: "text", text: `messages facebook` })
         } else if (_.includes(message, "web")) {
             console.log("web")
             let data = await web(message)
