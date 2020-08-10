@@ -66,12 +66,12 @@ async function setBody(req) {
             */
             if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos")) {
                 console.log("messages facebook")
+                await checkMsgFB(message)
             } else {
                 console.log("facebook")
                 let data = await facebook(message)
                 body.messages.push(data)
             }
-
         } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
             console.log("submit")
             if (_.includes(message, "fb")) {
