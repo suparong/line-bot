@@ -9,8 +9,7 @@
 // https://www.facebook.com/TrueMoveH/videos/vb.204234332938286/301148657763460/?type=2&theater
 
 async function checkMsgFB(message) {
-    console.log("=======>", message)
-    let nesLink = new URL(message)
+    // console.log("=======>", message)
     let urlParams = new URLSearchParams(nesLink)
     console.log("+++++++++++++>", urlParams)
 }
