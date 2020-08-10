@@ -9,7 +9,7 @@ const token = '0zTssGCqCWcU++oW2esVPcVc7aZ6c+/vVnrpU4nGz846s2pPurIEVEtt/xovGTxSO
 const { facebook, getPageInfo } = require('./facebook')
 const { help } = require('./help')
 const { web, getConfigInfo } = require('./web')
-const { checkMsgFB } = require('./messages')
+const { checkMsgFB, checkMsgTW, checkMsgYT, checkMsgIG, checkMsgPT } = require('./messages')
 
 
 
@@ -20,7 +20,7 @@ async function reply(req) {
     /**
      * url :reply,push,multicast,Broadcast
      */
-    pushBody(newres)
+    // pushBody(newres)
 
 }
 
@@ -64,7 +64,7 @@ async function setBody(req) {
             /**
             * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
             */
-            if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos")) {
+            if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch")) {
                 console.log("messages facebook")
                 await checkMsgFB(message)
             } else {
@@ -72,6 +72,18 @@ async function setBody(req) {
                 let data = await facebook(message)
                 body.messages.push(data)
             }
+        } else if (message.indexOf("twitter") === 12 || _.includes(message, "www.twitter.com") || _.includes(message, "twitter.com") || _.includes(message, "twitter")) {
+            console.log("twitter")
+            await checkMsgTW(message)
+        } else if (message.indexOf("youtube") === 12 || _.includes(message, "www.youtube.com") || _.includes(message, "youtube.com") || _.includes(message, "youtube"), _.includes(message, "youtu")) {
+            console.log("youtube")
+            await checkMsgYT(msg)
+        } else if (message.indexOf("instagram") === 12 || _.includes(message, "www.instagram.com") || _.includes(message, "instagram.com") || _.includes(message, "instagram")) {
+            console.log("instagram")
+            await checkMsgIG(msg)
+        } else if (message.indexOf("pantip") === 12 || _.includes(message, "www.pantip.com") || _.includes(message, "pantip.com") || _.includes(message, "pantip")) {
+            console.log("pantip")
+            await checkMsgPT(message)
         } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
             console.log("submit")
             if (_.includes(message, "fb")) {
