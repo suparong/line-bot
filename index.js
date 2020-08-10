@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 
-require('dotenv').config()
+// require('dotenv').config()
 const port = process.env.PORT_API || 4000
 
 const { reply, formatData, pushBody } = require('./api/sendToLine')
@@ -24,6 +24,6 @@ app.post('/statusApprove', async (req, res) => {
 })
 
 app.listen(port, async () => {
-    console.log('Starting  version 1.1');
+    console.log('Starting  version 1.5.1');
     console.log('Starting node.js on port ' + `${port}`);
 });

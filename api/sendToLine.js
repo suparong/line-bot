@@ -2,13 +2,14 @@
 const rq = require('request-promise')
 const _ = require('lodash')
 
-const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
+// const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
 // token-test
-// const token = '0zTssGCqCWcU++oW2esVPcVc7aZ6c+/vVnrpU4nGz846s2pPurIEVEtt/xovGTxSOge8PbXVOfS08Zvg0LpzPOad/R55Cyxc27WHzB5YW8084hVaSZKgurtclTITVTUvvEI0hdMFnfExIStEarI4MQdB04t89/1O/w1cDnyilFU='
+const token = '0zTssGCqCWcU++oW2esVPcVc7aZ6c+/vVnrpU4nGz846s2pPurIEVEtt/xovGTxSOge8PbXVOfS08Zvg0LpzPOad/R55Cyxc27WHzB5YW8084hVaSZKgurtclTITVTUvvEI0hdMFnfExIStEarI4MQdB04t89/1O/w1cDnyilFU='
 
 const { facebook, getPageInfo } = require('./facebook')
 const { help } = require('./help')
 const { web, getConfigInfo } = require('./web')
+const { checkMsgFB } = require('./messages')
 
 
 
@@ -67,28 +68,29 @@ async function setBody(req) {
             let data = await facebook(message)
             body.messages.push(data)
         } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
-            //     console.log("submit")
+            console.log("submit")
             if (_.includes(message, "fb")) {
-                console.log("=========> FB")
+                // console.log("=========> FB")
                 let data = await getPageInfo(message, user_token)
                 body.messages.push(data)
             } else if (_.includes(message, "web")) {
-                console.log("=========> WEB")
+                // console.log("=========> WEB")
                 let data = await getConfigInfo(message, user_token)
                 body.messages.push(data)
-                // body.messages.push({ type: "text", text: `submit WEB` })
             }
         } else if (_.includes(message, "help")) {
             console.log("help")
             let data = await help()
             await _.map(data, (a) => { body.messages.push(a) })
-            // body.messages.push(data)
-            // body.messages.push({ type: "text", text: `help` })
+        } else if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook") && _.includes(message, "posts")) {
+            console.log("messages facebook")
+            // doing
+            await checkMsgFB(message)
+            body.messages.push({ type: "text", text: `messages facebook` })
         } else if (_.includes(message, "web")) {
             console.log("web")
             let data = await web(message)
             body.messages.push(data)
-            // body.messages.push({ type: "text", text: `web` })
         } else {
             console.log("other")
             body.messages.push({
