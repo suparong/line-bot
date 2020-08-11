@@ -20,7 +20,7 @@ async function reply(req) {
         /**
          * url :reply,push,multicast,Broadcast
          */
-        pushBody(newres)
+        // replyBody(newres)
     } catch (error) {
         console.log("error : ", error)
     }
@@ -54,11 +54,12 @@ async function setBody(req) {
     try {
         // let reply_token = req.body.events[0].replyToken
         // console.log(req.body)
+        let replyToken = req.body.events[0].replyToken
         let user_token = req.body.events[0].source.userId
         // let user_token = "Ue811773dc55c06f5ad786782d0626f8c"
         let msg = req.body.events[0].message.text
         body = {
-            "to": user_token,
+            "replyToken": replyToken,
             "messages": []
         }
 
@@ -153,10 +154,26 @@ async function pushBody(newres) {
     console.log('status = ' + JSON.stringify("DONE"));
 }
 
+async function replyBody(newres) {
+    let headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    let options = {
+        method: 'POST',
+        uri: 'https://api.line.me/v2/bot/message/reply',
+        headers,
+        body: newres // Automatically stringifies the body to JSON
+    }
+    const res = await rq(options)
+    console.log('status = ' + JSON.stringify("DONE"));
+}
+
 
 module.exports = {
     reply,
     pushBody,
     setBody,
-    formatData
+    formatData,
+    replyBody
 }

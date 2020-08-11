@@ -76,19 +76,29 @@ async function checkMsgFB(message) {
             // console.log(message_id)
         }
         // console.log("======>", message_id)
-        let statusMsg
         if (message_id) {
-            // statusMsg = await checkMessage(message_id)
-            // // console.log("=====>", statusMsg)
-            // let msg = await formatMessages(statusMsg)
-            // console.log(JSON.stringify(msg))
-            let msg = { "type": "flex", "altText": "new messages", "contents": { "type": "bubble", "header": { "type": "box", "layout": "vertical", "contents": [{ "type": "text", "text": "Message status" }] }, "body": { "type": "box", "layout": "vertical", "contents": [{ "type": "box", "layout": "vertical", "contents": [{ "type": "box", "layout": "horizontal", "contents": [{ "type": "box", "layout": "vertical", "contents": [{ "type": "text", "contents": [{ "type": "span", "text": "_id", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "fb_204234332938286_301148657763460", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Link", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "https://www.facebook.com/TrueMoveH/videos/301148657763460/", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Channel", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "facebook", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Zone", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "th", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Created_Time", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-07T13:18:15", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Sys_Time", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-08T09:00:03", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Cts", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-09T02:58:37", "size": "xs" }], "size": "sm", "wrap": true }] }], "spacing": "xl", "paddingAll": "20px" }], "backgroundColor": "#E8EBED", "offsetStart": "10px", "offsetBottom": "20px", "width": "280px", "paddingTop": "10px", "paddingBottom": "0px" }], "paddingAll": "0px" }, "footer": { "type": "box", "layout": "vertical", "spacing": "sm", "contents": [{ "type": "button", "style": "link", "height": "sm", "action": { "type": "uri", "label": "Link", "uri": "http://linecorp.com/" } }], "paddingTop": "0px", "paddingBottom": "0px", "offsetTop": "-10px" } } }
-            return msg
+            let Msg = await checkAndFormat(message_id)
+            return Msg
         }
     } catch (e) {
         console.log('eeeeeee', e)
     }
 
+}
+
+async function checkAndFormat(message_id) {
+    // let statusMsg = await checkMessage(message_id)
+    // // console.log("=====>", statusMsg)
+    // if (statusMsg.status) {
+    //     let msg = await formatMessages(statusMsg.data)
+    //     console.log(JSON.stringify(msg))
+    //     return msg
+    // } else {
+    //     ///doing
+    //     console.log("============> false")
+    //     // return  
+    // }
+    return { "type": "flex", "altText": "new messages", "contents": { "type": "bubble", "header": { "type": "box", "layout": "vertical", "contents": [{ "type": "text", "text": "Message status" }] }, "body": { "type": "box", "layout": "vertical", "contents": [{ "type": "box", "layout": "vertical", "contents": [{ "type": "box", "layout": "horizontal", "contents": [{ "type": "box", "layout": "vertical", "contents": [{ "type": "text", "contents": [{ "type": "span", "text": "_id", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "fb_204234332938286_301148657763460", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Link", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "https://www.facebook.com/TrueMoveH/videos/301148657763460/", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Channel", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "facebook", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Zone", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "th", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Created_Time", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-07T13:18:15", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Sys_Time", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-08T09:00:03", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Cts", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-09T02:58:37", "size": "xs" }], "size": "sm", "wrap": true }] }], "spacing": "xl", "paddingAll": "20px" }], "backgroundColor": "#E8EBED", "offsetStart": "10px", "offsetBottom": "20px", "width": "280px", "paddingTop": "10px", "paddingBottom": "0px" }], "paddingAll": "0px" }, "footer": { "type": "box", "layout": "vertical", "spacing": "sm", "contents": [{ "type": "button", "style": "link", "height": "sm", "action": { "type": "uri", "label": "Link", "uri": "http://linecorp.com/" } }], "paddingTop": "0px", "paddingBottom": "0px", "offsetTop": "-10px" } } }
 }
 
 async function getPageID(name) {
@@ -136,10 +146,9 @@ async function checkMsgTW(message) {
         let post_id = bodyMsg[3]
         let message_id = `tw_${page_id}_${post_id}`
         // console.log("======>", message_id)
-        let statusMsg
         if (message_id) {
-            statusMsg = await checkMessage(message_id)
-            console.log("=====>", statusMsg)
+            let Msg = await checkAndFormat(message_id)
+            return Msg
         }
     } catch (e) {
         console.log("eeeeeeeeeee", e.error.errors.message)
@@ -193,10 +202,9 @@ async function checkMsgYT(message) {
         console.log("==============>", chID)
         message_id = `yt_${chID}_${watch_id}`
         // console.log("======>", message_id)
-        let statusMsg
         if (message_id) {
-            statusMsg = await checkMessage(message_id)
-            console.log("=====>", statusMsg)
+            let Msg = await checkAndFormat(message_id)
+            return Msg
         }
 
     } catch (error) {
@@ -237,10 +245,9 @@ async function checkMsgIG(message) {
         let post_id = bodyMsg[2]
         let message_id = `ig_${post_id}`
         // console.log("======>", message_id)
-        let statusMsg
         if (message_id) {
-            statusMsg = await checkMessage(message_id)
-            console.log("=====>", statusMsg)
+            let Msg = await checkAndFormat(message_id)
+            return Msg
         }
     } catch (error) {
         console.log("eeeeeeeeeee", e.error.errors.message)
@@ -265,10 +272,9 @@ async function checkMsgPT(message) {
         console.log(bodyMsg)
         let message_id = `com.pantip_/topic/${bodyMsg[2]}`
         // console.log("======>", message_id)
-        let statusMsg
         if (message_id) {
-            statusMsg = await checkMessage(message_id)
-            console.log("=====>", statusMsg)
+            let Msg = await checkAndFormat(message_id)
+            return Msg
         }
     } catch (error) {
         console.log("eeeeeeeeeee", e.error.errors.message)
