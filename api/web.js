@@ -1,97 +1,217 @@
 const _ = require('lodash')
 var URL = require('url').URL
-const { checkConfig } = require('./sendToApi')
+const { checkConfig, insertConfig } = require('./sendToApi')
 
 async function web(message) {
-    console.log("============>", message)
-    let webArray = message.split("=")
-    let domain = webArray[1]
-    if (_.includes(domain, "http") || _.includes(domain, "https")) {
-        let url_domain = new URL(domain)
-        let newDomain = (url_domain.host).split("www.")
-        if (_.includes(url_domain.host, "www")) {
-            domain = newDomain[1]
-            // console.log("============> 1", domain)
-        } else {
-            domain = newDomain[0]
-            // console.log("============> 2", domain)
-        }
-    }
-    // console.log("============> 4", domain)
-    // info.contents.header.contents.text = domain
-    let configList = await checkConfig(domain)
-    // console.log("=========", configList)
-    // let configList = [
-    //     {
-    //         "domain": "land-house.info",
-    //         "channel": "commerce",
-    //         "zone": "th",
-    //         "running_page": false,
-    //         "created_time": "2020-07-24T18:38:03.116Z",
-    //         "sys_time": "2018-02-20T06:49:32.303Z",
-    //         "cts": "2020-07-24T18:38:02.551Z"
-    //     },
-    //     {
-    //         "domain": "land-house.info2",
-    //         "channel": "commerce",
-    //         "zone": "th",
-    //         "running_page": false,
-    //         "created_time": "2020-07-24T18:38:03.116Z",
-    //         "sys_time": "2018-02-20T06:49:32.303Z",
-    //         "cts": "2020-07-24T18:38:02.551Z"
-    //     }
-    // ]
+    try {
+        let domain
+        let zone = "none"
+        console.log("============>", message)
+        if (_.includes(message, "&zone=")) {
+            console.log("++++++++++++++++ zone")
+            let webArray = message.split("&")
+            // console.log("++++++++++++++++ webArray", webArray)
 
-    let info = {
-        "type": "flex",
-        "altText": "new messages",
-        "contents": {
-            "type": "bubble",
-            "header": {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                    {
-                        "type": "text",
-                        "text": `Search : `,
-                        "weight": "bold",
-                        "color": "#000E29"
-                    },
-                    {
-                        "type": "text",
-                        "text": `${domain}`,
-                        "offsetStart": "0px",
-                        "weight": "regular",
-                        "offsetBottom": "0px"
-                    },
-                    {
-                        "type": "text",
-                        "text": `Total : `,
-                        "weight": "bold",
-                        "offsetStart": "60px",
-                        "color": "#000E29"
-                    },
-                    {
-                        "type": "text",
-                        "text": `${configList.length}`,
-                        "offsetStart": "50px",
-                        "weight": "regular"
-                    }
-                ]
-            },
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "md",
-                "offsetTop": "-25px"
+            let domainArray = webArray[0].split("=")
+            // console.log("++++++++++++++++ domainArray", domainArray)
+            domain = domainArray[1]
+
+            let zoneArray = webArray[1].split("=")
+            // console.log("++++++++++++++++ zoneArray", zoneArray)
+            zone = zoneArray[1]
+
+        } else {
+            console.log("++++++++++++++++not zone")
+            let webArray = message.split("=")
+            domain = webArray[1]
+        }
+        // console.log("==========> domain", domain, "zone ", zone)
+        if (_.includes(domain, "http") || _.includes(domain, "https")) {
+            let url_domain = new URL(domain)
+            let newDomain = (url_domain.host).split("www.")
+            if (_.includes(url_domain.host, "www")) {
+                domain = newDomain[1]
+                // console.log("============> 1", domain)
+            } else {
+                domain = newDomain[0]
+                // console.log("============> 2", domain)
             }
         }
+        // console.log("============> 4", domain)
+        // info.contents.header.contents.text = domain
+        let configList = await checkConfig(domain)
+        // console.log("=========", configList)
+
+        ///////////
+        // let configList = {
+        //     "status": true || false,
+        //     "type": 3 || 2 || 1,
+        //     "data": [
+        //         {
+        //             "status": true,
+        //             "domain": "http://www.apakes.com",
+        //             "channel": "blog",
+        //             "zone": "id",
+        //             "running_page": false,
+        //             "created_time": null,
+        //             "sys_time": null,
+        //             "cts": null
+        //         }
+        //     ]
+        // }
+        ///////////
+
+        if (configList.status === true && configList.type === 3) {
+            let info = {
+                "type": "flex",
+                "altText": "new messages",
+                "contents": {
+                    "type": "bubble",
+                    "header": {
+                        "type": "box",
+                        "layout": "horizontal",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": `Search : `,
+                                "weight": "bold",
+                                "color": "#000E29"
+                            },
+                            {
+                                "type": "text",
+                                "text": `${domain}`,
+                                "offsetStart": "0px",
+                                "weight": "regular",
+                                "offsetBottom": "0px"
+                            },
+                            {
+                                "type": "text",
+                                "text": `Total : `,
+                                "weight": "bold",
+                                "offsetStart": "60px",
+                                "color": "#000E29"
+                            },
+                            {
+                                "type": "text",
+                                "text": `${configList.data.length}`,
+                                "offsetStart": "50px",
+                                "weight": "regular"
+                            }
+                        ]
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "spacing": "md",
+                        "offsetTop": "-25px"
+                    }
+                }
+            }
+
+            let newFormat = await Promise.all((configList.data).map(list => formateData(domain, list)))
+            info.contents.body.contents = newFormat
+            // console.log("==============", JSON.stringify(info))
+            return info
+        } else if (configList.status === false && configList.type === 2) {
+            // return { type: "text", text: `This config  does not exists. ` }
+
+            return {
+                "type": "flex",
+                "altText": "new messages",
+                "contents": {
+                    "type": "bubble",
+                    "header": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "Website info",
+                                "weight": "bold"
+                            }
+                        ]
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "contents": [
+                                    {
+                                        "type": "span",
+                                        "text": "Domain : ",
+                                        "weight": "bold",
+                                        "color": "#000000",
+                                        "size": "sm"
+                                    },
+                                    {
+                                        "type": "span",
+                                        "text": `${domain}`,
+                                        "size": "sm"
+                                    }
+                                ],
+                                "size": "sm",
+                                "wrap": true
+                            },
+                            {
+                                "type": "text",
+                                "contents": [
+                                    {
+                                        "type": "span",
+                                        "text": "Zone : ",
+                                        "weight": "bold",
+                                        "color": "#000000"
+                                    },
+                                    {
+                                        "type": "span",
+                                        "text": `${zone}`,
+                                        "size": "sm"
+                                    }
+                                ],
+                                "size": "sm",
+                                "wrap": true
+                            }
+                        ],
+                        "offsetTop": "-10px",
+                        "paddingTop": "10px",
+                        "paddingBottom": "0px"
+                    },
+                    "footer": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "spacing": "sm",
+                        "contents": [
+                            {
+                                "type": "button",
+                                "style": "link",
+                                "color": "#FFFFFF",
+                                "height": "sm",
+                                "action": {
+                                    "type": "message",
+                                    "label": "submit",
+                                    "text": `&web&submit=${domain}&zone=${zone}`
+                                }
+                            }
+                        ],
+                        "paddingTop": "0px",
+                        "paddingBottom": "0px"
+                    },
+                    "styles": {
+                        "footer": {
+                            "backgroundColor": "#42b3f4"
+                        }
+                    }
+                }
+            }
+        } else if (configList.status === false && configList.type === 1) {
+            return { type: "text", text: `This website is waiting for approval.` }
+        }
+    } catch (error) {
+        console.log("============> error", error)
     }
 
-    let newFormat = await Promise.all(configList.map(list => formateData(domain, list)))
-    info.contents.body.contents = newFormat
-    // console.log("==============", JSON.stringify(info))
-    return info
+
 }
 
 async function formateData(domain, list) {
@@ -283,6 +403,26 @@ async function formateData(domain, list) {
 
 }
 
+async function getConfigInfo(message, user_token) {
+    let urlParams = new URLSearchParams(message)
+    let config = urlParams.get('submit')
+    let zone = urlParams.get('zone') || "none"
+
+    let configInfo = {
+        "_id": config,
+        "zone": zone,
+        "line_token": user_token
+    }
+    let resDB = await insertConfig(configInfo)
+    // console.log("=========>", configInfo)
+    if (resDB) {
+        return { type: "text", text: `Your website is sent for waiting for approval.` }
+    } else {
+        return { type: "text", text: `This website already exists.` }
+    }
+}
+
 module.exports = {
-    web
+    web,
+    getConfigInfo
 }

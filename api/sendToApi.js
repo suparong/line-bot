@@ -58,9 +58,46 @@ async function checkConfig(domain) {
     return JSON.parse(list)
 }
 
+async function insertConfig(configInfo) {
+    console.log("================== configInfo")
+    try {
+        let options = {
+            'method': 'POST',
+            'url': 'http://192.168.19.23:8082/configApprove',
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            "body": JSON.stringify(configInfo)
+
+        }
+        // console.log(options)
+        let body = await rq(options)
+        // console.log("11111111111111111111111111", body)
+        return body
+
+    } catch (error) {
+        console.log("ERROR : ", error)
+    }
+}
+
+async function checkMessage(_id) {
+    console.log("===========>", _id)
+    let options = {
+        'method': 'POST',
+        'url': 'http://192.168.19.23:8082/checkMessages',
+        'headers': {
+            '_id': `${_id}`
+        }
+    }
+    let statusMsg = await rq(options)
+    return JSON.parse(statusMsg)
+}
+
 module.exports = {
     checkPage,
     checkConfig,
-    insertPage
+    insertPage,
+    insertConfig,
+    checkMessage
 }
 
