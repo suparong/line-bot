@@ -510,7 +510,7 @@ async function formatMessages(status) {
                         "action": {
                             "type": "uri",
                             "label": "Link",
-                            "uri": "http://linecorp.com/"
+                            "uri": `${status.link}`
                         }
                     }
                 ],
