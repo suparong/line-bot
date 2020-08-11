@@ -97,7 +97,7 @@ module.exports = {
     checkPage,
     checkConfig,
     insertPage,
-    insertConfig
-    // checkMessage
+    insertConfig,
+    checkMessage
 }
 
