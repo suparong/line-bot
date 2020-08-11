@@ -11,11 +11,10 @@ const { help } = require('./help')
 const { web, getConfigInfo } = require('./web')
 const { checkMsgFB, checkMsgTW, checkMsgYT, checkMsgIG, checkMsgPT } = require('./messages')
 
-let LINE_HEADER = {
+let HEADER = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`
 }
-
 
 async function reply(req) {
     try {
@@ -153,7 +152,7 @@ async function pushBody(newres) {
     let options = {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/push',
-        LINE_HEADER,
+        HEADER,
         body: newres // Automatically stringifies the body to JSON
     }
     const res = await rq(options)
@@ -164,7 +163,7 @@ async function replyBody(newres) {
     let options = {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/reply',
-        LINE_HEADER,
+        HEADER,
         body: newres // Automatically stringifies the body to JSON
     }
     const res = await rq(options)
