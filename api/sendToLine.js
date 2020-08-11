@@ -20,7 +20,7 @@ async function reply(req) {
         /**
          * url :reply,push,multicast,Broadcast
          */
-        replyBody(newres)
+        pushBody(newres)
     } catch (error) {
         console.log("error : ", error)
     }
