@@ -11,6 +11,11 @@ const { help } = require('./help')
 const { web, getConfigInfo } = require('./web')
 const { checkMsgFB, checkMsgTW, checkMsgYT, checkMsgIG, checkMsgPT } = require('./messages')
 
+const HEADER = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+}
+
 async function reply(req) {
     try {
         let newres = await setBody(req)
@@ -144,14 +149,10 @@ async function formatData(body) {
 
 
 async function pushBody(newres) {
-    let header = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    }
     let options = {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/push',
-        header,
+        HEADER,
         body: newres // Automatically stringifies the body to JSON
     }
     const res = await rq(options)
@@ -159,16 +160,13 @@ async function pushBody(newres) {
 }
 
 async function replyBody(newres) {
-    let header = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    }
     let options = {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/reply',
-        header,
+        HEADER,
         body: newres // Automatically stringifies the body to JSON
     }
+    console.log("+++++++++", options)
     const res = await rq(options)
     console.log('status = ' + JSON.stringify("DONE"));
 }
