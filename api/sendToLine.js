@@ -163,7 +163,7 @@ async function replyBody(newres) {
     let options = {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/reply',
-        HEADER,
+        headers: HEADER,
         body: newres // Automatically stringifies the body to JSON
     }
     console.log("+++++++++", options)
