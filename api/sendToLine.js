@@ -117,14 +117,10 @@ async function setBody(req) {
             body.messages.push(data)
         } else {
             console.log("other")
-            // body.messages.push({
-            //     type: "sticker",
-            //     packageId: 11537,
-            //     stickerId: 52002744
-            // })
             body.messages.push({
-                type: `text`,
-                text: msg
+                type: "sticker",
+                packageId: 11537,
+                stickerId: 52002744
             })
         }
     } catch (error) {
