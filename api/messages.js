@@ -2,6 +2,8 @@ const rq = require('request-promise')
 const _ = require('lodash')
 
 const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
+
+const { checkMessage } = require('./sendToApi')
 /**
  * IN
  * https://www.facebook.com/permalink.php?story_fbid=170987977876799&id=108444714131126&__xts__[0]=68.ARCD6Sr57p0K8uXplHjnaMLp0piIsAIBcRJFqiUGfgmGrnzLpbMnFib0zyPJG1jGNc2gzH1mSsLUjfYJYzemy6ofPRF4F88Jr1oDxCIr6A29dZFDeeE3zZKLFxG0__3t8OVP17Zdsd5uQFHPq9xnzZa2yruBjPNhHXOOonen1YX2rE44z4KIVkj_Wlwy1i2Ftx_sPzx0dFgaizY7f27wDFolGiq_jcyKdhNc1WrX6krvniipEKg1jR4iKvhy3TjGiGvGPJXZaBCrPMluUm9CtrG-fD6YaDA-EAVwqyYeoxpOixLfq8WO1fhPvLhw4vpBKAFt2FFtnKmswR-TMak&__tn__=-R
@@ -32,14 +34,14 @@ async function checkMsgFB(message) {
             console.log("story_fbid")
             let page_id = urlParams.get("id")
             message_id = `fb_${page_id}_${story_fbid}`
-            console.log(message_id)
+            // console.log(message_id)
         } else if (type) {
             console.log("type")
             let bodyMsg = _.split(url.pathname, "/")
-            let pages_id = await getPageID(bodyMsg[1])
+            let page_id = await getPageID(bodyMsg[1])
             let post_id = bodyMsg[4]
             message_id = `fb_${page_id}_${post_id}`
-            console.log(message_id)
+            // console.log(message_id)
         } else if (watch) {
             console.log("watch")
             let linkWatch = await getLinkWatch(watch)
@@ -55,7 +57,7 @@ async function checkMsgFB(message) {
                 let page_id = await getPageID(bodyMsg[1])
                 let post_id = bodyMsg[3]
                 message_id = `fb_${page_id}_${post_id}`
-                console.log(message_id)
+                // console.log(message_id)
             } else {
                 /**
                  * res something
@@ -68,11 +70,25 @@ async function checkMsgFB(message) {
             url = new URL(linkMsg)
             let bodyMsg = _.split(url.pathname, "/")
             let pages_name = bodyMsg[1]
-            let pages_id = await getPageID(bodyMsg[1])
+            let page_id = await getPageID(bodyMsg[1])
             let post_id = bodyMsg[3]
             message_id = `fb_${page_id}_${post_id}`
-            console.log(message_id)
+            // console.log(message_id)
         }
+        // console.log("======>", message_id)
+        let statusMsg
+        if (message_id) {
+            statusMsg = await checkMessage(message_id)
+            // console.log("=====>", statusMsg)
+            let msg = await formatMessages(statusMsg)
+            console.log(JSON.stringify(msg))
+        }
+        // let statusMsg = {
+        //     "_id": "https://pantip.com/topic/40119573",
+        //     "created_time": "2020-08-10T02:07:54.000Z",
+        //     "sys_time": "2020-08-10T10:15:55.705Z",
+        //     "cts": "2020-08-10T10:15:55.692Z"
+        // }
     } catch (e) {
         console.log('eeeeeee', e)
     }
@@ -123,7 +139,12 @@ async function checkMsgTW(message) {
         let page_id = await getUserID(user)
         let post_id = bodyMsg[3]
         let message_id = `tw_${page_id}_${post_id}`
-        console.log(message_id)
+        // console.log("======>", message_id)
+        let statusMsg
+        if (message_id) {
+            statusMsg = await checkMessage(message_id)
+            console.log("=====>", statusMsg)
+        }
     } catch (e) {
         console.log("eeeeeeeeeee", e.error.errors.message)
         return false
@@ -175,7 +196,12 @@ async function checkMsgYT(message) {
         let chID = await getChannelID(watch_id)
         console.log("==============>", chID)
         message_id = `yt_${chID}_${watch_id}`
-        console.log(message_id)
+        // console.log("======>", message_id)
+        let statusMsg
+        if (message_id) {
+            statusMsg = await checkMessage(message_id)
+            console.log("=====>", statusMsg)
+        }
 
     } catch (error) {
         console.log("eeeeeeeeeee", e.error.errors.message)
@@ -214,7 +240,12 @@ async function checkMsgIG(message) {
         // console.log(bodyMsg)
         let post_id = bodyMsg[2]
         let message_id = `ig_${post_id}`
-        console.log(message_id)
+        // console.log("======>", message_id)
+        let statusMsg
+        if (message_id) {
+            statusMsg = await checkMessage(message_id)
+            console.log("=====>", statusMsg)
+        }
     } catch (error) {
         console.log("eeeeeeeeeee", e.error.errors.message)
         return false
@@ -237,12 +268,187 @@ async function checkMsgPT(message) {
         let bodyMsg = _.split(url.pathname, "/")
         console.log(bodyMsg)
         let message_id = `com.pantip_/topic/${bodyMsg[2]}`
-        console.log(message_id)
+        // console.log("======>", message_id)
+        let statusMsg
+        if (message_id) {
+            statusMsg = await checkMessage(message_id)
+            console.log("=====>", statusMsg)
+        }
     } catch (error) {
         console.log("eeeeeeeeeee", e.error.errors.message)
         return false
     }
 
+}
+
+
+async function formatMessages(status) {
+    return {
+        "type": "flex",
+        "altText": "new messages",
+        "contents": {
+            "type": "bubble",
+            "header": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "Message status"
+                    }
+                ]
+            },
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "text",
+                        // "wrap": true,
+                        "text": `Link : `,
+                        "offsetTop": "10px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "10px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "bold",
+                        "color": "#000E29"
+                    }, {
+                        "type": "text",
+                        // "wrap": true,
+                        "text": `${status._id}`,
+                        "offsetTop": "-8px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "80px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "regular"
+                    },
+                    {
+                        "type": "text",
+                        "wrap": true,
+                        "text": `Channel : `,
+                        "offsetTop": "-5px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "10px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "bold",
+                        "color": "#000E29"
+                    }, {
+                        "type": "text",
+                        // "wrap": true,
+                        "text": `${status.channel}`,
+                        "offsetTop": "-23px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "80px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "regular"
+                    }, {
+                        "type": "text",
+                        "wrap": true,
+                        "text": `Zone : `,
+                        "offsetTop": "-20px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "10px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "bold",
+                        "color": "#000E29"
+                    }, {
+                        "type": "text",
+                        // "wrap": true,
+                        "text": `${status.zone}`,
+                        "offsetTop": "-39px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "80px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "regular"
+                    }, {
+                        "type": "text",
+                        "wrap": true,
+                        "text": `Created_Time : `,
+                        "offsetTop": "-50px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "10px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "bold",
+                        "color": "#000E29"
+                    }, {
+                        "type": "text",
+                        // "wrap": true,
+                        "text": `${status.created_time}`,
+                        "offsetTop": "-68px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "120px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "regular"
+                    }, {
+                        "type": "text",
+                        "wrap": true,
+                        "text": `Sys_Time : `,
+                        "offsetTop": "-65px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "10px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "bold",
+                        "color": "#000E29"
+                    }, {
+                        "type": "text",
+                        // "wrap": true,
+                        "text": `${status.sys_time}`,
+                        "offsetTop": "-83px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "90px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "regular"
+                    }, {
+                        "type": "text",
+                        "wrap": true,
+                        "text": `Cts : `,
+                        "offsetTop": "-80px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "10px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "bold",
+                        "color": "#000E29"
+                    }, {
+                        "type": "text",
+                        // "wrap": true,
+                        "text": `${status.cts}`,
+                        "offsetTop": "-98px",
+                        "offsetBottom": "10px",
+                        "offsetStart": "50px",
+                        "offsetEnd": "10px",
+                        "size": "sm",
+                        "style": "normal",
+                        "weight": "regular"
+                    }
+                ],
+                "backgroundColor": "#E8EBED",
+                "width": "260px",
+                "height": "170px"
+            }
+        }
+    }
 }
 
 module.exports = {

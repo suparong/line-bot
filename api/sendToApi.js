@@ -80,10 +80,24 @@ async function insertConfig(configInfo) {
     }
 }
 
+async function checkMessage(_id) {
+    console.log("===========>", _id)
+    let options = {
+        'method': 'POST',
+        'url': 'http://localhost:8082/checkMessages',
+        'headers': {
+            '_id': `${_id}`
+        }
+    }
+    let statusMsg = await rq(options)
+    return JSON.parse(statusMsg)
+}
+
 module.exports = {
     checkPage,
     checkConfig,
     insertPage,
-    insertConfig
+    insertConfig,
+    checkMessage
 }
 

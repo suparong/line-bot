@@ -49,7 +49,7 @@ async function setBody(req) {
     let body
     try {
         // let reply_token = req.body.events[0].replyToken
-        // console.log(req.body.events[0])
+        console.log(req)
         let user_token = req.body.events[0].source.userId
         let msg = req.body.events[0].message.text
         body = {
