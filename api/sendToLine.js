@@ -11,7 +11,7 @@ const { help } = require('./help')
 const { web, getConfigInfo } = require('./web')
 const { checkMsgFB, checkMsgTW, checkMsgYT, checkMsgIG, checkMsgPT } = require('./messages')
 
-let HEADER = {
+const HEADER = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`
 }
