@@ -14,13 +14,17 @@ const { checkMsgFB, checkMsgTW, checkMsgYT, checkMsgIG, checkMsgPT } = require('
 
 
 async function reply(req) {
+    try {
+        let newres = await setBody(req)
+        // console.log("=============>", newres)
+        /**
+         * url :reply,push,multicast,Broadcast
+         */
+        pushBody(newres)
+    } catch (error) {
+        console.log("error : ", error)
+    }
 
-    let newres = await setBody(req)
-    // console.log("=============>", newres)
-    /**
-     * url :reply,push,multicast,Broadcast
-     */
-    // pushBody(newres)
 
 }
 
@@ -49,8 +53,9 @@ async function setBody(req) {
     let body
     try {
         // let reply_token = req.body.events[0].replyToken
-        console.log(req.body)
+        // console.log(req.body)
         let user_token = req.body.events[0].source.userId
+        // let user_token = "Ue811773dc55c06f5ad786782d0626f8c"
         let msg = req.body.events[0].message.text
         body = {
             "to": user_token,
@@ -66,7 +71,8 @@ async function setBody(req) {
             */
             if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch")) {
                 console.log("messages facebook")
-                await checkMsgFB(message)
+                let data = await checkMsgFB(message)
+                body.messages.push(data)
             } else {
                 console.log("facebook")
                 let data = await facebook(message)

@@ -78,17 +78,13 @@ async function checkMsgFB(message) {
         // console.log("======>", message_id)
         let statusMsg
         if (message_id) {
-            statusMsg = await checkMessage(message_id)
-            // console.log("=====>", statusMsg)
-            let msg = await formatMessages(statusMsg)
-            console.log(JSON.stringify(msg))
+            // statusMsg = await checkMessage(message_id)
+            // // console.log("=====>", statusMsg)
+            // let msg = await formatMessages(statusMsg)
+            // console.log(JSON.stringify(msg))
+            let msg = { "type": "flex", "altText": "new messages", "contents": { "type": "bubble", "header": { "type": "box", "layout": "vertical", "contents": [{ "type": "text", "text": "Message status" }] }, "body": { "type": "box", "layout": "vertical", "contents": [{ "type": "box", "layout": "vertical", "contents": [{ "type": "box", "layout": "horizontal", "contents": [{ "type": "box", "layout": "vertical", "contents": [{ "type": "text", "contents": [{ "type": "span", "text": "_id", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "fb_204234332938286_301148657763460", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Link", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "https://www.facebook.com/TrueMoveH/videos/301148657763460/", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Channel", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "facebook", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Zone", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "th", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Created_Time", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-07T13:18:15", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Sys_Time", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-08T09:00:03", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Cts", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-09T02:58:37", "size": "xs" }], "size": "sm", "wrap": true }] }], "spacing": "xl", "paddingAll": "20px" }], "backgroundColor": "#E8EBED", "offsetStart": "10px", "offsetBottom": "20px", "width": "280px", "paddingTop": "10px", "paddingBottom": "0px" }], "paddingAll": "0px" }, "footer": { "type": "box", "layout": "vertical", "spacing": "sm", "contents": [{ "type": "button", "style": "link", "height": "sm", "action": { "type": "uri", "label": "Link", "uri": "http://linecorp.com/" } }], "paddingTop": "0px", "paddingBottom": "0px", "offsetTop": "-10px" } } }
+            return msg
         }
-        // let statusMsg = {
-        //     "_id": "https://pantip.com/topic/40119573",
-        //     "created_time": "2020-08-10T02:07:54.000Z",
-        //     "sys_time": "2020-08-10T10:15:55.705Z",
-        //     "cts": "2020-08-10T10:15:55.692Z"
-        // }
     } catch (e) {
         console.log('eeeeeee', e)
     }
@@ -283,6 +279,17 @@ async function checkMsgPT(message) {
 
 
 async function formatMessages(status) {
+    let created_time = null
+    let sys_time = null
+    let cts = null
+    if (status.created_time && status.sys_time && status.cts) {
+        let created_timeSplit = status.created_time.split(".")
+        created_time = created_timeSplit[0]
+        let sys_timeSplit = status.sys_time.split(".")
+        sys_time = sys_timeSplit[0]
+        let ctsSplit = status.cts.split(".")
+        cts = ctsSplit[0]
+    }
     return {
         "type": "flex",
         "altText": "new messages",
@@ -303,149 +310,207 @@ async function formatMessages(status) {
                 "layout": "vertical",
                 "contents": [
                     {
-                        "type": "text",
-                        // "wrap": true,
-                        "text": `Link : `,
-                        "offsetTop": "10px",
-                        "offsetBottom": "10px",
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents": [
+                                    {
+                                        "type": "box",
+                                        "layout": "vertical",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "contents": [
+                                                    {
+                                                        "type": "span",
+                                                        "text": "_id",
+                                                        "weight": "bold",
+                                                        "color": "#000000"
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": " : "
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": `${status._id}`,
+                                                        "size": "xs"
+                                                    }
+                                                ],
+                                                "size": "sm",
+                                                "wrap": true
+                                            },
+                                            {
+                                                "type": "text",
+                                                "contents": [
+                                                    {
+                                                        "type": "span",
+                                                        "text": "Link",
+                                                        "weight": "bold",
+                                                        "color": "#000000"
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": " : "
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": `${status.link}`,
+                                                        "size": "xs"
+                                                    }
+                                                ],
+                                                "size": "sm",
+                                                "wrap": true
+                                            },
+                                            {
+                                                "type": "text",
+                                                "contents": [
+                                                    {
+                                                        "type": "span",
+                                                        "text": "Channel",
+                                                        "weight": "bold",
+                                                        "color": "#000000"
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": " : "
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": `${status.channel}`,
+                                                        "size": "xs"
+                                                    }
+                                                ],
+                                                "size": "sm",
+                                                "wrap": true
+                                            },
+                                            {
+                                                "type": "text",
+                                                "contents": [
+                                                    {
+                                                        "type": "span",
+                                                        "text": "Zone",
+                                                        "weight": "bold",
+                                                        "color": "#000000"
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": " : "
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": `${status.zone}`,
+                                                        "size": "xs"
+                                                    }
+                                                ],
+                                                "size": "sm",
+                                                "wrap": true
+                                            },
+                                            {
+                                                "type": "text",
+                                                "contents": [
+                                                    {
+                                                        "type": "span",
+                                                        "text": "Created_Time",
+                                                        "weight": "bold",
+                                                        "color": "#000000"
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": " : "
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": `${created_time}`,
+                                                        "size": "xs"
+                                                    }
+                                                ],
+                                                "size": "sm",
+                                                "wrap": true
+                                            },
+                                            {
+                                                "type": "text",
+                                                "contents": [
+                                                    {
+                                                        "type": "span",
+                                                        "text": "Sys_Time",
+                                                        "weight": "bold",
+                                                        "color": "#000000"
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": " : "
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": `${sys_time}`,
+                                                        "size": "xs"
+                                                    }
+                                                ],
+                                                "size": "sm",
+                                                "wrap": true
+                                            },
+                                            {
+                                                "type": "text",
+                                                "contents": [
+                                                    {
+                                                        "type": "span",
+                                                        "text": "Cts",
+                                                        "weight": "bold",
+                                                        "color": "#000000"
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": " : "
+                                                    },
+                                                    {
+                                                        "type": "span",
+                                                        "text": `${cts}`,
+                                                        "size": "xs"
+                                                    }
+                                                ],
+                                                "size": "sm",
+                                                "wrap": true
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "spacing": "xl",
+                                "paddingAll": "20px"
+                            }
+                        ],
+                        "backgroundColor": "#E8EBED",
                         "offsetStart": "10px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "bold",
-                        "color": "#000E29"
-                    }, {
-                        "type": "text",
-                        // "wrap": true,
-                        "text": `${status._id}`,
-                        "offsetTop": "-8px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "80px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "regular"
-                    },
-                    {
-                        "type": "text",
-                        "wrap": true,
-                        "text": `Channel : `,
-                        "offsetTop": "-5px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "10px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "bold",
-                        "color": "#000E29"
-                    }, {
-                        "type": "text",
-                        // "wrap": true,
-                        "text": `${status.channel}`,
-                        "offsetTop": "-23px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "80px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "regular"
-                    }, {
-                        "type": "text",
-                        "wrap": true,
-                        "text": `Zone : `,
-                        "offsetTop": "-20px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "10px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "bold",
-                        "color": "#000E29"
-                    }, {
-                        "type": "text",
-                        // "wrap": true,
-                        "text": `${status.zone}`,
-                        "offsetTop": "-39px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "80px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "regular"
-                    }, {
-                        "type": "text",
-                        "wrap": true,
-                        "text": `Created_Time : `,
-                        "offsetTop": "-50px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "10px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "bold",
-                        "color": "#000E29"
-                    }, {
-                        "type": "text",
-                        // "wrap": true,
-                        "text": `${status.created_time}`,
-                        "offsetTop": "-68px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "120px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "regular"
-                    }, {
-                        "type": "text",
-                        "wrap": true,
-                        "text": `Sys_Time : `,
-                        "offsetTop": "-65px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "10px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "bold",
-                        "color": "#000E29"
-                    }, {
-                        "type": "text",
-                        // "wrap": true,
-                        "text": `${status.sys_time}`,
-                        "offsetTop": "-83px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "90px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "regular"
-                    }, {
-                        "type": "text",
-                        "wrap": true,
-                        "text": `Cts : `,
-                        "offsetTop": "-80px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "10px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "bold",
-                        "color": "#000E29"
-                    }, {
-                        "type": "text",
-                        // "wrap": true,
-                        "text": `${status.cts}`,
-                        "offsetTop": "-98px",
-                        "offsetBottom": "10px",
-                        "offsetStart": "50px",
-                        "offsetEnd": "10px",
-                        "size": "sm",
-                        "style": "normal",
-                        "weight": "regular"
+                        "offsetBottom": "20px",
+                        "width": "280px",
+                        "paddingTop": "10px",
+                        "paddingBottom": "0px"
                     }
                 ],
-                "backgroundColor": "#E8EBED",
-                "width": "260px",
-                "height": "170px"
+                "paddingAll": "0px"
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                    {
+                        "type": "button",
+                        "style": "link",
+                        "height": "sm",
+                        "action": {
+                            "type": "uri",
+                            "label": "Link",
+                            "uri": "http://linecorp.com/"
+                        }
+                    }
+                ],
+                "paddingTop": "0px",
+                "paddingBottom": "0px",
+                "offsetTop": "-10px"
             }
         }
     }
