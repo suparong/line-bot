@@ -93,12 +93,11 @@ async function checkAndFormat(message_id) {
     // console.log("=====>", statusMsg)
     if (statusMsg.status) {
         let msg = await formatMessages(statusMsg.data)
-        console.log(JSON.stringify(msg))
         return msg
     } else {
         ///doing
         console.log("============> false")
-        return { type: "text", text: `No` }
+        return { type: "text", text: `No Messages` }
     }
 }
 

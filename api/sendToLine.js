@@ -85,16 +85,20 @@ async function setBody(req) {
             }
         } else if (message.indexOf("twitter") === 12 || _.includes(message, "www.twitter.com") || _.includes(message, "twitter.com") || _.includes(message, "twitter")) {
             console.log("twitter")
-            await checkMsgTW(message)
+            let data = await checkMsgTW(message)
+            body.messages.push(data)
         } else if (message.indexOf("youtube") === 12 || _.includes(message, "www.youtube.com") || _.includes(message, "youtube.com") || _.includes(message, "youtube"), _.includes(message, "youtu")) {
             console.log("youtube")
-            await checkMsgYT(msg)
+            let data = await checkMsgYT(msg)
+            body.messages.push(data)
         } else if (message.indexOf("instagram") === 12 || _.includes(message, "www.instagram.com") || _.includes(message, "instagram.com") || _.includes(message, "instagram")) {
             console.log("instagram")
-            await checkMsgIG(msg)
+            let data = await checkMsgIG(msg)
+            body.messages.push(data)
         } else if (message.indexOf("pantip") === 12 || _.includes(message, "www.pantip.com") || _.includes(message, "pantip.com") || _.includes(message, "pantip")) {
             console.log("pantip")
-            await checkMsgPT(message)
+            let data = await checkMsgPT(message)
+            body.messages.push(data)
         } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
             console.log("submit")
             if (_.includes(message, "fb")) {
