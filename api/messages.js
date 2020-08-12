@@ -147,7 +147,7 @@ async function checkMsgTW(message) {
         let post_id = bodyMsg[3]
         let message_id = `tw_${page_id}_${post_id}`
         // console.log("======>", message_id)
-        if (!user) return { type: "text", text: `user not found` }
+        if (user === undefined) return { type: "text", text: `user not found` }
         if (message_id) {
             let Msg = await checkAndFormat(message_id)
             return Msg
