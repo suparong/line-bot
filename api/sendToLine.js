@@ -19,7 +19,7 @@ const HEADER = {
 async function reply(req) {
     try {
         let newres = await setBody(req)
-        console.log("=============>", newres)
+        // console.log("=============>", newres)
         /**
          * url :reply,push,multicast,Broadcast
          */
@@ -77,7 +77,6 @@ async function setBody(req) {
             if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch")) {
                 console.log("messages facebook")
                 let data = await checkMsgFB(message)
-                // let data = { "type": "flex", "altText": "new messages", "contents": { "type": "bubble", "header": { "type": "box", "layout": "vertical", "contents": [{ "type": "text", "text": "Message status" }] }, "body": { "type": "box", "layout": "vertical", "contents": [{ "type": "box", "layout": "vertical", "contents": [{ "type": "box", "layout": "horizontal", "contents": [{ "type": "box", "layout": "vertical", "contents": [{ "type": "text", "contents": [{ "type": "span", "text": "_id", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "fb_204234332938286_301148657763460", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Link", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "https://www.facebook.com/TrueMoveH/videos/301148657763460/", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Channel", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "facebook", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Zone", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "th", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Created_Time", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-07T13:18:15", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Sys_Time", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-08T09:00:03", "size": "xs" }], "size": "sm", "wrap": true }, { "type": "text", "contents": [{ "type": "span", "text": "Cts", "weight": "bold", "color": "#000000" }, { "type": "span", "text": " : " }, { "type": "span", "text": "2020-08-09T02:58:37", "size": "xs" }], "size": "sm", "wrap": true }] }], "spacing": "xl", "paddingAll": "20px" }], "backgroundColor": "#E8EBED", "offsetStart": "10px", "offsetBottom": "20px", "width": "280px", "paddingTop": "10px", "paddingBottom": "0px" }], "paddingAll": "0px" }, "footer": { "type": "box", "layout": "vertical", "spacing": "sm", "contents": [{ "type": "button", "style": "link", "height": "sm", "action": { "type": "uri", "label": "Link", "uri": "http://linecorp.com/" } }], "paddingTop": "0px", "paddingBottom": "0px", "offsetTop": "-10px" } } }
                 body.messages.push(data)
             } else {
                 console.log("facebook")
@@ -162,7 +161,6 @@ async function replyBody(newres) {
         headers: HEADER,
         body: newres // Automatically stringifies the body to JSON
     }
-    console.log("+++++++++", options)
     const res = await rq(options)
     console.log('status = ' + JSON.stringify("DONE"));
 }
