@@ -104,6 +104,7 @@ async function searchPage(page, zone) {
             return newPageInfo
         }
     } catch (error) {
+        console.log('eeeeeeee', error)
         return {
             // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `ทำอะไรผิดป่าวววว` }] }
             type: "text", text: `Please check your link url again. Make sure that you send Facebook page’s link.`
