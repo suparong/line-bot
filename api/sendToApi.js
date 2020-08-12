@@ -44,6 +44,7 @@ async function insertPage(pageInfo) {
 }
 
 async function checkConfig(domain) {
+    console.log("================== checkConfig")
     /**
      * domain = "land-house"
      */
@@ -59,7 +60,7 @@ async function checkConfig(domain) {
 }
 
 async function insertConfig(configInfo) {
-    console.log("================== configInfo")
+    console.log("================== insertConfig")
     try {
         let options = {
             'method': 'POST',
@@ -81,7 +82,7 @@ async function insertConfig(configInfo) {
 }
 
 async function checkMessage(_id) {
-    console.log("===========>", _id)
+    console.log("===========> checkMessage")
     let options = {
         'method': 'POST',
         'url': 'http://192.168.19.23:8082/checkMessages',
