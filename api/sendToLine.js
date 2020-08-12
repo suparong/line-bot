@@ -158,7 +158,7 @@ async function pushBody(newres) {
         const res = await rq(options)
         console.log('status = ' + JSON.stringify("DONE"));
     } catch (e) {
-        console.log(e.error.message)
+        console.log(e.error)
     }
 
 }
@@ -174,7 +174,7 @@ async function replyBody(newres) {
         const res = await rq(options)
         console.log('status = ' + JSON.stringify("DONE"));
     } catch (e) {
-        console.log(e.error.message)
+        console.log(e.error)
     }
 
 }
