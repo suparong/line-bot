@@ -148,25 +148,35 @@ async function formatData(body) {
 
 
 async function pushBody(newres) {
-    let options = {
-        method: 'POST',
-        uri: 'https://api.line.me/v2/bot/message/push',
-        headers: HEADER,
-        body: newres // Automatically stringifies the body to JSON
+    try {
+        let options = {
+            method: 'POST',
+            uri: 'https://api.line.me/v2/bot/message/push',
+            headers: HEADER,
+            body: newres // Automatically stringifies the body to JSON
+        }
+        const res = await rq(options)
+        console.log('status = ' + JSON.stringify("DONE"));
+    } catch (e) {
+        console.log(e.error.errors.message)
     }
-    const res = await rq(options)
-    console.log('status = ' + JSON.stringify("DONE"));
+
 }
 
 async function replyBody(newres) {
-    let options = {
-        method: 'POST',
-        uri: 'https://api.line.me/v2/bot/message/reply',
-        headers: HEADER,
-        body: newres // Automatically stringifies the body to JSON
+    try {
+        let options = {
+            method: 'POST',
+            uri: 'https://api.line.me/v2/bot/message/reply',
+            headers: HEADER,
+            body: newres // Automatically stringifies the body to JSON
+        }
+        const res = await rq(options)
+        console.log('status = ' + JSON.stringify("DONE"));
+    } catch (error) {
+        console.log(e.error.errors.message)
     }
-    const res = await rq(options)
-    console.log('status = ' + JSON.stringify("DONE"));
+
 }
 
 
