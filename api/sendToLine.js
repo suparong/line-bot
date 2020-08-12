@@ -151,7 +151,7 @@ async function pushBody(newres) {
     let options = {
         method: 'POST',
         uri: 'https://api.line.me/v2/bot/message/push',
-        HEADER,
+        headers: HEADER,
         body: newres // Automatically stringifies the body to JSON
     }
     const res = await rq(options)
