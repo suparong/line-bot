@@ -77,7 +77,7 @@ async function checkMsgFB(message) {
             message_id = `fb_${page_id}_${post_id}`
             // console.log(message_id)
         }
-        // console.log("======>", message_id)
+        console.log("======>", message_id)
         if (message_id) {
             let Msg = await checkAndFormat(message_id)
             return Msg
@@ -146,7 +146,7 @@ async function checkMsgTW(message) {
         let page_id = await getUserID(user)
         let post_id = bodyMsg[3]
         let message_id = `tw_${page_id}_${post_id}`
-        // console.log("======>", message_id)
+        console.log("======>", message_id)
         if (message_id) {
             let Msg = await checkAndFormat(message_id)
             return Msg
@@ -202,7 +202,7 @@ async function checkMsgYT(message) {
         let chID = await getChannelID(watch_id)
         console.log("==============>", chID)
         message_id = `yt_${chID}_${watch_id}`
-        // console.log("======>", message_id)
+        console.log("======>", message_id)
         if (message_id) {
             let Msg = await checkAndFormat(message_id)
             return Msg
@@ -245,7 +245,7 @@ async function checkMsgIG(message) {
         // console.log(bodyMsg)
         let post_id = bodyMsg[2]
         let message_id = `ig_${post_id}`
-        // console.log("======>", message_id)
+        console.log("======>", message_id)
         if (message_id) {
             let Msg = await checkAndFormat(message_id)
             return Msg
@@ -272,7 +272,7 @@ async function checkMsgPT(message) {
         let bodyMsg = _.split(url.pathname, "/")
         console.log(bodyMsg)
         let message_id = `com.pantip_/topic/${bodyMsg[2]}`
-        // console.log("======>", message_id)
+        console.log("======>", message_id)
         if (message_id) {
             let Msg = await checkAndFormat(message_id)
             return Msg
@@ -283,7 +283,6 @@ async function checkMsgPT(message) {
     }
 
 }
-
 
 async function formatMessages(status) {
     let created_time = null
