@@ -83,7 +83,8 @@ async function checkMsgFB(message) {
             return Msg
         }
     } catch (e) {
-        console.log('eeeeeee', e)
+        // console.log('eeeeeee', e)
+        return { type: "text", text: `${e.error.errors.message}` }
     }
 
 }
@@ -146,13 +147,14 @@ async function checkMsgTW(message) {
         let post_id = bodyMsg[3]
         let message_id = `tw_${page_id}_${post_id}`
         // console.log("======>", message_id)
+        if (!user) return { type: "text", text: `user not found` }
         if (message_id) {
             let Msg = await checkAndFormat(message_id)
             return Msg
         }
     } catch (e) {
-        console.log("eeeeeeeeeee", e.error.errors.message)
-        return false
+        // console.log("eeeeeeeeeee", e.error.errors.message)
+        return { type: "text", text: `${e.error.errors.message}` }
     }
 
 }
@@ -207,9 +209,9 @@ async function checkMsgYT(message) {
             return Msg
         }
 
-    } catch (error) {
-        console.log("eeeeeeeeeee", e.error.errors.message)
-        return false
+    } catch (e) {
+        // console.log("eeeeeeeeeee", e.error.errors.message)
+        return { type: "text", text: `${e.error.errors.message}` }
     }
 
 }
@@ -249,9 +251,9 @@ async function checkMsgIG(message) {
             let Msg = await checkAndFormat(message_id)
             return Msg
         }
-    } catch (error) {
-        console.log("eeeeeeeeeee", e.error.errors.message)
-        return false
+    } catch (e) {
+        // console.log("eeeeeeeeeee", e.error.errors.message)
+        return { type: "text", text: `${e.error.errors.message}` }
     }
 
 }
@@ -276,9 +278,9 @@ async function checkMsgPT(message) {
             let Msg = await checkAndFormat(message_id)
             return Msg
         }
-    } catch (error) {
-        console.log("eeeeeeeeeee", e.error.errors.message)
-        return false
+    } catch (e) {
+        // console.log("eeeeeeeeeee", e.error.errors.message)
+        return { type: "text", text: `${e.error.errors.message}` }
     }
 
 }
