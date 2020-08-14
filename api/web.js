@@ -218,15 +218,21 @@ async function formateData(domain, list) {
     let created_time = null
     let sys_time = null
     let cts = null
+    let created_time_GMT
+    let sys_time_GMT
+    let cts_GMT
     if (list.created_time && list.sys_time && list.cts) {
-        // let created_timeSplit = list.created_time.split(".")
-        created_time = list.created_time
+        let created_timeGMT = list.created_time.split("+")
+        created_time_GMT = created_timeGMT[1].split(":")
+        created_time = created_timeGMT[0]
         // console.log(created_time)
-        // let sys_timeSplit = list.sys_time.split(".")
-        sys_time = list.sys_time
+        let sys_timeGMT = list.sys_time.split("+")
+        sys_time_GMT = sys_timeGMT[1].split(":")
+        sys_time = sys_timeGMT[0]
         // console.log(sys_time)
-        // let ctsSplit = list.cts.split(".")
-        cts = list.cts
+        let ctsGMT = list.cts.split("+")
+        cts_GMT = ctsGMT[1].split(":")
+        cts = ctsGMT[0]
         // console.log(cts)
     }
 
@@ -342,7 +348,7 @@ async function formateData(domain, list) {
             }, {
                 "type": "text",
                 // "wrap": true,
-                "text": `${created_time}`,
+                "text": `${created_time} +${created_time_GMT}`,
                 "offsetTop": "-68px",
                 "offsetBottom": "10px",
                 "offsetStart": "120px",
@@ -365,7 +371,7 @@ async function formateData(domain, list) {
             }, {
                 "type": "text",
                 // "wrap": true,
-                "text": `${sys_time}`,
+                "text": `${sys_time} +${sys_time_GMT}`,
                 "offsetTop": "-83px",
                 "offsetBottom": "10px",
                 "offsetStart": "90px",
@@ -388,7 +394,7 @@ async function formateData(domain, list) {
             }, {
                 "type": "text",
                 // "wrap": true,
-                "text": `${cts}`,
+                "text": `${cts} +${cts_GMT}`,
                 "offsetTop": "-98px",
                 "offsetBottom": "10px",
                 "offsetStart": "50px",
