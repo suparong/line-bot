@@ -223,15 +223,15 @@ async function formateData(domain, list) {
     let cts_GMT
     if (list.created_time && list.sys_time && list.cts) {
         let created_timeGMT = list.created_time.split("+")
-        created_time_GMT = created_timeGMT[1].split(":")
+        created_time_GMT = created_timeGMT[1].split(":")[0]
         created_time = created_timeGMT[0]
         // console.log(created_time)
         let sys_timeGMT = list.sys_time.split("+")
-        sys_time_GMT = sys_timeGMT[1].split(":")
+        sys_time_GMT = sys_timeGMT[1].split(":")[0]
         sys_time = sys_timeGMT[0]
         // console.log(sys_time)
         let ctsGMT = list.cts.split("+")
-        cts_GMT = ctsGMT[1].split(":")
+        cts_GMT = ctsGMT[1].split(":")[0]
         cts = ctsGMT[0]
         // console.log(cts)
     }
