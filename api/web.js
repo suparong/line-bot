@@ -219,12 +219,9 @@ async function formateData(domain, list) {
     let sys_time = null
     let cts = null
     if (list.created_time && list.sys_time && list.cts) {
-        let created_timeSplit = list.created_time.split(".")
-        created_time = created_timeSplit[0]
-        let sys_timeSplit = list.sys_time.split(".")
-        sys_time = sys_timeSplit[0]
-        let ctsSplit = list.cts.split(".")
-        cts = ctsSplit[0]
+        let created_time = list.created_time
+        let sys_time = list.sys_time
+        let cts = list.cts
     }
 
     return {
@@ -344,7 +341,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "120px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             }, {
@@ -367,7 +364,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "90px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             }, {
@@ -390,7 +387,7 @@ async function formateData(domain, list) {
                 "offsetBottom": "10px",
                 "offsetStart": "50px",
                 "offsetEnd": "10px",
-                "size": "sm",
+                "size": "xs",
                 "style": "normal",
                 "weight": "regular"
             }
