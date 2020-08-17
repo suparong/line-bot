@@ -85,7 +85,7 @@ async function checkMsgFB(message) {
         }
     } catch (e) {
         // console.log('eeeeeee', e)
-        return { type: "text", text: `${e.error.errors.message}` }
+        return { type: "text", text: `${e}` }
     }
 
 }
