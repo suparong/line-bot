@@ -95,7 +95,7 @@ async function checkMsgFB(message) {
 
 async function checkAndFormat(message_id) {
     let statusMsg = await checkMessage(message_id)
-    console.log("=====>", statusMsg)
+    // console.log("=====>", statusMsg)
     if (statusMsg.status) {
         let msg = await formatMessages(statusMsg.data)
         return msg
