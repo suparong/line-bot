@@ -153,7 +153,7 @@ async function checkMsgTW(message) {
             return Msg
         }
     } catch (e) {
-        // console.log("eeeeeeeeeee", e.error.errors.message)
+        // console.log("eeeeeeeeeee", e)
         return { type: "text", text: `user not found` }
     }
 
@@ -210,8 +210,8 @@ async function checkMsgYT(message) {
         }
 
     } catch (e) {
-        // console.log("eeeeeeeeeee", e.error.errors.message)
-        return { type: "text", text: `${e.error.errors.message}` }
+        // console.log("eeeeeeeeeee", e)
+        return { type: "text", text: `${e}` }
     }
 
 }
@@ -252,8 +252,8 @@ async function checkMsgIG(message) {
             return Msg
         }
     } catch (e) {
-        // console.log("eeeeeeeeeee", e.error.errors.message)
-        return { type: "text", text: `${e.error.errors.message}` }
+        // console.log("eeeeeeeeeee", e)
+        return { type: "text", text: `${e}` }
     }
 
 }
@@ -279,8 +279,8 @@ async function checkMsgPT(message) {
             return Msg
         }
     } catch (e) {
-        // console.log("eeeeeeeeeee", e.error.errors.message)
-        return { type: "text", text: `${e.error.errors.message}` }
+        // console.log("eeeeeeeeeee", e)
+        return { type: "text", text: `${e}` }
     }
 
 }
