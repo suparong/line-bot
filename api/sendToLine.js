@@ -74,7 +74,7 @@ async function setBody(req) {
             /**
             * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
             */
-            if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch")) {
+            if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch" || _.includes(message, "story")) {
                 console.log("messages facebook")
                 let data = await checkMsgFB(message)
                 body.messages.push(data)
