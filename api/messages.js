@@ -92,7 +92,7 @@ async function checkMsgFB(message) {
 
 async function checkAndFormat(message_id) {
     let statusMsg = await checkMessage(message_id)
-    // console.log("=====>", statusMsg)
+    console.log("=====>", statusMsg)
     if (statusMsg.status) {
         let msg = await formatMessages(statusMsg.data)
         return msg
@@ -292,6 +292,7 @@ async function formatMessages(status) {
     let created_time_GMT
     let sys_time_GMT
     let cts_GMT
+    let acc = null
     if (status.created_time && status.sys_time && status.cts) {
         let created_timeGMT = status.created_time.split("+")
         created_time_GMT = created_timeGMT[1].split(":")[0]
@@ -305,6 +306,9 @@ async function formatMessages(status) {
         cts_GMT = ctsGMT[1].split(":")[0]
         cts = ctsGMT[0]
         // console.log(cts)
+    }
+    if (status.acc_list) {
+        acc = status.acc_list
     }
     return {
         "type": "flex",
@@ -374,7 +378,7 @@ async function formatMessages(status) {
                                                     },
                                                     {
                                                         "type": "span",
-                                                        "text": `${status.acc_list}`,
+                                                        "text": `${acc}`,
                                                         "size": "xs"
                                                     }
                                                 ],
