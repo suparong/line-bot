@@ -27,8 +27,8 @@ const { checkMessage } = require('./sendToApi')
  */
 
 async function checkMsgFB(message) {
+    let message_id
     try {
-        let message_id
         // console.log("=======>", message)
         let url = new URL(message)
         let urlParams = new URLSearchParams(url.search)
@@ -102,7 +102,7 @@ async function checkAndFormat(message_id) {
     } else {
         ///doing
         console.log("============> false")
-        return { type: "text", text: `No Messages` }
+        return { type: "text", text: `No Messages in system : ${message_id}` }
     }
 }
 
