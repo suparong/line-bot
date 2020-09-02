@@ -35,24 +35,21 @@ async function reply(req) {
 async function setBody(req) {
     /**
  *  messages In
- * {
-  "events": [
-    {
-      "type": "message",
-      "replyToken": "b669db6edb5e48dbb5961ab8...",
-      "source": {
-        "userId": "U3c28a70ed7c5e7ce2c9a7597...",
+ * { "events":
+   [ { "type": "message",
+       "replyToken": "342ab1127622474c96676764c46792eb",
+       ""source"": {
+        "userId": "Ue811773dc55c06f5ad786782d0626f8c",
         "type": "user"
-      },
-      "timestamp": 1531072356142,
-      "message": {
+    },
+       "timestamp": 1599024828211,
+       "mode": "active",
+       "message": {
         "type": "text",
-        "id": "82347...",
-        "text": "ทดสอบ"
-      }
-    }
-  ]
-}
+        "id": "12607242005618",
+        "text": "web=thairath"
+    } } ],
+  "destination": "U125bf0d159681d0e08ccb9923b2a4ffc" }
  */
     let body
     try {

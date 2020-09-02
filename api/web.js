@@ -26,19 +26,27 @@ async function web(message) {
             domain = webArray[1]
         }
         // console.log("==========> domain", domain, "zone ", zone)
+        /**
+         * thairath,
+         * https://thairath.co.th,
+         * https://www.thairath.co.th,
+         * https://www.thairath.com
+         */
         if (_.includes(domain, "http") || _.includes(domain, "https")) {
             let url_domain = new URL(domain)
-            let newDomain = (url_domain.host).split("www.")
-            if (_.includes(url_domain.host, "www")) {
-                domain = newDomain[1]
+            let newDomain = (url_domain.hostname).split("www.")
+            if (_.includes(url_domain.hostname, "www")) {
+                domain = newDomain[1].split(".")[0]
                 // console.log("============> 1", domain)
             } else {
-                domain = newDomain[0]
+                domain = newDomain[0].split(".")[0]
                 // console.log("============> 2", domain)
             }
         }
         // console.log("============> 4", domain)
         // info.contents.header.contents.text = domain
+        domain = domain.split(".")[0]
+        console.log("==", domain, ":", zone)
         let configList = await checkConfig(domain, zone)
         // console.log("=========", configList)
 
