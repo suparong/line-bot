@@ -6,6 +6,7 @@ const URL_API = "https://graph.facebook.com/v4.0"
 let _ = require('lodash')
 const { URLSearchParams } = require('url')
 const { checkPage, insertPage } = require('./sendToApi')
+const { checkMsgIG } = require('./messages')
 
 async function facebook(message) {
     // console.log("===============>", message)
@@ -236,10 +237,11 @@ async function getPageInfo(message, user_token) {
     let urlParams = new URLSearchParams(message)
     let page_id = urlParams.get('submit')
     let zone = urlParams.get('zone') || "none"
+    let tag = urlParams.get('tag') || "0"
 
-    const PageInfo = await searchPageInfo(page_id, zone, user_token)
-    // console.log(PageInfo)
-    const resDB = await insertPage(PageInfo)
+    const PageInfo = await searchPageInfo(page_id, zone, tag, user_token)
+    console.log(PageInfo)
+    // const resDB = await insertPage(PageInfo)
     // console.log("=============>", resDB)
     if (resDB) {
         return { type: "text", text: "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." }
@@ -248,7 +250,7 @@ async function getPageInfo(message, user_token) {
     }
 }
 
-async function searchPageInfo(page_id, zone, user_token) {
+async function searchPageInfo(page_id, zone, tag, user_token) {
     // console.log("+++++++++++++++++ searchPageInfo")
     let options = {
         'method': 'GET',
@@ -258,6 +260,12 @@ async function searchPageInfo(page_id, zone, user_token) {
     }
     let pageInfo = await rq(options)
     pageInfo.zone = zone
+    if (tag === "1") {
+        tag = true
+    } else {
+        tag = false
+    }
+    pageInfo.customer = tag
     pageInfo.line_token = user_token
     return pageInfo
 }
