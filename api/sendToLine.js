@@ -57,7 +57,7 @@ async function setBody(req) {
     let body
     try {
         // let reply_token = req.body.events[0].replyToken
-        // console.log(req.body)
+        console.log(req.body.events[0])
         let replyToken = req.body.events[0].replyToken
         let user_token = req.body.events[0].source.userId
         // let user_token = "Ue811773dc55c06f5ad786782d0626f8c"
