@@ -123,11 +123,6 @@ async function formateData(res, zone, tag) {
     zone = zone || "none"
     let pageInfo = {
         "type": "bubble",
-        "styles": {
-            "footer": {
-                "backgroundColor": "#42b3f4"
-            }
-        },
         "header": {
             "type": "box",
             "layout": "vertical",
