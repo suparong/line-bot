@@ -129,15 +129,18 @@ async function formateData(res, zone, tag) {
             "contents": [
                 {
                     "type": "text",
-                    "text": "Facebook Page Info"
+                    "text": "Facebook Page Request",
+                    "weight": "bold",
+                    "align": "center",
                 }
             ]
         },
         "hero": {
             "type": "image",
-            "size": "sm",
+            "size": "full",
             "url": "",
-            "aspectRatio": "1:1"
+            "aspectRatio": "1.51:1",
+            "aspectMode": "fit"
         },
         "body": {
             "type": "box",
@@ -239,7 +242,7 @@ async function getPageInfo(message, user_token) {
     const resDB = await insertPage(PageInfo)
     // console.log("=============>", resDB)
     if (resDB) {
-        return { type: "text", text: `Your page is sent for waiting for approval.` }
+        return { type: "text", text: "text": "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." }
     } else {
         return { type: "text", text: `This page already exists.` }
     }
