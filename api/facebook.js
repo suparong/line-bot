@@ -151,14 +151,12 @@ async function formateData(res, zone, tag) {
         },
         "footer": {
             "type": "box",
-            "layout": "vertical",
+            "layout": "horizontal",
             "spacing": "sm",
             "contents": [
                 {
                     "type": "button",
-                    "style": "link",
-                    "color": "#FFFFFF",
-                    "height": "sm",
+                    "style": "primary",
                     "action": {
                         "type": "message",
                         "label": "Submit",
@@ -181,6 +179,18 @@ async function formateData(res, zone, tag) {
                 "text": `Page Name: ${res.name}`
             }
             pageInfo.body.contents.push(item)
+        }
+        if (res.id) {
+            item = {
+                "type": "text",
+                "margin": "md",
+                "size": "sm",
+                "color": "#666666",
+                "text": `Page ID: ${res.id}`
+            }
+            pageInfo.body.contents.push(item)
+            // pageInfo.footer.contents[0].action.text = `OK เช็คให้นะ`
+            pageInfo.footer.contents[0].action.text = `&fb&submit=${res.id}&zone=${zone}`
         }
         if (res.fan_count) {
             item = {
@@ -215,18 +225,6 @@ async function formateData(res, zone, tag) {
                 "wrap": true
             }
             pageInfo.body.contents.push(item)
-        }
-        if (res.id) {
-            item = {
-                "type": "text",
-                "margin": "md",
-                "size": "sm",
-                "color": "#666666",
-                "text": `Page ID: ${res.id}`
-            }
-            pageInfo.body.contents.push(item)
-            // pageInfo.footer.contents[0].action.text = `OK เช็คให้นะ`
-            pageInfo.footer.contents[0].action.text = `&fb&submit=${res.id}&zone=${zone}`
         }
     } catch (error) {
         console.log(error)
