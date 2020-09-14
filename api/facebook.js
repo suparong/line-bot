@@ -18,17 +18,19 @@ async function facebook(message) {
             // console.log("11111111111", urlParams)
             let name = urlParams.get('add')
             let zone = urlParams.get('zone')
+            let tag = urlParams.get('tag')
             name = encodeURIComponent(name)
             console.log("+++++>", name, "zone : ", zone)
-            let item = await getPage(name, zone)
+            let item = await getPage(name, zone, tag)
             return item
         } else {
             // console.log("222222222222")
             let name = await getPathFromUrl(message)
             let zone = urlParams.get('zone')
+            let tag = urlParams.get('tag')
             var newname = name.split("&")
             newname = encodeURIComponent(newname[0])
-            let item = await getPage(newname, zone)
+            let item = await getPage(newname, zone, tag)
             return item
 
         }
@@ -44,7 +46,7 @@ function getPathFromUrl(url) {
 }
 
 
-async function getPage(page, zone) {
+async function getPage(page, zone, tag) {
     // console.log("+++++++++++++++++ getPage")
     let info = {
         "type": "flex",
@@ -52,7 +54,7 @@ async function getPage(page, zone) {
     }
     try {
         // let pagesInfo = await searchPageInfo(page, zone)
-        let pagesInfo = await searchPage(page, zone)
+        let pagesInfo = await searchPage(page, zone, tag)
         // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
         if (pagesInfo.type === "text") {
             return pagesInfo
@@ -66,7 +68,7 @@ async function getPage(page, zone) {
 
 }
 
-async function searchPage(page, zone) {
+async function searchPage(page, zone, tag) {
     console.log("+++++++++++++++++ searchPage", page)
     try {
         let options = {
@@ -100,7 +102,7 @@ async function searchPage(page, zone) {
                 type: "text", text: `This page already exists.`
             }
         } else {
-            let newPageInfo = await formateData(pageInfo, zone)
+            let newPageInfo = await formateData(pageInfo, zone, tag)
             return newPageInfo
         }
     } catch (error) {
@@ -113,7 +115,7 @@ async function searchPage(page, zone) {
 
 }
 
-async function formateData(res, zone) {
+async function formateData(res, zone, tag) {
     // console.log("+++++++++++++++++ formateData")
     zone = zone || "none"
     let pageInfo = {
@@ -156,7 +158,7 @@ async function formateData(res, zone) {
                     "height": "sm",
                     "action": {
                         "type": "message",
-                        "label": "submit",
+                        "label": "Submit",
                         "text": ""
                     }
                 }
@@ -173,7 +175,7 @@ async function formateData(res, zone) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `Page Name : ${res.name}`
+                "text": `Page Name: ${res.name}`
             }
             pageInfo.body.contents.push(item)
         }
@@ -183,7 +185,30 @@ async function formateData(res, zone) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `${res.fan_count} People Like`,
+                "text": `Like: ${res.fan_count}`,
+                "wrap": true
+            }
+            pageInfo.body.contents.push(item)
+        }
+        if (tag === "1") {
+            pageInfo.body.contents.push({ "type": "separator", "margin": "lg" })
+            item = {
+                "type": "text",
+                "margin": "md",
+                "size": "sm",
+                "color": "#666666",
+                "text": `Customer Request: Yes`,
+                "wrap": true
+            }
+            pageInfo.body.contents.push(item)
+        } else {
+            pageInfo.body.contents.push({ "type": "separator", "margin": "lg" })
+            item = {
+                "type": "text",
+                "margin": "md",
+                "size": "sm",
+                "color": "#666666",
+                "text": `Customer Request: No`,
                 "wrap": true
             }
             pageInfo.body.contents.push(item)
@@ -194,7 +219,7 @@ async function formateData(res, zone) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `Page ID : ${res.id}`
+                "text": `Page ID: ${res.id}`
             }
             pageInfo.body.contents.push(item)
             // pageInfo.footer.contents[0].action.text = `OK เช็คให้นะ`
