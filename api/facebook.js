@@ -189,7 +189,7 @@ async function formateData(res, zone, tag) {
             }
             pageInfo.body.contents.push(item)
             // pageInfo.footer.contents[0].action.text = `OK เช็คให้นะ`
-            pageInfo.footer.contents[0].action.text = `&fb&submit=${res.id}&zone=${zone}`
+            pageInfo.footer.contents[0].action.text = `&fb&submit=${res.id}&zone=${zone}&tag=${tag}`
         }
         if (res.fan_count) {
             item = {
@@ -242,6 +242,7 @@ async function getPageInfo(message, user_token) {
     const PageInfo = await searchPageInfo(page_id, zone, tag, user_token)
     console.log(PageInfo)
     // const resDB = await insertPage(PageInfo)
+    let resDB = true
     // console.log("=============>", resDB)
     if (resDB) {
         return { type: "text", text: "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." }
