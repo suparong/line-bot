@@ -242,7 +242,7 @@ async function getPageInfo(message, user_token) {
     const resDB = await insertPage(PageInfo)
     // console.log("=============>", resDB)
     if (resDB) {
-        return { type: "text", text: "text": "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." }
+        return { type: "text", text: "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." }
     } else {
         return { type: "text", text: `This page already exists.` }
     }
