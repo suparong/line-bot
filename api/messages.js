@@ -170,12 +170,11 @@ async function checkAndFormat({ message_id, page_id, ch }) {
     } else {
         ///doing
         console.log("============> false")
-        if (ch === "fb") {
-            return {
-                "type": "text",
-                "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
-            }
+        return {
+            "type": "text",
+            "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
         }
+
 
     }
 }
