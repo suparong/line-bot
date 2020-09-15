@@ -91,32 +91,6 @@ async function checkMsgFB(message) {
 
 }
 
-async function checkAndFormat({ message_id, page_id, ch }) {
-    let mess_id
-    if (ch === "fb") {
-        mess_id = `fb_${message_id}`
-    }
-    // let statusMsg = await checkMessage(mess_id)
-    console.log("=========", { message_id, page_id, ch })
-    let statusMsg = {
-        "status": false
-    }
-    // console.log("=====>", statusMsg)
-    if (statusMsg.status) {
-        let msg = await formatMessages(statusMsg.data)
-        return msg
-    } else {
-        ///doing
-        console.log("============> false")
-        if (ch === "fb") {
-            return {
-                "type": "text",
-                "text": `The page is not exist.\nPlease send this page for approve.\n\nhttps://www.facebook.com/${page_id}/\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
-            }
-        }
-
-    }
-}
 
 async function getPageID(name) {
     let options = {
@@ -164,7 +138,7 @@ async function checkMsgTW(message) {
         let message_id = `tw_${page_id}_${post_id}`
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat(message_id)
+            let Msg = await checkAndFormat({ message_id, page_id, ch: "tw" })
             return Msg
         }
     } catch (e) {
@@ -172,6 +146,38 @@ async function checkMsgTW(message) {
         return { type: "text", text: `user not found` }
     }
 
+}
+
+async function checkAndFormat({ message_id, page_id, ch }) {
+    let mess_id
+    let page_link
+    if (ch === "fb") {
+        mess_id = `fb_${message_id}`
+        page_link = `https://www.facebook.com/${page_id}`
+    } else if (ch === "tw") {
+        mess_id = `tw_${message_id}`
+        page_link = `https://twitter.com/${page_id}`
+    }
+    // let statusMsg = await checkMessage(mess_id)
+    console.log("=========", { message_id, page_id, ch })
+    let statusMsg = {
+        "status": false
+    }
+    // console.log("=====>", statusMsg)
+    if (statusMsg.status) {
+        let msg = await formatMessages(statusMsg.data)
+        return msg
+    } else {
+        ///doing
+        console.log("============> false")
+        if (ch === "fb") {
+            return {
+                "type": "text",
+                "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
+            }
+        }
+
+    }
 }
 
 async function getUserID(user) {
