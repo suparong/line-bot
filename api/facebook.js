@@ -237,7 +237,7 @@ async function getPageInfo(message, user_token) {
     let tag = urlParams.get('tag') || "0"
 
     const PageInfo = await searchPageInfo(page_id, zone, tag, user_token)
-    console.log(PageInfo)
+    // console.log(PageInfo)
     const resDB = await insertPage(PageInfo)
     // console.log("=============>", resDB)
     if (resDB) {

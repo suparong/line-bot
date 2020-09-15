@@ -36,19 +36,19 @@ async function checkMsgFB(message) {
         let type = urlParams.get("type")
         let watch = urlParams.get("v")
         if (story_fbid) {
-            console.log("story_fbid")
+            // console.log("story_fbid")
             page_id = urlParams.get("id")
             message_id = `${page_id}_${story_fbid}`
             // console.log(message_id)
         } else if (type) {
-            console.log("type")
+            // console.log("type")
             let bodyMsg = _.split(url.pathname, "/")
             page_id = await getPageID(bodyMsg[1])
             let post_id = bodyMsg[4]
             message_id = `${page_id}_${post_id}`
             // console.log(message_id)
         } else if (watch) {
-            console.log("watch")
+            // console.log("watch")
             let linkWatch = await getLinkWatch(watch)
             // console.log("=======>", linkWatch)
             /**
@@ -71,7 +71,7 @@ async function checkMsgFB(message) {
                 return { type: "text", text: `can not get link` }
             }
         } else {
-            console.log("Other")
+            // console.log("Other")
             let linkMsg = _.split(url, "?")[0]
             url = new URL(linkMsg)
             let bodyMsg = _.split(url.pathname, "/")
@@ -129,7 +129,7 @@ async function getLinkWatch(name) {
  */
 async function checkMsgTW(message) {
     try {
-        console.log(message)
+        // console.log(message)
         let linkMsg = _.split(message, "?")[0]
         let url = new URL(linkMsg)
         let bodyMsg = _.split(url.pathname, "/")
@@ -184,15 +184,15 @@ async function checkMsgYT(message) {
         let watch_id
         if (_.includes(message, "watch")) {
             watch_id = urlParams.get("v")
-            console.log("==============>", watch_id)
+            // console.log("==============>", watch_id)
         } else {
             let bodyMsg = _.split(url.pathname, "/")
             // console.log(bodyMsg)
-            console.log("==============>", bodyMsg[1])
+            // console.log("==============>", bodyMsg[1])
             watch_id = bodyMsg[1]
         }
         let chID = await getChannelID(watch_id)
-        console.log("==============>", chID)
+        // console.log("==============>", chID)
         message_id = `${chID}_${watch_id}`
         console.log("======>", message_id)
         if (message_id) {
@@ -262,7 +262,7 @@ async function checkMsgPT(message) {
         let linkMsg = _.split(message, "?")[0]
         let url = new URL(linkMsg)
         let bodyMsg = _.split(url.pathname, "/")
-        console.log(bodyMsg)
+        // console.log(bodyMsg)
         let message_id = `com.pantip_/topic/${bodyMsg[2]}`
         console.log("======>", message_id)
         if (message_id) {
