@@ -247,6 +247,32 @@ async function checkMsgIG(message) {
 
 }
 
+/**
+ * IN
+ * https://pantip.com/topic/40119573
+ * https://pantip.com/topic/40119573/comment1
+ * OUT
+ * com.pantip_/topic/40119573
+ */
+
+async function checkMsgPT(message) {
+    try {
+        let linkMsg = _.split(message, "?")[0]
+        let url = new URL(linkMsg)
+        let bodyMsg = _.split(url.pathname, "/")
+        console.log(bodyMsg)
+        let message_id = `com.pantip_/topic/${bodyMsg[2]}`
+        console.log("======>", message_id)
+        if (message_id) {
+            let Msg = await checkAndFormat({ message_id, page_id: "null", ch: 'pt' })
+            return Msg
+        }
+    } catch (e) {
+        // console.log("eeeeeeeeeee", e.error.errors.message)
+        return { type: "text", text: `${e.error.errors.message}` }
+    }
+
+}
 
 async function checkAndFormat({ message_id, page_id, ch }) {
     let mess_id
@@ -263,7 +289,10 @@ async function checkAndFormat({ message_id, page_id, ch }) {
         page_link = `https://www.youtube.com/channel/${page_id}`
     } else if (ch === "ig") {
         mess_id = `${ch}_${message_id}`
-        page_link = `ig is not page id`
+        page_link = `not page`
+    } else if (ch === "pt") {
+        mess_id = `${message_id}`
+        page_link = `not page`
     }
     // let statusMsg = await checkMessage(mess_id)
     console.log("=========", { message_id, page_id, ch })
@@ -284,32 +313,6 @@ async function checkAndFormat({ message_id, page_id, ch }) {
 
 
     }
-}
-/**
- * IN
- * https://pantip.com/topic/40119573
- * https://pantip.com/topic/40119573/comment1
- * OUT
- * com.pantip_/topic/40119573
- */
-
-async function checkMsgPT(message) {
-    try {
-        let linkMsg = _.split(message, "?")[0]
-        let url = new URL(linkMsg)
-        let bodyMsg = _.split(url.pathname, "/")
-        console.log(bodyMsg)
-        let message_id = `com.pantip_/topic/${bodyMsg[2]}`
-        console.log("======>", message_id)
-        if (message_id) {
-            let Msg = await checkAndFormat(message_id)
-            return Msg
-        }
-    } catch (e) {
-        // console.log("eeeeeeeeeee", e.error.errors.message)
-        return { type: "text", text: `${e.error.errors.message}` }
-    }
-
 }
 
 async function formatMessages(status) {
