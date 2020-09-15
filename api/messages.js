@@ -135,7 +135,7 @@ async function checkMsgTW(message) {
         let user = encodeURIComponent(bodyMsg[1])
         let page_id = await getUserID(user)
         let post_id = bodyMsg[3]
-        let message_id = `tw_${page_id}_${post_id}`
+        let message_id = `${page_id}_${post_id}`
         console.log("======>", message_id)
         if (message_id) {
             let Msg = await checkAndFormat({ message_id, page_id, ch: "tw" })
