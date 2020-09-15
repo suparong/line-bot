@@ -138,7 +138,7 @@ async function checkMsgTW(message) {
         let message_id = `${page_id}_${post_id}`
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat({ message_id, page_id, ch: "tw" })
+            let Msg = await checkAndFormat({ message_id, page_id: user, ch: "tw" })
             return Msg
         }
     } catch (e) {
