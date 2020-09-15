@@ -6,6 +6,8 @@ const { URL, URLSearchParams } = require('url')
 const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
 
 const { checkMessage } = require('./sendToApi')
+const { checkPage, insertPage } = require('./sendToApi')
+
 /**
  * IN
  * https://www.facebook.com/permalink.php?story_fbid=170987977876799&id=108444714131126&__xts__[0]=68.ARCD6Sr57p0K8uXplHjnaMLp0piIsAIBcRJFqiUGfgmGrnzLpbMnFib0zyPJG1jGNc2gzH1mSsLUjfYJYzemy6ofPRF4F88Jr1oDxCIr6A29dZFDeeE3zZKLFxG0__3t8OVP17Zdsd5uQFHPq9xnzZa2yruBjPNhHXOOonen1YX2rE44z4KIVkj_Wlwy1i2Ftx_sPzx0dFgaizY7f27wDFolGiq_jcyKdhNc1WrX6krvniipEKg1jR4iKvhy3TjGiGvGPJXZaBCrPMluUm9CtrG-fD6YaDA-EAVwqyYeoxpOixLfq8WO1fhPvLhw4vpBKAFt2FFtnKmswR-TMak&__tn__=-R
@@ -138,7 +140,7 @@ async function checkMsgTW(message) {
         let message_id = `${page_id}_${post_id}`
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat({ message_id, page_id: user, ch: "tw" })
+            let Msg = await checkAndFormat({ message_id, page_id: '', ch: "tw" })
             return Msg
         }
     } catch (e) {
@@ -194,7 +196,7 @@ async function checkMsgYT(message) {
         message_id = `${chID}_${watch_id}`
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat({ message_id, page_id: chID, ch: "yt" })
+            let Msg = await checkAndFormat({ message_id, page_id: '', ch: "yt" })
             return Msg
         }
 
@@ -237,7 +239,7 @@ async function checkMsgIG(message) {
         let message_id = `${post_id}`
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat({ message_id, page_id: 'null', ch: "ig" })
+            let Msg = await checkAndFormat({ message_id, page_id: '', ch: "ig" })
             return Msg
         }
     } catch (e) {
@@ -264,7 +266,7 @@ async function checkMsgPT(message) {
         let message_id = `com.pantip_/topic/${bodyMsg[2]}`
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat({ message_id, page_id: 'null', ch: 'pt' })
+            let Msg = await checkAndFormat({ message_id, page_id: '', ch: 'pt' })
             return Msg
         }
     } catch (e) {
@@ -294,20 +296,41 @@ async function checkAndFormat({ message_id, page_id, ch }) {
         mess_id = `${message_id}`
         page_link = `not page`
     }
-    // let statusMsg = await checkMessage(mess_id)
+    let statusMsg = await checkMessage(mess_id)
     // console.log("=========", { message_id, page_id, ch })
-    let statusMsg = { "status": true, "data": { "_id": "fb_272609309612079_799064393633232", "link": "http://www.facebook.com/272609309612079/posts/799064393633232", "created_time": "2018-02-26T20:25:47+07:00", "sys_time": "2018-02-27T10:31:40+07:00", "cts": "2018-02-27T05:00:43+07:00", "zone": "th", "channel": "facebook", "acc_list": "152,234,220,219,227,241,154,243,133" } }
+    // let statusMsg = { "status": true, "data": { "_id": "fb_272609309612079_799064393633232", "link": "http://www.facebook.com/272609309612079/posts/799064393633232", "created_time": "26 Feb 2018 20:25:47", "sys_time": "27 Feb 2018 10:31:40", "cts": "27 Feb 2018 05:00:43", "zone": "th", "channel": "facebook", "acc_list": "152,234,219,227,241,154,243,133,220" } }
     // console.log("=====>", JSON.stringify(statusMsg))
     if (statusMsg.status) {
         let msg = await formatMessages(statusMsg.data)
         return msg
     } else {
         ///doing
-        console.log("============> false")
-        return {
-            "type": "text",
-            "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
+        // console.log("============> false")
+        if (page_id) {
+            // console.log("============> page")
+            let pageInDB = await checkPage(page_id)
+            // console.log("=====", pageInDB)
+            let newPage = JSON.parse(pageInDB)
+            if (newPage.status) {
+                return {
+                    "type": "text",
+                    "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
+                }
+            } else {
+                return {
+                    "type": "text",
+                    "text": `The message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n`
+                }
+            }
+
+        } else {
+            // console.log("============> not page")
+            return {
+                "type": "text",
+                "text": `The message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n`
+            }
         }
+
 
 
     }
@@ -321,272 +344,10 @@ async function formatMessages(status) {
         let created_time_GMT
         let sys_time_GMT
         let cts_GMT
-        // if (status.created_time && status.sys_time && status.cts) {
-        //     let created_timeGMT = status.created_time.split("+")
-        //     console.log(status.created_time)
-        //     created_time_GMT = created_timeGMT[1].split(":")[0]
-        //     created_time = created_timeGMT[0]
-        //     // console.log(created_time)
-        //     let sys_timeGMT = status.sys_time.split("+")
-        //     sys_time_GMT = sys_timeGMT[1].split(":")[0]
-        //     sys_time = sys_timeGMT[0]
-        //     // console.log(sys_time)
-        //     let ctsGMT = status.cts.split("+")
-        //     cts_GMT = ctsGMT[1].split(":")[0]
-        //     cts = ctsGMT[0]
-        //     // console.log(cts)
-        // }
         return {
             "type": "text",
-            "text": `The message already exist.\n\n-----------------------------------------------\n\nAccount ID: ${status.acc_list}\nChannel: ${status.channel}\nZone: ${status.zone}\nCreated_Time: ${status.created_time}\nSys_Time: ${status.sys_time}\n\nSystem Link:\nhttps://listening.zanroo.com/message/conversation/conversation#message_id=${status._id}`
+            "text": `The message already exist.\n\n---------------------------------------------\n\nAccount ID: ${status.acc_list}\nChannel: ${status.channel}\nZone: ${status.zone}\nCreated_Time: ${status.created_time} (GMT+7)\nSys_Time: ${status.sys_time} (GMT+7)\n\nSystem Link:\nhttps://listening.zanroo.com/message/conversation/conversation#message_id=${status._id}`
         }
-
-        // return {
-        //     "type": "flex",
-        //     "altText": "new messages",
-        //     "contents": {
-        //         "type": "bubble",
-        //         "header": {
-        //             "type": "box",
-        //             "layout": "vertical",
-        //             "contents": [
-        //                 {
-        //                     "type": "text",
-        //                     "text": "Message status"
-        //                 }
-        //             ]
-        //         },
-        //         "body": {
-        //             "type": "box",
-        //             "layout": "vertical",
-        //             "contents": [
-        //                 {
-        //                     "type": "box",
-        //                     "layout": "vertical",
-        //                     "contents": [
-        //                         {
-        //                             "type": "box",
-        //                             "layout": "horizontal",
-        //                             "contents": [
-        //                                 {
-        //                                     "type": "box",
-        //                                     "layout": "vertical",
-        //                                     "contents": [
-        //                                         {
-        //                                             "type": "text",
-        //                                             "contents": [
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": "_id",
-        //                                                     "weight": "bold",
-        //                                                     "color": "#000000"
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": " : "
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": `${status._id}`,
-        //                                                     "size": "xs"
-        //                                                 }
-        //                                             ],
-        //                                             "size": "sm",
-        //                                             "wrap": true
-        //                                         },
-        //                                         {
-        //                                             "type": "text",
-        //                                             "contents": [
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": "account",
-        //                                                     "weight": "bold",
-        //                                                     "color": "#000000"
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": " : "
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": `${status.acc_list}`,
-        //                                                     "size": "xs"
-        //                                                 }
-        //                                             ],
-        //                                             "size": "sm",
-        //                                             "wrap": true
-        //                                         },
-        //                                         {
-        //                                             "type": "text",
-        //                                             "contents": [
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": "Link",
-        //                                                     "weight": "bold",
-        //                                                     "color": "#000000"
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": " : "
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": `${status.link}`,
-        //                                                     "size": "xs"
-        //                                                 }
-        //                                             ],
-        //                                             "size": "sm",
-        //                                             "wrap": true
-        //                                         },
-        //                                         {
-        //                                             "type": "text",
-        //                                             "contents": [
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": "Channel",
-        //                                                     "weight": "bold",
-        //                                                     "color": "#000000"
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": " : "
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": `${status.channel}`,
-        //                                                     "size": "xs"
-        //                                                 }
-        //                                             ],
-        //                                             "size": "sm",
-        //                                             "wrap": true
-        //                                         },
-        //                                         {
-        //                                             "type": "text",
-        //                                             "contents": [
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": "Zone",
-        //                                                     "weight": "bold",
-        //                                                     "color": "#000000"
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": " : "
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": `${status.zone}`,
-        //                                                     "size": "xs"
-        //                                                 }
-        //                                             ],
-        //                                             "size": "sm",
-        //                                             "wrap": true
-        //                                         },
-        //                                         {
-        //                                             "type": "text",
-        //                                             "contents": [
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": "Created_Time",
-        //                                                     "weight": "bold",
-        //                                                     "color": "#000000"
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": " : "
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": `${created_time}`,
-        //                                                     "size": "xs"
-        //                                                 }
-        //                                             ],
-        //                                             "size": "sm",
-        //                                             "wrap": true
-        //                                         },
-        //                                         {
-        //                                             "type": "text",
-        //                                             "contents": [
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": "Sys_Time",
-        //                                                     "weight": "bold",
-        //                                                     "color": "#000000"
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": " : "
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": `${sys_time}`,
-        //                                                     "size": "xs"
-        //                                                 }
-        //                                             ],
-        //                                             "size": "sm",
-        //                                             "wrap": true
-        //                                         },
-        //                                         {
-        //                                             "type": "text",
-        //                                             "contents": [
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": "Cts",
-        //                                                     "weight": "bold",
-        //                                                     "color": "#000000"
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": " : "
-        //                                                 },
-        //                                                 {
-        //                                                     "type": "span",
-        //                                                     "text": `${cts}`,
-        //                                                     "size": "xs"
-        //                                                 }
-        //                                             ],
-        //                                             "size": "sm",
-        //                                             "wrap": true
-        //                                         }
-        //                                     ]
-        //                                 }
-        //                             ],
-        //                             "spacing": "xl",
-        //                             "paddingAll": "20px"
-        //                         }
-        //                     ],
-        //                     "backgroundColor": "#E8EBED",
-        //                     "offsetStart": "10px",
-        //                     "offsetBottom": "20px",
-        //                     "width": "280px",
-        //                     "paddingTop": "10px",
-        //                     "paddingBottom": "0px"
-        //                 }
-        //             ],
-        //             "paddingAll": "0px"
-        //         },
-        //         "footer": {
-        //             "type": "box",
-        //             "layout": "vertical",
-        //             "spacing": "sm",
-        //             "contents": [
-        //                 {
-        //                     "type": "button",
-        //                     "style": "link",
-        //                     "height": "sm",
-        //                     "action": {
-        //                         "type": "uri",
-        //                         "label": "Link",
-        //                         "uri": `${status.link}`
-        //                     }
-        //                 }
-        //             ],
-        //             "paddingTop": "0px",
-        //             "paddingBottom": "0px",
-        //             "offsetTop": "-10px"
-        //         }
-        //     }
-        // }
     } catch (error) {
         console.log(error)
     }
