@@ -216,7 +216,7 @@ async function checkAndFormat({ message_id, page_id, ch }) {
         page_link = `https://twitter.com/${page_id}`
     } else if (ch === "yt") {
         mess_id = `${ch}_${message_id}`
-        page_link = `https://www.youtube.com/${page_id}`
+        page_link = `https://www.youtube.com/channel/${page_id}`
     }
     // let statusMsg = await checkMessage(mess_id)
     console.log("=========", { message_id, page_id, ch })
