@@ -264,7 +264,7 @@ async function checkMsgPT(message) {
         let message_id = `com.pantip_/topic/${bodyMsg[2]}`
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat({ message_id, page_id: "null", ch: 'pt' })
+            let Msg = await checkAndFormat({ message_id, page_id: 'null', ch: 'pt' })
             return Msg
         }
     } catch (e) {
