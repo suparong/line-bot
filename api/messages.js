@@ -148,6 +148,42 @@ async function checkMsgTW(message) {
 
 }
 
+
+async function checkAndFormat({ message_id, page_id, ch }) {
+    let mess_id
+    let page_link
+    if (ch === "fb") {
+        mess_id = `${ch}_${message_id}`
+        page_link = `https://www.facebook.com/${page_id}`
+    } else if (ch === "tw") {
+        mess_id = `${ch}_${message_id}`
+        page_link = `https://twitter.com/${page_id}`
+        message_id = _.split(message_id, "_")[1]
+    } else if (ch === "yt") {
+        mess_id = `${ch}_${message_id}`
+        page_link = `https://www.youtube.com/channel/${page_id}`
+    }
+    // let statusMsg = await checkMessage(mess_id)
+    console.log("=========", { message_id, page_id, ch })
+    let statusMsg = {
+        "status": false
+    }
+    // console.log("=====>", statusMsg)
+    if (statusMsg.status) {
+        let msg = await formatMessages(statusMsg.data)
+        return msg
+    } else {
+        ///doing
+        console.log("============> false")
+        return {
+            "type": "text",
+            "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
+        }
+
+
+    }
+}
+
 async function getUserID(user) {
     let date = new Date();
     let newDate = Math.floor(date.getTime() / 1000)
@@ -199,44 +235,10 @@ async function checkMsgYT(message) {
         }
 
     } catch (e) {
-        console.log("eeeeeeeeeee", e)
+        // console.log("eeeeeeeeeee", e)
         return { type: "text", text: `${e.error.errors.message}` }
     }
 
-}
-
-async function checkAndFormat({ message_id, page_id, ch }) {
-    let mess_id
-    let page_link
-    if (ch === "fb") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `https://www.facebook.com/${page_id}`
-    } else if (ch === "tw") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `https://twitter.com/${page_id}`
-    } else if (ch === "yt") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `https://www.youtube.com/channel/${page_id}`
-    }
-    // let statusMsg = await checkMessage(mess_id)
-    console.log("=========", { message_id, page_id, ch })
-    let statusMsg = {
-        "status": false
-    }
-    // console.log("=====>", statusMsg)
-    if (statusMsg.status) {
-        let msg = await formatMessages(statusMsg.data)
-        return msg
-    } else {
-        ///doing
-        console.log("============> false")
-        return {
-            "type": "text",
-            "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
-        }
-
-
-    }
 }
 
 async function getChannelID(watch_id) {
