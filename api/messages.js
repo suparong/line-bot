@@ -85,7 +85,7 @@ async function checkMsgFB(message) {
             return Msg
         }
     } catch (e) {
-        console.log('eeeeeee', e)
+        // console.log('eeeeeee', e)
         return { type: "text", text: `${e.error.errors.message}` }
     }
 
@@ -199,7 +199,7 @@ async function checkMsgYT(message) {
         }
 
     } catch (e) {
-        // console.log("eeeeeeeeeee", e.error.errors.message)
+        console.log("eeeeeeeeeee", e)
         return { type: "text", text: `${e.error.errors.message}` }
     }
 
