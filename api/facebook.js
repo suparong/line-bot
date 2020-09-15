@@ -80,10 +80,7 @@ async function searchPage(page, zone, tag) {
         }
         let pageInfo = await rq(options)
         console.log("+++++>", pageInfo.id, "zone : ", zone)
-        // let pageInDB = await checkPage(pageInfo.id)
-        let newPage = {
-            "status": true
-        }
+        let pageInDB = await checkPage(pageInfo.id)
         // console.log("=====", pageInDB)
         // let newPage = JSON.parse(pageInDB)
         // console.log("===========>", newPage, JSON.stringify(newPage.status), typeof (newPage))
@@ -241,8 +238,7 @@ async function getPageInfo(message, user_token) {
 
     const PageInfo = await searchPageInfo(page_id, zone, tag, user_token)
     console.log(PageInfo)
-    // const resDB = await insertPage(PageInfo)
-    let resDB = true
+    const resDB = await insertPage(PageInfo)
     // console.log("=============>", resDB)
     if (resDB) {
         return { type: "text", text: "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." }

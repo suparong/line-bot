@@ -80,7 +80,7 @@ async function checkMsgFB(message) {
         }
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat(message_id)
+            let Msg = await checkAndFormat({ message_id, page_id, ch: "fb" })
             return Msg
         }
     } catch (e) {
@@ -90,8 +90,12 @@ async function checkMsgFB(message) {
 
 }
 
-async function checkAndFormat(message_id) {
-    let statusMsg = await checkMessage(message_id)
+async function checkAndFormat({ message_id, page_id, ch }) {
+    // let statusMsg = await checkMessage(message_id)
+    console.log("=========", { message_id, page_id, ch })
+    let statusMsg = {
+        "status": false
+    }
     // console.log("=====>", statusMsg)
     if (statusMsg.status) {
         let msg = await formatMessages(statusMsg.data)
@@ -99,7 +103,13 @@ async function checkAndFormat(message_id) {
     } else {
         ///doing
         console.log("============> false")
-        return { type: "text", text: `No Messages` }
+        if (ch === "fb") {
+            return {
+                "type": "text",
+                "text": `The page is not exist.\nPlease send this page for approve.\n\nhttps://www.facebook.com/${page_id}/\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
+            }
+        }
+
     }
 }
 
@@ -552,6 +562,7 @@ async function formatMessages(status) {
             }
         }
     }
+
 }
 
 module.exports = {
