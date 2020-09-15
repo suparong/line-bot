@@ -205,41 +205,6 @@ async function checkMsgYT(message) {
 
 }
 
-async function checkAndFormat({ message_id, page_id, ch }) {
-    let mess_id
-    let page_link
-    if (ch === "fb") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `https://www.facebook.com/${page_id}`
-    } else if (ch === "tw") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `https://twitter.com/${page_id}`
-        message_id = _.split(message_id, "_")[1]
-    } else if (ch === "yt") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `https://www.youtube.com/channel/${page_id}`
-    }
-    // let statusMsg = await checkMessage(mess_id)
-    console.log("=========", { message_id, page_id, ch })
-    let statusMsg = {
-        "status": false
-    }
-    // console.log("=====>", statusMsg)
-    if (statusMsg.status) {
-        let msg = await formatMessages(statusMsg.data)
-        return msg
-    } else {
-        ///doing
-        console.log("============> false")
-        return {
-            "type": "text",
-            "text": `The page is not exist.\nPlease send this page for approve.\n${page_link}\n--------------------------\nThe message is not exist in system.\nPlease backtrack with this ID.\n${message_id}\n**Please backtrack after page exist in system.`
-        }
-
-
-    }
-}
-
 async function getChannelID(watch_id) {
     let options = {
         'method': 'GET',
@@ -269,10 +234,10 @@ async function checkMsgIG(message) {
         let bodyMsg = _.split(url.pathname, "/")
         // console.log(bodyMsg)
         let post_id = bodyMsg[2]
-        let message_id = `ig_${post_id}`
+        let message_id = `${post_id}`
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat(message_id)
+            let Msg = await checkAndFormat({ message_id, ch: "ig" })
             return Msg
         }
     } catch (e) {
@@ -282,6 +247,44 @@ async function checkMsgIG(message) {
 
 }
 
+
+async function checkAndFormat({ message_id, page_id, ch }) {
+    let mess_id
+    let page_link
+    if (ch === "fb") {
+        mess_id = `${ch}_${message_id}`
+        page_link = `https://www.facebook.com/${page_id}`
+    } else if (ch === "tw") {
+        mess_id = `${ch}_${message_id}`
+        page_link = `https://twitter.com/${page_id}`
+        message_id = _.split(message_id, "_")[1]
+    } else if (ch === "yt") {
+        mess_id = `${ch}_${message_id}`
+        page_link = `https://www.youtube.com/channel/${page_id}`
+    } else if (ch === "ig") {
+        mess_id = `${ch}_${message_id}`
+        page_link = `ig is not page id`
+    }
+    // let statusMsg = await checkMessage(mess_id)
+    console.log("=========", { message_id, page_id, ch })
+    let statusMsg = {
+        "status": false
+    }
+    // console.log("=====>", statusMsg)
+    if (statusMsg.status) {
+        let msg = await formatMessages(statusMsg.data)
+        return msg
+    } else {
+        ///doing
+        console.log("============> false")
+        return {
+            "type": "text",
+            "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
+        }
+
+
+    }
+}
 /**
  * IN
  * https://pantip.com/topic/40119573
