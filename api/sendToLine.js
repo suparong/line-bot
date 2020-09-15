@@ -137,11 +137,21 @@ async function setBody(req) {
 }
 
 async function formatData(body) {
+    // console.log(body)
     try {
-        return {
-            "to": body.line_token,
-            "messages": [{ type: "text", text: `Page "${body.page_name}" has been approved` }]
+        if (body.status) {
+            return {
+                "to": body.line_token,
+                "messages": [{ type: "text", text: `Page "${body.page_name}" has been approved` }]
+            }
+        } else {
+            let page = body.social_id
+            return {
+                "type": "text",
+                "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\n${page}\n\nReason:\nNot approve.`
+            }
         }
+
     } catch (error) {
         console.log("=======>", error)
     }
