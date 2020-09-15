@@ -237,7 +237,7 @@ async function checkMsgIG(message) {
         let message_id = `${post_id}`
         console.log("======>", message_id)
         if (message_id) {
-            let Msg = await checkAndFormat({ message_id, ch: "ig" })
+            let Msg = await checkAndFormat({ message_id, page_id: 'null', ch: "ig" })
             return Msg
         }
     } catch (e) {
