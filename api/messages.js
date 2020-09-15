@@ -36,14 +36,14 @@ async function checkMsgFB(message) {
         if (story_fbid) {
             console.log("story_fbid")
             page_id = urlParams.get("id")
-            message_id = `fb_${page_id}_${story_fbid}`
+            message_id = `${page_id}_${story_fbid}`
             // console.log(message_id)
         } else if (type) {
             console.log("type")
             let bodyMsg = _.split(url.pathname, "/")
             page_id = await getPageID(bodyMsg[1])
             let post_id = bodyMsg[4]
-            message_id = `fb_${page_id}_${post_id}`
+            message_id = `${page_id}_${post_id}`
             // console.log(message_id)
         } else if (watch) {
             console.log("watch")
@@ -76,7 +76,7 @@ async function checkMsgFB(message) {
             let pages_name = bodyMsg[1]
             page_id = await getPageID(bodyMsg[1])
             let post_id = bodyMsg[3]
-            message_id = `fb_${page_id}_${post_id}`
+            message_id = `${page_id}_${post_id}`
             // console.log(message_id)
         }
         console.log("======>", message_id)
