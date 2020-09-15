@@ -26,6 +26,7 @@ const { checkMessage } = require('./sendToApi')
 async function checkMsgFB(message) {
     try {
         let message_id
+        let page_id
         // console.log("=======>", message)
         let url = new URL(message)
         let urlParams = new URLSearchParams(url.search)
@@ -34,13 +35,13 @@ async function checkMsgFB(message) {
         let watch = urlParams.get("v")
         if (story_fbid) {
             console.log("story_fbid")
-            let page_id = urlParams.get("id")
+            page_id = urlParams.get("id")
             message_id = `fb_${page_id}_${story_fbid}`
             // console.log(message_id)
         } else if (type) {
             console.log("type")
             let bodyMsg = _.split(url.pathname, "/")
-            let page_id = await getPageID(bodyMsg[1])
+            page_id = await getPageID(bodyMsg[1])
             let post_id = bodyMsg[4]
             message_id = `fb_${page_id}_${post_id}`
             // console.log(message_id)
@@ -56,7 +57,7 @@ async function checkMsgFB(message) {
                 url = new URL(linkWatch)
                 let bodyMsg = _.split(url.pathname, "/")
                 // console.log(bodyMsg)
-                let page_id = await getPageID(bodyMsg[1])
+                page_id = await getPageID(bodyMsg[1])
                 let post_id = bodyMsg[3]
                 message_id = `fb_${page_id}_${post_id}`
                 // console.log(message_id)
@@ -73,7 +74,7 @@ async function checkMsgFB(message) {
             url = new URL(linkMsg)
             let bodyMsg = _.split(url.pathname, "/")
             let pages_name = bodyMsg[1]
-            let page_id = await getPageID(bodyMsg[1])
+            page_id = await getPageID(bodyMsg[1])
             let post_id = bodyMsg[3]
             message_id = `fb_${page_id}_${post_id}`
             // console.log(message_id)
