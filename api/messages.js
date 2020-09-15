@@ -294,11 +294,8 @@ async function checkAndFormat({ message_id, page_id, ch }) {
         mess_id = `${message_id}`
         page_link = `not page`
     }
-    // let statusMsg = await checkMessage(mess_id)
-    console.log("=========", { message_id, page_id, ch })
-    let statusMsg = {
-        "status": false
-    }
+    let statusMsg = await checkMessage(mess_id)
+    // console.log("=========", { message_id, page_id, ch })
     // console.log("=====>", statusMsg)
     if (statusMsg.status) {
         let msg = await formatMessages(statusMsg.data)
