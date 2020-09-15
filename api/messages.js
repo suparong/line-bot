@@ -59,7 +59,7 @@ async function checkMsgFB(message) {
                 // console.log(bodyMsg)
                 page_id = await getPageID(bodyMsg[1])
                 let post_id = bodyMsg[3]
-                message_id = `fb_${page_id}_${post_id}`
+                message_id = `${page_id}_${post_id}`
                 // console.log(message_id)
             } else {
                 /**
@@ -92,7 +92,11 @@ async function checkMsgFB(message) {
 }
 
 async function checkAndFormat({ message_id, page_id, ch }) {
-    // let statusMsg = await checkMessage(message_id)
+    let mess_id
+    if (ch === "fb") {
+        mess_id = `fb_${message_id}`
+    }
+    // let statusMsg = await checkMessage(mess_id)
     console.log("=========", { message_id, page_id, ch })
     let statusMsg = {
         "status": false
