@@ -1,5 +1,5 @@
 const _ = require('lodash')
-var URL = require('url').URL
+var { URL, URLSearchParams } = require('url')
 const { checkConfig, insertConfig } = require('./sendToApi')
 
 async function web(message) {
