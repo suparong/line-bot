@@ -231,44 +231,54 @@ async function formateData(res, zone, tag) {
 }
 
 async function getPageInfo(message, user_token) {
-    let urlParams = new URLSearchParams(message)
-    let page_id = urlParams.get('submit')
-    let zone = urlParams.get('zone') || "none"
-    let tag = urlParams.get('tag') || "0"
+    try {
+        let urlParams = new URLSearchParams(message)
+        let page_id = urlParams.get('submit')
+        let zone = urlParams.get('zone') || "none"
+        let tag = urlParams.get('tag') || "0"
 
-    const PageInfo = await searchPageInfo(page_id, zone, tag, user_token)
-    // console.log(PageInfo)
-    const resDB = await insertPage(PageInfo)
-    // console.log("=============>", resDB)
-    if (resDB) {
-        return { type: "text", text: "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." }
-    } else {
-        return { type: "text", text: `This page already exists.` }
+        const PageInfo = await searchPageInfo(page_id, zone, tag, user_token)
+        // console.log(PageInfo)
+        const resDB = await insertPage(PageInfo)
+        // console.log("=============>", resDB)
+        if (resDB) {
+            return { type: "text", text: "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." }
+        } else {
+            return { type: "text", text: `This page already exists.` }
+        }
+    } catch (error) {
+        console.log(error)
     }
+
 }
 
 async function searchPageInfo(page_id, zone, tag, user_token) {
-    // console.log("+++++++++++++++++ searchPageInfo")
-    let options = {
-        'method': 'GET',
-        'url': `${URL_API}/${page_id}?fields=${QUERY_INFO}&access_token=${ACCESS_TOKEN}`,
-        'headers': {
-        }, json: true
+    try {
+        // console.log("+++++++++++++++++ searchPageInfo")
+        let options = {
+            'method': 'GET',
+            'url': `${URL_API}/${page_id}?fields=${QUERY_INFO}&access_token=${ACCESS_TOKEN}`,
+            'headers': {
+            }, json: true
+        }
+        let pageInfo = await rq(options)
+        pageInfo.zone = zone
+        if (tag === "1") {
+            tag = true
+        } else {
+            tag = false
+        }
+        /*
+            2020-09-15T10:39:06.954Z
+        */
+        pageInfo.request_time = new Date().toISOString()
+        pageInfo.customer = tag
+        pageInfo.line_token = user_token
+        return pageInfo
+    } catch (error) {
+        console.log(error)
     }
-    let pageInfo = await rq(options)
-    pageInfo.zone = zone
-    if (tag === "1") {
-        tag = true
-    } else {
-        tag = false
-    }
-    /*
-        2020-09-15T10:39:06.954Z
-    */
-    pageInfo.request_time = new Date().toISOString()
-    pageInfo.customer = tag
-    pageInfo.line_token = user_token
-    return pageInfo
+
 }
 
 

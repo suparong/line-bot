@@ -277,63 +277,68 @@ async function checkMsgPT(message) {
 }
 
 async function checkAndFormat({ message_id, page_id, ch }) {
-    let mess_id
-    let page_link
-    if (ch === "fb") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `https://www.facebook.com/${page_id}`
-    } else if (ch === "tw") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `https://twitter.com/${page_id}`
-        message_id = _.split(message_id, "_")[1]
-    } else if (ch === "yt") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `https://www.youtube.com/channel/${page_id}`
-    } else if (ch === "ig") {
-        mess_id = `${ch}_${message_id}`
-        page_link = `not page`
-    } else if (ch === "pt") {
-        mess_id = `${message_id}`
-        page_link = `not page`
-    }
-    let statusMsg = await checkMessage(mess_id)
-    // console.log("=========", { message_id, page_id, ch })
-    // let statusMsg = { "status": true, "data": { "_id": "fb_272609309612079_799064393633232", "link": "http://www.facebook.com/272609309612079/posts/799064393633232", "created_time": "26 Feb 2018 20:25:47", "sys_time": "27 Feb 2018 10:31:40", "cts": "27 Feb 2018 05:00:43", "zone": "th", "channel": "facebook", "acc_list": "152,234,219,227,241,154,243,133,220" } }
-    // console.log("=====>", JSON.stringify(statusMsg))
-    if (statusMsg.status) {
-        let msg = await formatMessages(statusMsg.data)
-        return msg
-    } else {
-        ///doing
-        // console.log("============> false")
-        if (page_id) {
-            // console.log("============> page")
-            let pageInDB = await checkPage(page_id)
-            // console.log("=====", pageInDB)
-            let newPage = JSON.parse(pageInDB)
-            if (newPage.status) {
-                return {
-                    "type": "text",
-                    "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
+    try {
+        let mess_id
+        let page_link
+        if (ch === "fb") {
+            mess_id = `${ch}_${message_id}`
+            page_link = `https://www.facebook.com/${page_id}`
+        } else if (ch === "tw") {
+            mess_id = `${ch}_${message_id}`
+            page_link = `https://twitter.com/${page_id}`
+            message_id = _.split(message_id, "_")[1]
+        } else if (ch === "yt") {
+            mess_id = `${ch}_${message_id}`
+            page_link = `https://www.youtube.com/channel/${page_id}`
+        } else if (ch === "ig") {
+            mess_id = `${ch}_${message_id}`
+            page_link = `not page`
+        } else if (ch === "pt") {
+            mess_id = `${message_id}`
+            page_link = `not page`
+        }
+        let statusMsg = await checkMessage(mess_id)
+        // console.log("=========", { message_id, page_id, ch })
+        // let statusMsg = { "status": true, "data": { "_id": "fb_272609309612079_799064393633232", "link": "http://www.facebook.com/272609309612079/posts/799064393633232", "created_time": "26 Feb 2018 20:25:47", "sys_time": "27 Feb 2018 10:31:40", "cts": "27 Feb 2018 05:00:43", "zone": "th", "channel": "facebook", "acc_list": "152,234,219,227,241,154,243,133,220" } }
+        // console.log("=====>", JSON.stringify(statusMsg))
+        if (statusMsg.status) {
+            let msg = await formatMessages(statusMsg.data)
+            return msg
+        } else {
+            ///doing
+            // console.log("============> false")
+            if (page_id) {
+                // console.log("============> page")
+                let pageInDB = await checkPage(page_id)
+                // console.log("=====", pageInDB)
+                let newPage = JSON.parse(pageInDB)
+                if (newPage.status) {
+                    return {
+                        "type": "text",
+                        "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
+                    }
+                } else {
+                    return {
+                        "type": "text",
+                        "text": `The message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n`
+                    }
                 }
+
             } else {
+                // console.log("============> not page")
                 return {
                     "type": "text",
                     "text": `The message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n`
                 }
             }
 
-        } else {
-            // console.log("============> not page")
-            return {
-                "type": "text",
-                "text": `The message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n`
-            }
+
+
         }
-
-
-
+    } catch (e) {
+        console.log(e)
     }
+
 }
 
 async function formatMessages(status) {
