@@ -33,29 +33,29 @@ async function reply(req) {
 
 }
 
-async function setBody(req) {
-    /**
- *  messages In
- * {
-   "events":[
-      {
-         "type":"message",
-         "replyToken":"a8e03e267a9f461cab568362234dc2aa",
-         "source":{
-            "userId":"U89dedd4ad3350c7b0bb1e55accda02c5",
-            "type":"user"
-         },
-         "timestamp":1600080042813,
-         "mode":"active",
-         "message":{
-            "type":"text",
-            "id":"12677766161753",
-            "text":" https://www.facebook.com/iShopping.preorder/&zone=th&tag=1"
-         }
+/**
+*  messages In
+* {
+"events":[
+   {
+      "type":"message",
+      "replyToken":"a8e03e267a9f461cab568362234dc2aa",
+      "source":{
+         "userId":"U89dedd4ad3350c7b0bb1e55accda02c5",
+         "type":"user"
+      },
+      "timestamp":1600080042813,
+      "mode":"active",
+      "message":{
+         "type":"text",
+         "id":"12677766161753",
+         "text":" https://www.facebook.com/iShopping.preorder/&zone=th&tag=1"
       }
-   ]
+   }
+]
 }
- */
+*/
+async function setBody(req) {
     let body
     try {
         // let reply_token = req.body.events[0].replyToken

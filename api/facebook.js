@@ -8,12 +8,12 @@ const { URLSearchParams } = require('url')
 const { checkPage, insertPage } = require('./sendToApi')
 const { checkMsgIG } = require('./messages')
 
+/**
+* message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
+*/
 async function facebook(message) {
     // console.log("===============>", message)
     try {
-        /**
-        * message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
-        */
         let urlParams = new URLSearchParams(message)
         if (_.includes(message, "fb")) {
             // console.log("11111111111", urlParams)
