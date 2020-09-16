@@ -10,6 +10,7 @@ const { facebook, getPageInfo } = require('./facebook')
 const { help } = require('./help')
 const { web, getConfigInfo } = require('./web')
 const { checkMsgFB, checkMsgTW, checkMsgYT, checkMsgIG, checkMsgPT } = require('./messages')
+const { insertUser, checkUser } = require('./user')
 
 const HEADER = {
     'Content-Type': 'application/json',
@@ -24,7 +25,7 @@ async function reply(req) {
          * url :reply,push,multicast,Broadcast
          */
         // pushBody(newres)
-        replyBody(newres)
+        // replyBody(newres)
     } catch (error) {
         console.log("error : ", error)
     }
@@ -70,63 +71,92 @@ async function setBody(req) {
 
         let message = msg.toLowerCase()
         console.log(typeof (message), message)
-
-        if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook")) {
-            /**
-            * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
-            */
-            if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch")) {
-                console.log("messages facebook")
-                let data = await checkMsgFB(message)
-                body.messages.push(data)
+        let status_user
+        if (_.includes(message, "login")) {
+            console.log("login")
+            status_user = await insertUser(user_token, message)
+            if (status_user) {
+                body.messages.push({
+                    "type": "text",
+                    "text": "Login success"
+                })
             } else {
-                console.log("facebook")
-                let data = await facebook(message)
-                body.messages.push(data)
+                body.messages.push({
+                    "type": "text",
+                    "text": "something went wrong"
+                })
             }
-        } else if (message.indexOf("twitter") === 12 || _.includes(message, "www.twitter.com") || _.includes(message, "twitter.com") || _.includes(message, "twitter")) {
-            console.log("twitter")
-            let data = await checkMsgTW(message)
-            body.messages.push(data)
-        } else if (message.indexOf("youtube") === 12 || _.includes(message, "www.youtube.com") || _.includes(message, "youtube.com") || _.includes(message, "youtube"), _.includes(message, "youtu")) {
-            console.log("youtube")
-            let data = await checkMsgYT(msg)
-            body.messages.push(data)
-        } else if (message.indexOf("instagram") === 12 || _.includes(message, "www.instagram.com") || _.includes(message, "instagram.com") || _.includes(message, "instagram")) {
-            console.log("instagram")
-            let data = await checkMsgIG(msg)
-            body.messages.push(data)
-        } else if (message.indexOf("pantip") === 12 || _.includes(message, "www.pantip.com") || _.includes(message, "pantip.com") || _.includes(message, "pantip")) {
-            console.log("pantip")
-            let data = await checkMsgPT(message)
-            body.messages.push(data)
-        } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
-            console.log("submit")
-            if (_.includes(message, "fb")) {
-                // console.log("=========> FB")
-                let data = await getPageInfo(message, user_token)
-                body.messages.push(data)
-            } else if (_.includes(message, "web")) {
-                // console.log("=========> WEB")
-                let data = await getConfigInfo(message, user_token)
-                body.messages.push(data)
-            }
-        } else if (_.includes(message, "help")) {
-            console.log("help")
-            let data = await help()
-            await _.map(data, (a) => { body.messages.push(a) })
-        } else if (_.includes(message, "web")) {
-            console.log("web")
-            let data = await web(message)
-            body.messages.push(data)
+
         } else {
-            console.log("other")
-            body.messages.push({
-                type: "sticker",
-                packageId: 11537,
-                stickerId: 52002744
-            })
+            console.log("No login")
+            status_user = await checkUser(user_token)
+            if (status_user) {
+                if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook")) {
+                    /**
+                    * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
+                    */
+                    if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch")) {
+                        console.log("messages facebook")
+                        let data = await checkMsgFB(message)
+                        body.messages.push(data)
+                    } else {
+                        console.log("facebook")
+                        let data = await facebook(message)
+                        body.messages.push(data)
+                    }
+                } else if (message.indexOf("twitter") === 12 || _.includes(message, "www.twitter.com") || _.includes(message, "twitter.com") || _.includes(message, "twitter")) {
+                    console.log("twitter")
+                    let data = await checkMsgTW(message)
+                    body.messages.push(data)
+                } else if (message.indexOf("youtube") === 12 || _.includes(message, "www.youtube.com") || _.includes(message, "youtube.com") || _.includes(message, "youtube"), _.includes(message, "youtu")) {
+                    console.log("youtube")
+                    let data = await checkMsgYT(msg)
+                    body.messages.push(data)
+                } else if (message.indexOf("instagram") === 12 || _.includes(message, "www.instagram.com") || _.includes(message, "instagram.com") || _.includes(message, "instagram")) {
+                    console.log("instagram")
+                    let data = await checkMsgIG(msg)
+                    body.messages.push(data)
+                } else if (message.indexOf("pantip") === 12 || _.includes(message, "www.pantip.com") || _.includes(message, "pantip.com") || _.includes(message, "pantip")) {
+                    console.log("pantip")
+                    let data = await checkMsgPT(message)
+                    body.messages.push(data)
+                } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
+                    console.log("submit")
+                    if (_.includes(message, "fb")) {
+                        // console.log("=========> FB")
+                        let data = await getPageInfo(message, user_token)
+                        body.messages.push(data)
+                    } else if (_.includes(message, "web")) {
+                        // console.log("=========> WEB")
+                        let data = await getConfigInfo(message, user_token)
+                        body.messages.push(data)
+                    }
+                } else if (_.includes(message, "help")) {
+                    console.log("help")
+                    let data = await help()
+                    await _.map(data, (a) => { body.messages.push(a) })
+                } else if (_.includes(message, "web")) {
+                    console.log("web")
+                    let data = await web(message)
+                    body.messages.push(data)
+                } else {
+                    console.log("other")
+                    body.messages.push({
+                        type: "sticker",
+                        packageId: 11537,
+                        stickerId: 52002744
+                    })
+                }
+            } else {
+                body.messages.push({
+                    "type": "text",
+                    "text": "Please login user name"
+                })
+            }
         }
+
+
+
     } catch (error) {
         console.log(error)
     } finally {

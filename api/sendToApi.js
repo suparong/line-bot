@@ -92,11 +92,40 @@ async function checkMessage(_id) {
     return JSON.parse(statusMsg)
 }
 
+async function insertUserLine(user_token, user_name) {
+    console.log("===========> insertUserLine")
+    let options = {
+        'method': 'POST',
+        'url': 'http://192.168.19.23:8082/insertUser',
+        'headers': {
+            '_id': user_token,
+            'name': user_name
+        }
+    }
+    let statusUser = await rq(options)
+    return JSON.parse(statusUser)
+}
+
+async function checkUserLine(user_token) {
+    console.log("===========> checkUserLine")
+    let options = {
+        'method': 'POST',
+        'url': 'http://192.168.19.23:8082/checkUser',
+        'headers': {
+            '_id': user_token
+        }
+    }
+    let statusUser = await rq(options)
+    return JSON.parse(statusUser)
+}
+
 module.exports = {
     checkPage,
     checkConfig,
     insertPage,
     insertConfig,
-    checkMessage
+    checkMessage,
+    insertUserLine,
+    checkUserLine
 }
 
