@@ -71,10 +71,10 @@ async function setBody(req) {
 
         let message = msg.toLowerCase()
         console.log(typeof (message), JSON.stringify(message))
-        let status_user = true
+        let status_user
         if (_.includes(message, "login")) {
             console.log("login")
-            // status_user = await insertUser(user_token, message)
+            status_user = await insertUser(user_token, message)
             if (status_user) {
                 body.messages.push({
                     "type": "text",
@@ -89,11 +89,11 @@ async function setBody(req) {
 
         } else {
             console.log("No login")
-            // status_user = await checkUser(user_token)
+            status_user = await checkUser(user_token)
             if (status_user) {
                 if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook")) {
                     /**
-                    * fb&add=TidPromo,https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
+                    * https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
                     */
                     if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch")) {
                         console.log("messages facebook")
@@ -154,9 +154,6 @@ async function setBody(req) {
                 })
             }
         }
-
-
-
     } catch (error) {
         console.log(error)
     } finally {

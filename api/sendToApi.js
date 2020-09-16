@@ -1,6 +1,11 @@
 const rq = require('request-promise')
 const _ = require('lodash')
 
+const QUERY = "about,picture{url},fan_count,name"
+const QUERY_INFO = "link,name,fan_count,talking_about_count,rating_count,category_list,artists_we_like,country_page_likes,picture{url}"
+const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
+const URL_API = "https://graph.facebook.com/v4.0"
+
 async function checkPage(page_id) {
     console.log("================== checkPage")
     try {
@@ -119,6 +124,51 @@ async function checkUserLine(user_token) {
     return JSON.parse(statusUser)
 }
 
+async function apiFbSearchPage(page) {
+    try {
+        let options = {
+            'method': 'GET',
+            'url': `${URL_API}/${page}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
+            'headers': {
+            }, json: true
+        }
+        let pageInfo = await rq(options)
+        return pageInfo
+    } catch (error) {
+        // console.log(error)
+        return false
+    }
+}
+
+async function searchPageInfo(page_id, zone, tag, user_token) {
+    try {
+        // console.log("+++++++++++++++++ searchPageInfo")
+        let options = {
+            'method': 'GET',
+            'url': `${URL_API}/${page_id}?fields=${QUERY_INFO}&access_token=${ACCESS_TOKEN}`,
+            'headers': {
+            }, json: true
+        }
+        let pageInfo = await rq(options)
+        pageInfo.zone = zone
+        if (tag === "1") {
+            tag = true
+        } else {
+            tag = false
+        }
+        /*
+            2020-09-15T10:39:06.954Z
+        */
+        pageInfo.request_time = new Date().toISOString()
+        pageInfo.customer = tag
+        pageInfo.line_token = user_token
+        return pageInfo
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
 module.exports = {
     checkPage,
     checkConfig,
@@ -126,6 +176,8 @@ module.exports = {
     insertConfig,
     checkMessage,
     insertUserLine,
-    checkUserLine
+    checkUserLine,
+    apiFbSearchPage,
+    searchPageInfo
 }
 
