@@ -172,13 +172,19 @@ async function formatData(body) {
         if (body.status) {
             return {
                 "to": body.line_token,
-                "messages": [{ type: "text", text: `Page "${body.page_name}" has been approved` }]
+                "messages": [{
+                    "type": "text",
+                    "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\n${page}\nFacebook name:\n${body.page_name}\n\nReason:\n approve.`
+                }]
             }
         } else {
             let page = body.social_id
             return {
-                "type": "text",
-                "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\n${page}\n\nReason:\nNot approve.`
+                "to": body.line_token,
+                "messages": [{
+                    "type": "text",
+                    "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\n${page}\nFacebook name:\n${body.page_name}\n\nReason:\nNot approve.`
+                }]
             }
         }
 
