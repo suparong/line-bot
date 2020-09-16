@@ -70,7 +70,7 @@ async function setBody(req) {
         }
 
         let message = msg.toLowerCase()
-        console.log(typeof (message), message)
+        console.log(typeof (message), JSON.stringify(message))
         let status_user
         if (_.includes(message, "login")) {
             console.log("login")
