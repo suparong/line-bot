@@ -71,10 +71,10 @@ async function setBody(req) {
 
         let message = msg.toLowerCase()
         console.log(typeof (message), JSON.stringify(message))
-        let status_user
+        let status_user = true
         if (_.includes(message, "login")) {
             console.log("login")
-            status_user = await insertUser(user_token, message)
+            // status_user = await insertUser(user_token, message)
             if (status_user) {
                 body.messages.push({
                     "type": "text",
@@ -89,7 +89,7 @@ async function setBody(req) {
 
         } else {
             console.log("No login")
-            status_user = await checkUser(user_token)
+            // status_user = await checkUser(user_token)
             if (status_user) {
                 if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook")) {
                     /**
