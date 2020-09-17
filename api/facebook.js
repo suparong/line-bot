@@ -3,6 +3,7 @@ let _ = require('lodash')
 const { URLSearchParams } = require('url')
 const { checkPage, insertPage, apiFbSearchPage, searchPageInfo } = require('./sendToApi')
 const { checkMsgIG } = require('./messages')
+const { logger } = require('@zanroo/init');
 
 /**
 * message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
@@ -13,6 +14,7 @@ async function facebook(message) {
     try {
         if (_.includes(message, "\n")) {
             let type = "multi"
+            logger.info('info', 'checking page type :', type)
             // console.log("111111111111111111")
             let list_page = message.split("\n")
             let zone = 'none'
@@ -27,6 +29,7 @@ async function facebook(message) {
             return item
         } else {
             let type = "single"
+            logger.info('info', 'checking page type :', type)
             // console.log("222222222222222222")
             let urlParams = new URLSearchParams(message)
             if (_.includes(message, "fb")) {
@@ -35,7 +38,7 @@ async function facebook(message) {
                 let zone = urlParams.get('zone')
                 let tag = urlParams.get('tag') || "0"
                 name = encodeURIComponent(name)
-                console.log("+++++>", name, "zone : ", zone)
+                // console.log("+++++>", name, "zone : ", zone)
                 let item = await getPage(name, zone, tag)
                 return item
             } else {
@@ -51,6 +54,7 @@ async function facebook(message) {
             }
         }
     } catch (error) {
+        logger.error('error', JSON.stringify(error))
         return { type: "text", text: `${error}` }
     }
 }
@@ -67,7 +71,7 @@ async function getPage(page, zone, tag, type) {
             "altText": "new messages"
         }
         if (type === "single") {
-            console.log("single")
+            // console.log("single")
             // let pagesInfo = await searchPageInfo(page, zone)
             let pagesInfo = await searchPage(page, zone, tag)
             // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
@@ -78,24 +82,26 @@ async function getPage(page, zone, tag, type) {
                 return info
             }
         } else if (type === "multi") {
-            console.log("multi")
+            // console.log("multi")
             let pagesInfo = await searchPageMulti(page, zone, tag)
-            console.log(JSON.stringify(pagesInfo))
+            // console.log(JSON.stringify(pagesInfo))
             info.contents = pagesInfo
             return info
         }
 
     } catch (error) {
-        console.log(error)
+        logger.error('error', JSON.stringify(error))
+        // console.log(error)
     }
 
 }
 
 async function searchPage(page, zone, tag) {
-    console.log("+++++++++++++++++ searchPage", page)
+    // console.log("+++++++++++++++++ searchPage", page)
+    // logger.info('info', 'search page : ', page)
     try {
         let pageInfo = await apiFbSearchPage(page)
-        console.log("+++++>", pageInfo.id, "zone : ", zone)
+        // console.log("+++++>", pageInfo.id, "zone : ", zone)
         let pageInDB = await checkPage(pageInfo.id)
         // console.log("=====", pageInDB)
         let newPage = JSON.parse(pageInDB)
@@ -123,6 +129,7 @@ async function searchPage(page, zone, tag) {
             return newPageInfo
         }
     } catch (error) {
+        logger.error('error', JSON.stringify(error))
         return {
             // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `ทำอะไรผิดป่าวววว` }] }
             type: "text", text: `Please check your link url again. Make sure that you send Facebook page’s link.`
@@ -137,7 +144,7 @@ async function searchPageMulti(page, zone, tag) {
         let body = []
         let page_list = ''
         for (let i = 0; i < page.length; i++) {
-            console.log("======", page[i])
+            // console.log("======", page[i])
             let pageInfo = await apiFbSearchPage(page[i])
             if (pageInfo) {
                 let pageInDB = await checkPage(pageInfo.id)
@@ -234,11 +241,12 @@ async function searchPageMulti(page, zone, tag) {
         // console.log(link_submit)
         return formateDataMulti(body, link_submit)
     } catch (error) {
-        console.log(error)
+        logger.error('error', JSON.stringify(error))
     }
 }
 
 async function formateDataMulti(item, link_submit) {
+    logger.info('info', 'formate data multi')
     let data = {
         "type": "bubble",
         "direction": "ltr",
@@ -282,6 +290,7 @@ async function formateDataMulti(item, link_submit) {
 
 async function formateData(res, zone, tag) {
     // console.log("+++++++++++++++++ formateData")
+    logger.info('info', 'formate data single')
     let pageInfo = {
         "type": "bubble",
         "header": {
@@ -386,7 +395,7 @@ async function formateData(res, zone, tag) {
             pageInfo.body.contents.push(item)
         }
     } catch (error) {
-        console.log(error)
+        logger.error('error', JSON.stringify(error))
     } finally {
         return pageInfo
     }
@@ -395,6 +404,7 @@ async function formateData(res, zone, tag) {
 
 async function getPageInfo(message, user_token) {
     try {
+        logger.info('info', 'get page info facebook')
         let urlParams = new URLSearchParams(message)
         let page_id = urlParams.get('submit')
         let zone = urlParams.get('zone') || "none"
@@ -403,7 +413,7 @@ async function getPageInfo(message, user_token) {
         let list = page_id.split(",")
         list = _.uniq(list)
         list = _.compact(list)
-        console.log(list)
+        // console.log(list)
         for (let i = 0; i < list.length; i++) {
             const PageInfo = await searchPageInfo(list[i], zone, tag, user_token)
             // console.log(PageInfo)
@@ -416,7 +426,8 @@ async function getPageInfo(message, user_token) {
             // }
         }
     } catch (error) {
-        console.log(error)
+        logger.error('error', JSON.stringify(error))
+        // console.log(error)
     }
 
 }

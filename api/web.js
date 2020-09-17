@@ -1,14 +1,15 @@
 const _ = require('lodash')
 var { URL, URLSearchParams } = require('url')
 const { checkConfig, insertConfig } = require('./sendToApi')
+const { logger } = require('@zanroo/init');
 
 async function web(message) {
     try {
         let domain
         let zone = "none"
-        console.log("============>", message)
+        // console.log("============>", message)
         if (_.includes(message, "&zone=")) {
-            console.log("++++++++++++++++ zone")
+            // console.log("++++++++++++++++ zone")
             let webArray = message.split("&")
             // console.log("++++++++++++++++ webArray", webArray)
 
@@ -21,7 +22,7 @@ async function web(message) {
             zone = zoneArray[1]
 
         } else {
-            console.log("++++++++++++++++not zone")
+            // console.log("++++++++++++++++not zone")
             let webArray = message.split("=")
             domain = webArray[1]
         }
@@ -47,28 +48,28 @@ async function web(message) {
         // info.contents.header.contents.text = domain
         domain = domain.split(".")[0]
         console.log("==", domain, ":", zone)
+        logger.info('info', 'checking config ', 'domain name : ', JSON.stringify(domain))
         let configList = await checkConfig(domain, zone)
         // console.log("=========", configList)
 
-        ///////////
-        // let configList = {
-        //     "status": true || false,
-        //     "type": 3 || 2 || 1,
-        //     "data": [
-        //         {
-        //             "status": true,
-        //             "domain": "http://www.apakes.com",
-        //             "channel": "blog",
-        //             "zone": "id",
-        //             "running_page": false,
-        //             "created_time": null,
-        //             "sys_time": null,
-        //             "cts": null
-        //         }
-        //     ]
-        // }
-        ///////////
-
+        /**
+         * let configList = {
+            "status": true || false,
+            "type": 3 || 2 || 1,
+            "data": [
+                {
+                    "status": true,
+                    "domain": "http://www.apakes.com",
+                    "channel": "blog",
+                    "zone": "id",
+                    "running_page": false,
+                    "created_time": null,
+                    "sys_time": null,
+                    "cts": null
+                }
+            ]
+        }
+         */
         if (configList.status === true && configList.type === 3) {
             let info = {
                 "type": "flex",
@@ -216,7 +217,8 @@ async function web(message) {
             return { type: "text", text: `This website is waiting for approval.` }
         }
     } catch (error) {
-        console.log("============> error", error)
+        logger.error('error', JSON.stringify(error))
+        // console.log("============> error", error)
     }
 
 
@@ -421,22 +423,27 @@ async function formateData(domain, list) {
 }
 
 async function getConfigInfo(message, user_token) {
-    let urlParams = new URLSearchParams(message)
-    let config = urlParams.get('submit')
-    let zone = urlParams.get('zone') || "none"
+    try {
+        let urlParams = new URLSearchParams(message)
+        let config = urlParams.get('submit')
+        let zone = urlParams.get('zone') || "none"
+        logger.info('info', 'get config info', 'config name : ', JSON.stringify(config))
+        let configInfo = {
+            "_id": config,
+            "zone": zone,
+            "line_token": user_token
+        }
+        let resDB = await insertConfig(configInfo)
+        // console.log("=========>", configInfo)
+        if (resDB) {
+            return { type: "text", text: `Your website is sent for waiting for approval.` }
+        } else {
+            return { type: "text", text: `This website already exists.` }
+        }
+    } catch (error) {
+        logger.error('error', JSON.stringify(error))
+    }
 
-    let configInfo = {
-        "_id": config,
-        "zone": zone,
-        "line_token": user_token
-    }
-    let resDB = await insertConfig(configInfo)
-    // console.log("=========>", configInfo)
-    if (resDB) {
-        return { type: "text", text: `Your website is sent for waiting for approval.` }
-    } else {
-        return { type: "text", text: `This website already exists.` }
-    }
 }
 
 module.exports = {

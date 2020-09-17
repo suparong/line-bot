@@ -2,6 +2,7 @@
 const rq = require('request-promise')
 const _ = require('lodash')
 const { URL, URLSearchParams } = require('url')
+const { logger } = require('@zanroo/init');
 
 const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
 
@@ -84,13 +85,15 @@ async function checkMsgFB(message) {
             message_id = `${page_id}_${post_id}`
             // console.log(message_id)
         }
-        console.log("======>", message_id)
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : facebook', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
             let Msg = await checkAndFormat({ message_id, page_id, ch: "fb" })
             return Msg
         }
     } catch (e) {
-        console.log('eeeeeee', e)
+        // console.log('eeeeeee', e)
+        logger.error('error', JSON.stringify(e))
         return { type: "text", text: `${e.error.errors.message}` }
     }
 
@@ -115,11 +118,11 @@ async function getLinkWatch(name) {
     }
     let pageInfo = await rq(options)
     if ((pageInfo.data).length > 0) {
-        console.log(pageInfo.data[0].permalink_url)
+        // console.log(pageInfo.data[0].permalink_url)
         let link = pageInfo.data[0].permalink_url
         return link
     } else {
-        console.log("no comment")
+        // console.log("no comment")
         return false
     }
 
@@ -141,13 +144,15 @@ async function checkMsgTW(message) {
         let page_id = await getUserID(user)
         let post_id = bodyMsg[3]
         let message_id = `${page_id}_${post_id}`
-        console.log("======>", message_id)
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : twitter', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
             let Msg = await checkAndFormat({ message_id, page_id: '', ch: "tw" })
             return Msg
         }
     } catch (e) {
         // console.log("eeeeeeeeeee", e)
+        logger.error('error', JSON.stringify(e))
         return { type: "text", text: `user not found` }
     }
 
@@ -197,7 +202,8 @@ async function checkMsgYT(message) {
         let chID = await getChannelID(watch_id)
         // console.log("==============>", chID)
         message_id = `${chID}_${watch_id}`
-        console.log("======>", message_id)
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : youtube', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
             let Msg = await checkAndFormat({ message_id, page_id: '', ch: "yt" })
             return Msg
@@ -205,6 +211,7 @@ async function checkMsgYT(message) {
 
     } catch (e) {
         // console.log("eeeeeeeeeee", e)
+        logger.error('error', JSON.stringify(e))
         return { type: "text", text: `${e.error.errors.message}` }
     }
 
@@ -240,13 +247,15 @@ async function checkMsgIG(message) {
         // console.log(bodyMsg)
         let post_id = bodyMsg[2]
         let message_id = `${post_id}`
-        console.log("======>", message_id)
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : instagram', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
             let Msg = await checkAndFormat({ message_id, page_id: '', ch: "ig" })
             return Msg
         }
     } catch (e) {
         // console.log("eeeeeeeeeee", e)
+        logger.error('error', JSON.stringify(e))
         return { type: "text", text: `${e}` }
     }
 
@@ -267,13 +276,15 @@ async function checkMsgPT(message) {
         let bodyMsg = _.split(url.pathname, "/")
         // console.log(bodyMsg)
         let message_id = `com.pantip_/topic/${bodyMsg[2]}`
-        console.log("======>", message_id)
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : pantip', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
             let Msg = await checkAndFormat({ message_id, page_id: '', ch: 'pt' })
             return Msg
         }
     } catch (e) {
         // console.log("eeeeeeeeeee", e)
+        logger.error('error', JSON.stringify(e))
         return { type: "text", text: `${e}` }
     }
 
@@ -339,12 +350,14 @@ async function checkAndFormat({ message_id, page_id, ch }) {
 
         }
     } catch (e) {
-        console.log(e)
+        logger.error('error', JSON.stringify(e))
+        // console.log(e)
     }
 
 }
 
 async function formatMessages(status) {
+    logger.info('info', 'format messages', 'message id : ', JSON.stringify(status._id))
     try {
         let created_time = null
         let sys_time = null
@@ -357,7 +370,8 @@ async function formatMessages(status) {
             "text": `The message already exist.\n\n---------------------------------------------\n\nAccount ID: ${status.acc_list}\nChannel: ${status.channel}\nZone: ${status.zone}\nCreated_Time: ${status.created_time} (GMT+7)\nSys_Time: ${status.sys_time} (GMT+7)\n\nSystem Link:\nhttps://listening.zanroo.com/message/conversation/conversation#message_id=${status._id}`
         }
     } catch (error) {
-        console.log(error)
+        logger.error('error', JSON.stringify(error))
+        // console.log(error)
     }
 
 

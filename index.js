@@ -2,6 +2,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
+const { logger } = require('@zanroo/init');
 
 require('dotenv').config()
 const port = process.env.PORT_API || 4000
@@ -13,15 +14,17 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.post('/webhook', (req, res) => {
-    console.log('webhook')
+    // console.log('webhook')
+    logger.info('info', 'process webhook')
     reply(req)
 })
 
 app.post('/statusApprove', async (req, res) => {
-    console.log('statusApprove')
+    // console.log('statusApprove')
+    logger.info('info', 'process statusApprove')
     let readyToSend = await formatData(req.body)
     // console.log("======", JSON.stringify(readyToSend))
-    // pushBody(JSON.stringify(readyToSend))
+    pushBody(JSON.stringify(readyToSend))
     res.status(200).send(true)
 })
 
