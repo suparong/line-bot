@@ -165,7 +165,7 @@ async function setBody(req) {
                 logger.info('info', 'no login : ', 'Please login user name', `user token ${user_token}`)
                 body.messages.push({
                     "type": "text",
-                    "text": "Please login user name"
+                    "text": "Please login user name Ex : login=XXXX"
                 })
             }
         }
