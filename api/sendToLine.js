@@ -26,7 +26,7 @@ async function reply(req) {
          * url :reply,push,multicast,Broadcast
          */
         // pushBody(newres)
-        // replyBody(newres)
+        replyBody(newres)
     } catch (error) {
         logger.error('error', JSON.stringify(error))
         // console.log("error : ", error)
