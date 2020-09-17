@@ -175,7 +175,7 @@ async function searchPageInfo(page_id, zone, tag, user_token) {
         /*
             2020-09-15T10:39:06.954Z
         */
-        pageInfo.request_time = new Date().toISOString()
+        pageInfo.request_time = new Date()
         pageInfo.customer = tag
         pageInfo.line_token = user_token
         return pageInfo
