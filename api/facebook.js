@@ -1,82 +1,107 @@
 const rq = require('request-promise')
-const QUERY = "about,picture{url},fan_count,name"
-const QUERY_INFO = "link,name,fan_count,talking_about_count,rating_count,category_list,artists_we_like,country_page_likes,picture{url}"
-const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
-const URL_API = "https://graph.facebook.com/v4.0"
 let _ = require('lodash')
 const { URLSearchParams } = require('url')
-const { checkPage, insertPage } = require('./sendToApi')
+const { checkPage, insertPage, apiFbSearchPage, searchPageInfo } = require('./sendToApi')
+const { checkMsgIG } = require('./messages')
+const { logger } = require('@zanroo/init');
+
+/**
+* message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
+*/
 
 async function facebook(message) {
     // console.log("===============>", message)
     try {
-        /**
-        * message = "https://www.facebook.com/Mommy-Is-Here-108444714131126&zone=th"
-        */
-        let urlParams = new URLSearchParams(message)
-        if (_.includes(message, "fb")) {
-            // console.log("11111111111", urlParams)
-            let name = urlParams.get('add')
-            let zone = urlParams.get('zone')
-            name = encodeURIComponent(name)
-            console.log("+++++>", name, "zone : ", zone)
-            let item = await getPage(name, zone)
+        if (_.includes(message, "\n")) {
+            let type = "multi"
+            logger.info('info', 'checking page type :', type)
+            // console.log("111111111111111111")
+            let list_page = message.split("\n")
+            let zone = 'none'
+            let tag = "0"
+            // console.log(list_page)
+            let list_name = await _.map(list_page, (p) => {
+                let page = getPathFromUrl(p)
+                return page
+            })
+            // console.log(list_name)
+            let item = await getPage(list_name, zone, tag, type)
             return item
         } else {
-            // console.log("222222222222")
-            let name = await getPathFromUrl(message)
-            let zone = urlParams.get('zone')
-            var newname = name.split("&")
-            newname = encodeURIComponent(newname[0])
-            let item = await getPage(newname, zone)
-            return item
+            let type = "single"
+            logger.info('info', 'checking page type :', type)
+            // console.log("222222222222222222")
+            let urlParams = new URLSearchParams(message)
+            if (_.includes(message, "fb")) {
+                // console.log("11111111111", urlParams)
+                let name = urlParams.get('add')
+                let zone = urlParams.get('zone')
+                let tag = urlParams.get('tag') || "0"
+                name = encodeURIComponent(name)
+                // console.log("+++++>", name, "zone : ", zone)
+                let item = await getPage(name, zone, tag)
+                return item
+            } else {
+                // console.log("222222222222")
+                let name = await getPathFromUrl(message)
+                let zone = urlParams.get('zone') || "none"
+                let tag = urlParams.get('tag') || "0"
+                var newname = name.split("&")
+                newname = encodeURIComponent(newname[0])
+                let item = await getPage(newname, zone, tag, type)
+                return item
 
+            }
         }
-
     } catch (error) {
+        logger.error('error', JSON.stringify(error))
         return { type: "text", text: `${error}` }
     }
-
 }
 
 function getPathFromUrl(url) {
     return url.split("?")[0];
 }
 
-
-async function getPage(page, zone) {
+async function getPage(page, zone, tag, type) {
     // console.log("+++++++++++++++++ getPage")
-    let info = {
-        "type": "flex",
-        "altText": "new messages"
-    }
     try {
-        // let pagesInfo = await searchPageInfo(page, zone)
-        let pagesInfo = await searchPage(page, zone)
-        // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
-        if (pagesInfo.type === "text") {
-            return pagesInfo
-        } else {
+        let info = {
+            "type": "flex",
+            "altText": "new messages"
+        }
+        if (type === "single") {
+            // console.log("single")
+            // let pagesInfo = await searchPageInfo(page, zone)
+            let pagesInfo = await searchPage(page, zone, tag)
+            // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
+            if (pagesInfo.type === "text") {
+                return pagesInfo
+            } else {
+                info.contents = pagesInfo
+                return info
+            }
+        } else if (type === "multi") {
+            // console.log("multi")
+            let pagesInfo = await searchPageMulti(page, zone, tag)
+            // console.log(JSON.stringify(pagesInfo))
             info.contents = pagesInfo
             return info
         }
+
     } catch (error) {
-        console.log(error)
+        logger.error('error', JSON.stringify(error))
+        // console.log(error)
     }
 
 }
 
-async function searchPage(page, zone) {
-    console.log("+++++++++++++++++ searchPage", page)
+async function searchPage(page, zone, tag) {
+    // console.log("+++++++++++++++++ searchPage", page)
+    // logger.info('info', 'search page : ', page)
     try {
-        let options = {
-            'method': 'GET',
-            'url': `${URL_API}/${page}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
-            'headers': {
-            }, json: true
-        }
-        let pageInfo = await rq(options)
-        console.log("+++++>", pageInfo.id, "zone : ", zone)
+        let pageInfo = await apiFbSearchPage(page)
+        // console.log("+++++>", pageInfo.id, "zone : ", zone)
         let pageInDB = await checkPage(pageInfo.id)
         // console.log("=====", pageInDB)
         let newPage = JSON.parse(pageInDB)
@@ -100,10 +125,11 @@ async function searchPage(page, zone) {
                 type: "text", text: `This page already exists.`
             }
         } else {
-            let newPageInfo = await formateData(pageInfo, zone)
+            let newPageInfo = await formateData(pageInfo, zone, tag)
             return newPageInfo
         }
     } catch (error) {
+        logger.error('error', JSON.stringify(error))
         return {
             // "type": "bubble", "body": { "type": "box", "layout": "horizontal", "contents": [{ type: "text", text: `ทำอะไรผิดป่าวววว` }] }
             type: "text", text: `Please check your link url again. Make sure that you send Facebook page’s link.`
@@ -113,31 +139,178 @@ async function searchPage(page, zone) {
 
 }
 
-async function formateData(res, zone) {
-    // console.log("+++++++++++++++++ formateData")
-    zone = zone || "none"
-    let pageInfo = {
-        "type": "bubble",
-        "styles": {
-            "footer": {
-                "backgroundColor": "#42b3f4"
+async function searchPageMulti(page, zone, tag) {
+    try {
+        let body = []
+        let page_list = ''
+        for (let i = 0; i < page.length; i++) {
+            // console.log("======", page[i])
+            let pageInfo = await apiFbSearchPage(page[i])
+            if (pageInfo) {
+                let pageInDB = await checkPage(pageInfo.id)
+                let newPage = JSON.parse(pageInDB)
+                /**
+                * {
+                * "status": false | true ,
+                * "type": 1 || 2 || 3
+                * }
+                */
+                if (newPage.status === false && newPage.type === 1) {
+                    let list = [{
+                        "type": "text",
+                        "text": `${page[i]}`,
+                        "align": "start",
+                        "contents": []
+                    }, {
+                        "type": "text",
+                        "text": "> Already exist in system",
+                        "contents": [],
+                        "color": "#BE3214"
+                    }]
+                    body.push(_.map(list, (l) => { return l }))
+
+                } else if (newPage.status === false && newPage.type === 2) {
+                    let list = [{
+                        "type": "text",
+                        "text": `${page[i]}`,
+                        "align": "start",
+                        "contents": []
+                    }, {
+                        "type": "text",
+                        "text": "> Already exist in system",
+                        "contents": [],
+                        "color": "#BE3214"
+                    }]
+                    body.push(_.map(list, (l) => { return l }))
+
+                } else {
+                    let list = [{
+                        "type": "text",
+                        "text": `${page[i]}`,
+                        "align": "start",
+                        "contents": []
+                    }, {
+                        "type": "text",
+                        "text": "> Not exist in system",
+                        "contents": [],
+                        "color": "#0BA993"
+                    }]
+                    if (i != page.length - 1) {
+                        // console.log(i, ":", page.length - 1)
+                        page_list += `${pageInfo.id},`
+                        body.push(_.map(list, (l) => { return l }))
+                    } else {
+                        // console.log(i, ":", page.length - 1, "end")
+                        page_list += `${pageInfo.id}`
+                        let text_approve = [{
+                            "type": "separator",
+                            "margin": "lg"
+                        },
+                        {
+                            "type": "text",
+                            "text": "Do you want to send all which not exist to approve ?",
+                            "margin": "lg",
+                            "wrap": true,
+                            "contents": []
+                        }]
+                        body.push(_.map(text_approve, (t) => { return t }))
+                    }
+
+
+                }
+            } else {
+                let list = [{
+                    "type": "text",
+                    "text": `${page[i]}`,
+                    "align": "start",
+                    "contents": []
+                }, {
+                    "type": "text",
+                    "text": "> Invalid url",
+                    "contents": [],
+                    "color": "#BE3214"
+                }]
+                body.push(_.map(list, (l) => { return l }))
             }
-        },
+        }
+        body = _.flatMapDeep(body)
+        // console.log(body)
+        // console.log('=================')
+        // console.log(page_list)
+        let link_submit = `&fb&submit=${page_list}&zone=${zone}&tag=${tag}`
+        // console.log(link_submit)
+        return formateDataMulti(body, link_submit)
+    } catch (error) {
+        logger.error('error', JSON.stringify(error))
+    }
+}
+
+async function formateDataMulti(item, link_submit) {
+    logger.info('info', 'formate data multi')
+    let data = {
+        "type": "bubble",
+        "direction": "ltr",
         "header": {
             "type": "box",
             "layout": "vertical",
             "contents": [
                 {
                     "type": "text",
-                    "text": "Facebook Page Info"
+                    "text": "Multiple Facebook Page Request",
+                    "weight": "bold",
+                    "align": "center",
+                    "contents": []
+                }
+            ]
+        },
+        "body": {
+            "type": "box",
+            "layout": "vertical"
+        },
+        "footer": {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+                {
+                    "type": "button",
+                    "action": {
+                        "type": "message",
+                        "label": "Submit",
+                        "text": ''
+                    },
+                    "style": "primary"
+                }
+            ]
+        }
+    }
+    data.body.contents = item
+    data.footer.contents[0].action.text = link_submit
+    return data
+}
+
+async function formateData(res, zone, tag) {
+    // console.log("+++++++++++++++++ formateData")
+    logger.info('info', 'formate data single')
+    let pageInfo = {
+        "type": "bubble",
+        "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+                {
+                    "type": "text",
+                    "text": "Facebook Page Request",
+                    "weight": "bold",
+                    "align": "center",
                 }
             ]
         },
         "hero": {
             "type": "image",
-            "size": "sm",
+            "size": "full",
             "url": "",
-            "aspectRatio": "1:1"
+            "aspectRatio": "1.51:1",
+            "aspectMode": "fit"
         },
         "body": {
             "type": "box",
@@ -146,17 +319,15 @@ async function formateData(res, zone) {
         },
         "footer": {
             "type": "box",
-            "layout": "vertical",
+            "layout": "horizontal",
             "spacing": "sm",
             "contents": [
                 {
                     "type": "button",
-                    "style": "link",
-                    "color": "#FFFFFF",
-                    "height": "sm",
+                    "style": "primary",
                     "action": {
                         "type": "message",
-                        "label": "submit",
+                        "label": "Submit",
                         "text": ""
                     }
                 }
@@ -173,18 +344,7 @@ async function formateData(res, zone) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `Page Name : ${res.name}`
-            }
-            pageInfo.body.contents.push(item)
-        }
-        if (res.fan_count) {
-            item = {
-                "type": "text",
-                "margin": "md",
-                "size": "sm",
-                "color": "#666666",
-                "text": `${res.fan_count} People Like`,
-                "wrap": true
+                "text": `Page Name: ${res.name}`
             }
             pageInfo.body.contents.push(item)
         }
@@ -194,14 +354,48 @@ async function formateData(res, zone) {
                 "margin": "md",
                 "size": "sm",
                 "color": "#666666",
-                "text": `Page ID : ${res.id}`
+                "text": `Page ID: ${res.id}`
             }
             pageInfo.body.contents.push(item)
             // pageInfo.footer.contents[0].action.text = `OK เช็คให้นะ`
-            pageInfo.footer.contents[0].action.text = `&fb&submit=${res.id}&zone=${zone}`
+            pageInfo.footer.contents[0].action.text = `&fb&submit=${res.id}&zone=${zone}&tag=${tag}`
+        }
+        if (res.fan_count) {
+            item = {
+                "type": "text",
+                "margin": "md",
+                "size": "sm",
+                "color": "#666666",
+                "text": `Like: ${res.fan_count}`,
+                "wrap": true
+            }
+            pageInfo.body.contents.push(item)
+        }
+        if (tag === "1") {
+            pageInfo.body.contents.push({ "type": "separator", "margin": "lg" })
+            item = {
+                "type": "text",
+                "margin": "md",
+                "size": "sm",
+                "color": "#666666",
+                "text": `Customer Request: Yes`,
+                "wrap": true
+            }
+            pageInfo.body.contents.push(item)
+        } else {
+            pageInfo.body.contents.push({ "type": "separator", "margin": "lg" })
+            item = {
+                "type": "text",
+                "margin": "md",
+                "size": "sm",
+                "color": "#666666",
+                "text": `Customer Request: No`,
+                "wrap": true
+            }
+            pageInfo.body.contents.push(item)
         }
     } catch (error) {
-        console.log(error)
+        logger.error('error', JSON.stringify(error))
     } finally {
         return pageInfo
     }
@@ -209,35 +403,34 @@ async function formateData(res, zone) {
 }
 
 async function getPageInfo(message, user_token) {
-    let urlParams = new URLSearchParams(message)
-    let page_id = urlParams.get('submit')
-    let zone = urlParams.get('zone') || "none"
+    try {
+        logger.info('info', 'get page info facebook')
+        let urlParams = new URLSearchParams(message)
+        let page_id = urlParams.get('submit')
+        let zone = urlParams.get('zone') || "none"
+        let tag = urlParams.get('tag') || "0"
 
-    const PageInfo = await searchPageInfo(page_id, zone, user_token)
-    // console.log(PageInfo)
-    const resDB = await insertPage(PageInfo)
-    // console.log("=============>", resDB)
-    if (resDB) {
-        return { type: "text", text: `Your page is sent for waiting for approval.` }
-    } else {
-        return { type: "text", text: `This page already exists.` }
+        let list = page_id.split(",")
+        list = _.uniq(list)
+        list = _.compact(list)
+        // console.log(list)
+        for (let i = 0; i < list.length; i++) {
+            const PageInfo = await searchPageInfo(list[i], zone, tag, user_token)
+            // console.log(PageInfo)
+            await insertPage(PageInfo)
+            // console.log("=============>", resDB)
+            // if (resDB) {
+            return { type: "text", text: "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." }
+            // } else {
+            //     return { type: "text", text: `This page already exists.` }
+            // }
+        }
+    } catch (error) {
+        logger.error('error', JSON.stringify(error))
+        // console.log(error)
     }
-}
 
-async function searchPageInfo(page_id, zone, user_token) {
-    // console.log("+++++++++++++++++ searchPageInfo")
-    let options = {
-        'method': 'GET',
-        'url': `${URL_API}/${page_id}?fields=${QUERY_INFO}&access_token=${ACCESS_TOKEN}`,
-        'headers': {
-        }, json: true
-    }
-    let pageInfo = await rq(options)
-    pageInfo.zone = zone
-    pageInfo.line_token = user_token
-    return pageInfo
 }
-
 
 module.exports = {
     facebook,

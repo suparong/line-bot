@@ -2,10 +2,12 @@
 const rq = require('request-promise')
 const _ = require('lodash')
 const { URL, URLSearchParams } = require('url')
+const { logger } = require('@zanroo/init');
 
 const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
 
-const { checkMessage } = require('./sendToApi')
+const { checkMessage, checkPage, insertPage } = require('./sendToApi')
+
 /**
  * IN
  * 
@@ -29,6 +31,8 @@ const { checkMessage } = require('./sendToApi')
 async function checkMsgFB(message) {
     let message_id
     try {
+        let message_id
+        let page_id
         // console.log("=======>", message)
         let url = new URL(message)
         let urlParams = new URLSearchParams(url.search)
@@ -36,19 +40,19 @@ async function checkMsgFB(message) {
         let type = urlParams.get("type")
         let watch = urlParams.get("v")
         if (story_fbid) {
-            console.log("story_fbid")
-            let page_id = urlParams.get("id")
-            message_id = `fb_${page_id}_${story_fbid}`
+            // console.log("story_fbid")
+            page_id = urlParams.get("id")
+            message_id = `${page_id}_${story_fbid}`
             // console.log(message_id)
         } else if (type) {
-            console.log("type")
+            // console.log("type")
             let bodyMsg = _.split(url.pathname, "/")
-            let page_id = await getPageID(bodyMsg[1])
+            page_id = await getPageID(bodyMsg[1])
             let post_id = bodyMsg[4]
-            message_id = `fb_${page_id}_${post_id}`
+            message_id = `${page_id}_${post_id}`
             // console.log(message_id)
         } else if (watch) {
-            console.log("watch")
+            // console.log("watch")
             let linkWatch = await getLinkWatch(watch)
             // console.log("=======>", linkWatch)
             /**
@@ -59,9 +63,9 @@ async function checkMsgFB(message) {
                 url = new URL(linkWatch)
                 let bodyMsg = _.split(url.pathname, "/")
                 // console.log(bodyMsg)
-                let page_id = await getPageID(bodyMsg[1])
+                page_id = await getPageID(bodyMsg[1])
                 let post_id = bodyMsg[3]
-                message_id = `fb_${page_id}_${post_id}`
+                message_id = `${page_id}_${post_id}`
                 // console.log(message_id)
             } else {
                 /**
@@ -71,40 +75,30 @@ async function checkMsgFB(message) {
                 return { type: "text", text: `can not get link` }
             }
         } else {
-            console.log("Other")
+            // console.log("Other")
             let linkMsg = _.split(url, "?")[0]
             url = new URL(linkMsg)
             let bodyMsg = _.split(url.pathname, "/")
             let pages_name = bodyMsg[1]
-            let page_id = await getPageID(bodyMsg[1])
+            page_id = await getPageID(bodyMsg[1])
             let post_id = bodyMsg[3]
-            message_id = `fb_${page_id}_${post_id}`
+            message_id = `${page_id}_${post_id}`
             // console.log(message_id)
         }
-        console.log("======>", message_id)
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : facebook', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
-            let Msg = await checkAndFormat(message_id)
+            let Msg = await checkAndFormat({ message_id, page_id, ch: "fb" })
             return Msg
         }
     } catch (e) {
         // console.log('eeeeeee', e)
-        return { type: "text", text: `${e}` }
+        logger.error('error', JSON.stringify(e))
+        return { type: "text", text: `${e.error.errors.message}` }
     }
 
 }
 
-async function checkAndFormat(message_id) {
-    let statusMsg = await checkMessage(message_id)
-    // console.log("=====>", statusMsg)
-    if (statusMsg.status) {
-        let msg = await formatMessages(statusMsg.data)
-        return msg
-    } else {
-        ///doing
-        console.log("============> false")
-        return { type: "text", text: `No Messages in system : ${message_id}` }
-    }
-}
 
 async function getPageID(name) {
     let options = {
@@ -124,11 +118,11 @@ async function getLinkWatch(name) {
     }
     let pageInfo = await rq(options)
     if ((pageInfo.data).length > 0) {
-        console.log(pageInfo.data[0].permalink_url)
+        // console.log(pageInfo.data[0].permalink_url)
         let link = pageInfo.data[0].permalink_url
         return link
     } else {
-        console.log("no comment")
+        // console.log("no comment")
         return false
     }
 
@@ -141,7 +135,7 @@ async function getLinkWatch(name) {
  */
 async function checkMsgTW(message) {
     try {
-        console.log(message)
+        // console.log(message)
         let linkMsg = _.split(message, "?")[0]
         let url = new URL(linkMsg)
         let bodyMsg = _.split(url.pathname, "/")
@@ -149,14 +143,16 @@ async function checkMsgTW(message) {
         let user = encodeURIComponent(bodyMsg[1])
         let page_id = await getUserID(user)
         let post_id = bodyMsg[3]
-        let message_id = `tw_${page_id}_${post_id}`
-        console.log("======>", message_id)
+        let message_id = `${page_id}_${post_id}`
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : twitter', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
-            let Msg = await checkAndFormat(message_id)
+            let Msg = await checkAndFormat({ message_id, page_id: '', ch: "tw" })
             return Msg
         }
     } catch (e) {
         // console.log("eeeeeeeeeee", e)
+        logger.error('error', JSON.stringify(e))
         return { type: "text", text: `user not found` }
     }
 
@@ -196,25 +192,27 @@ async function checkMsgYT(message) {
         let watch_id
         if (_.includes(message, "watch")) {
             watch_id = urlParams.get("v")
-            console.log("==============>", watch_id)
+            // console.log("==============>", watch_id)
         } else {
             let bodyMsg = _.split(url.pathname, "/")
             // console.log(bodyMsg)
-            console.log("==============>", bodyMsg[1])
+            // console.log("==============>", bodyMsg[1])
             watch_id = bodyMsg[1]
         }
         let chID = await getChannelID(watch_id)
-        console.log("==============>", chID)
-        message_id = `yt_${chID}_${watch_id}`
-        console.log("======>", message_id)
+        // console.log("==============>", chID)
+        message_id = `${chID}_${watch_id}`
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : youtube', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
-            let Msg = await checkAndFormat(message_id)
+            let Msg = await checkAndFormat({ message_id, page_id: '', ch: "yt" })
             return Msg
         }
 
     } catch (e) {
         // console.log("eeeeeeeeeee", e)
-        return { type: "text", text: `${e}` }
+        logger.error('error', JSON.stringify(e))
+        return { type: "text", text: `${e.error.errors.message}` }
     }
 
 }
@@ -248,14 +246,16 @@ async function checkMsgIG(message) {
         let bodyMsg = _.split(url.pathname, "/")
         // console.log(bodyMsg)
         let post_id = bodyMsg[2]
-        let message_id = `ig_${post_id}`
-        console.log("======>", message_id)
+        let message_id = `${post_id}`
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : instagram', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
-            let Msg = await checkAndFormat(message_id)
+            let Msg = await checkAndFormat({ message_id, page_id: '', ch: "ig" })
             return Msg
         }
     } catch (e) {
         // console.log("eeeeeeeeeee", e)
+        logger.error('error', JSON.stringify(e))
         return { type: "text", text: `${e}` }
     }
 
@@ -274,291 +274,107 @@ async function checkMsgPT(message) {
         let linkMsg = _.split(message, "?")[0]
         let url = new URL(linkMsg)
         let bodyMsg = _.split(url.pathname, "/")
-        console.log(bodyMsg)
+        // console.log(bodyMsg)
         let message_id = `com.pantip_/topic/${bodyMsg[2]}`
-        console.log("======>", message_id)
+        // console.log("======>", message_id)
+        logger.info('info', 'channel : pantip', 'message id : ', JSON.stringify(message_id))
         if (message_id) {
-            let Msg = await checkAndFormat(message_id)
+            let Msg = await checkAndFormat({ message_id, page_id: '', ch: 'pt' })
             return Msg
         }
     } catch (e) {
         // console.log("eeeeeeeeeee", e)
+        logger.error('error', JSON.stringify(e))
         return { type: "text", text: `${e}` }
     }
 
 }
 
-async function formatMessages(status) {
-    let created_time = null
-    let sys_time = null
-    let cts = null
-    let created_time_GMT
-    let sys_time_GMT
-    let cts_GMT
-    let acc = null
-    if (status.created_time && status.sys_time && status.cts) {
-        let created_timeGMT = status.created_time.split("+")
-        created_time_GMT = created_timeGMT[1].split(":")[0]
-        created_time = created_timeGMT[0]
-        // console.log(created_time)
-        let sys_timeGMT = status.sys_time.split("+")
-        sys_time_GMT = sys_timeGMT[1].split(":")[0]
-        sys_time = sys_timeGMT[0]
-        // console.log(sys_time)
-        let ctsGMT = status.cts.split("+")
-        cts_GMT = ctsGMT[1].split(":")[0]
-        cts = ctsGMT[0]
-        // console.log(cts)
-    }
-    if (status.acc_list) {
-        acc = status.acc_list
-    }
-    return {
-        "type": "flex",
-        "altText": "new messages",
-        "contents": {
-            "type": "bubble",
-            "header": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                    {
-                        "type": "text",
-                        "text": "Message status"
-                    }
-                ]
-            },
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [
-                            {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                    {
-                                        "type": "box",
-                                        "layout": "vertical",
-                                        "contents": [
-                                            {
-                                                "type": "text",
-                                                "contents": [
-                                                    {
-                                                        "type": "span",
-                                                        "text": "_id",
-                                                        "weight": "bold",
-                                                        "color": "#000000"
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": " : "
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": `${status._id}`,
-                                                        "size": "xs"
-                                                    }
-                                                ],
-                                                "size": "sm",
-                                                "wrap": true
-                                            },
-                                            {
-                                                "type": "text",
-                                                "contents": [
-                                                    {
-                                                        "type": "span",
-                                                        "text": "account",
-                                                        "weight": "bold",
-                                                        "color": "#000000"
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": " : "
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": `${acc}`,
-                                                        "size": "xs"
-                                                    }
-                                                ],
-                                                "size": "sm",
-                                                "wrap": true
-                                            },
-                                            {
-                                                "type": "text",
-                                                "contents": [
-                                                    {
-                                                        "type": "span",
-                                                        "text": "Link",
-                                                        "weight": "bold",
-                                                        "color": "#000000"
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": " : "
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": `${status.link}`,
-                                                        "size": "xs"
-                                                    }
-                                                ],
-                                                "size": "sm",
-                                                "wrap": true
-                                            },
-                                            {
-                                                "type": "text",
-                                                "contents": [
-                                                    {
-                                                        "type": "span",
-                                                        "text": "Channel",
-                                                        "weight": "bold",
-                                                        "color": "#000000"
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": " : "
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": `${status.channel}`,
-                                                        "size": "xs"
-                                                    }
-                                                ],
-                                                "size": "sm",
-                                                "wrap": true
-                                            },
-                                            {
-                                                "type": "text",
-                                                "contents": [
-                                                    {
-                                                        "type": "span",
-                                                        "text": "Zone",
-                                                        "weight": "bold",
-                                                        "color": "#000000"
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": " : "
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": `${status.zone}`,
-                                                        "size": "xs"
-                                                    }
-                                                ],
-                                                "size": "sm",
-                                                "wrap": true
-                                            },
-                                            {
-                                                "type": "text",
-                                                "contents": [
-                                                    {
-                                                        "type": "span",
-                                                        "text": "Created_Time",
-                                                        "weight": "bold",
-                                                        "color": "#000000"
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": " : "
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": `${created_time}`,
-                                                        "size": "xs"
-                                                    }
-                                                ],
-                                                "size": "sm",
-                                                "wrap": true
-                                            },
-                                            {
-                                                "type": "text",
-                                                "contents": [
-                                                    {
-                                                        "type": "span",
-                                                        "text": "Sys_Time",
-                                                        "weight": "bold",
-                                                        "color": "#000000"
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": " : "
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": `${sys_time}`,
-                                                        "size": "xs"
-                                                    }
-                                                ],
-                                                "size": "sm",
-                                                "wrap": true
-                                            },
-                                            {
-                                                "type": "text",
-                                                "contents": [
-                                                    {
-                                                        "type": "span",
-                                                        "text": "Cts",
-                                                        "weight": "bold",
-                                                        "color": "#000000"
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": " : "
-                                                    },
-                                                    {
-                                                        "type": "span",
-                                                        "text": `${cts}`,
-                                                        "size": "xs"
-                                                    }
-                                                ],
-                                                "size": "sm",
-                                                "wrap": true
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "spacing": "xl",
-                                "paddingAll": "20px"
-                            }
-                        ],
-                        "backgroundColor": "#E8EBED",
-                        "offsetStart": "10px",
-                        "offsetBottom": "20px",
-                        "width": "280px",
-                        "paddingTop": "10px",
-                        "paddingBottom": "0px"
-                    }
-                ],
-                "paddingAll": "0px"
-            },
-            "footer": {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "sm",
-                "contents": [
-                    {
-                        "type": "button",
-                        "style": "link",
-                        "height": "sm",
-                        "action": {
-                            "type": "uri",
-                            "label": "Link",
-                            "uri": `${status.link}`
-                        }
-                    }
-                ],
-                "paddingTop": "0px",
-                "paddingBottom": "0px",
-                "offsetTop": "-10px"
-            }
+async function checkAndFormat({ message_id, page_id, ch }) {
+    try {
+        let mess_id
+        let page_link
+        if (ch === "fb") {
+            mess_id = `${ch}_${message_id}`
+            page_link = `https://www.facebook.com/${page_id}`
+        } else if (ch === "tw") {
+            mess_id = `${ch}_${message_id}`
+            page_link = `https://twitter.com/${page_id}`
+            message_id = _.split(message_id, "_")[1]
+        } else if (ch === "yt") {
+            mess_id = `${ch}_${message_id}`
+            page_link = `https://www.youtube.com/channel/${page_id}`
+        } else if (ch === "ig") {
+            mess_id = `${ch}_${message_id}`
+            page_link = `not page`
+        } else if (ch === "pt") {
+            mess_id = `${message_id}`
+            page_link = `not page`
         }
+        let statusMsg = await checkMessage(mess_id)
+        // console.log("=========", { message_id, page_id, ch })
+        // let statusMsg = { "status": true, "data": { "_id": "fb_272609309612079_799064393633232", "link": "http://www.facebook.com/272609309612079/posts/799064393633232", "created_time": "26 Feb 2018 20:25:47", "sys_time": "27 Feb 2018 10:31:40", "cts": "27 Feb 2018 05:00:43", "zone": "th", "channel": "facebook", "acc_list": "152,234,219,227,241,154,243,133,220" } }
+        // console.log("=====>", JSON.stringify(statusMsg))
+        if (statusMsg.status) {
+            let msg = await formatMessages(statusMsg.data)
+            return msg
+        } else {
+            ///doing
+            // console.log("============> false")
+            if (page_id) {
+                // console.log("============> page")
+                let pageInDB = await checkPage(page_id)
+                // console.log("=====", pageInDB)
+                let newPage = JSON.parse(pageInDB)
+                if (newPage.status) {
+                    return {
+                        "type": "text",
+                        "text": `The page is not exist.\nPlease send this page for approve.\n\n${page_link}\n\n--------------------------\n\nThe message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n\n**Please backtrack after page exist in system.`
+                    }
+                } else {
+                    return {
+                        "type": "text",
+                        "text": `The message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n`
+                    }
+                }
+
+            } else {
+                // console.log("============> not page")
+                return {
+                    "type": "text",
+                    "text": `The message is not exist in system.\nPlease backtrack with this ID.\n\n${message_id}\n`
+                }
+            }
+
+
+
+        }
+    } catch (e) {
+        logger.error('error', JSON.stringify(e))
+        // console.log(e)
     }
+
+}
+
+async function formatMessages(status) {
+    logger.info('info', 'format messages', 'message id : ', JSON.stringify(status._id))
+    try {
+        let created_time = null
+        let sys_time = null
+        let cts = null
+        let created_time_GMT
+        let sys_time_GMT
+        let cts_GMT
+        return {
+            "type": "text",
+            "text": `The message already exist.\n\n---------------------------------------------\n\nAccount ID: ${status.acc_list}\nChannel: ${status.channel}\nZone: ${status.zone}\nCreated_Time: ${status.created_time} (GMT+7)\nSys_Time: ${status.sys_time} (GMT+7)\n\nSystem Link:\nhttps://listening.zanroo.com/message/conversation/conversation#message_id=${status._id}`
+        }
+    } catch (error) {
+        logger.error('error', JSON.stringify(error))
+        // console.log(error)
+    }
+
+
 }
 
 module.exports = {
