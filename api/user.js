@@ -24,7 +24,7 @@ async function checkUser(user_token) {
     try {
         let status = await checkUserLine(user_token)
         /**
-         * status = true | false
+         * { status: true | false, user_status: 0| 1 |2 }
          */
         return status
     } catch (error) {

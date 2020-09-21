@@ -92,7 +92,7 @@ async function setBody(req) {
         // } else {
         // console.log("No login")
         // status_user = await checkUser(user_token)
-        // if (status_user) {
+        // if (status_user.status) {
         logger.info('info', 'login : ', 'login user name', `user token ${user_token}`)
         if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook")) {
             /**
@@ -160,6 +160,11 @@ async function setBody(req) {
                 stickerId: 52002744
             })
         }
+        //  }else if(!status_user.status && status_user.user_status === 0 ){
+        //     body.messages.push({
+        //         "type": "text",
+        //         "text": "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." 
+        //     }) 
         // } else {
         //     logger.info('info', 'no login : ', 'Please login user name', `user token ${user_token}`)
         //     body.messages.push({
