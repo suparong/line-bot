@@ -117,7 +117,8 @@ async function insertUserLine(user_token, user_name) {
         'url': 'http://192.168.19.23:8082/insertUser',
         'headers': {
             '_id': user_token,
-            'name': user_name
+            'name': user_name,
+            'status': 0
         }
     }
     let statusUser = await rq(options)
