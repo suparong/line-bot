@@ -26,7 +26,7 @@ async function reply(req) {
          * url :reply,push,multicast,Broadcast
          */
         // pushBody(newres)
-        // replyBody(newres)
+        replyBody(newres)
     } catch (error) {
         logger.error('error', JSON.stringify(error))
         // console.log("error : ", error)
@@ -60,7 +60,7 @@ async function reply(req) {
 async function setBody(req) {
     let body
     try {
-        console.log(req.body.events[0])
+        // console.log(req.body.events[0])
         let replyToken = req.body.events[0].replyToken
         let user_token = req.body.events[0].source.userId
         // let user_token = "Ue811773dc55c06f5ad786782d0626f8c"
