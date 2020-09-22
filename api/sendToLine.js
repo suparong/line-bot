@@ -3,7 +3,7 @@ const rq = require('request-promise')
 const _ = require('lodash')
 const { logger } = require('@zanroo/init');
 
-const token = 'fjK/rIFyvFst0ft9FJrX3JdUN8LOMSfCJrl0DflnYz/4vzuzBXwf6kff3UlPGBIxE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUMAMYuxQJSGe09kKZQMxP+pZQnz7ybbS1s03jJz02Hj9wdB04t89/1O/w1cDnyilFU='
+const token = '6B897Ob5lGGGxoj1gPZLXHIbwwn/jZhwxd5uxY66YLDXHhEFdTlkgqTIqTHo0A8hE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUPLBVys1DM2EZiFVtWzDhP7QzE0yk0QKPWzXWTMwUII8QdB04t89/1O/w1cDnyilFU='
 // token-test
 // const token = '0zTssGCqCWcU++oW2esVPcVc7aZ6c+/vVnrpU4nGz846s2pPurIEVEtt/xovGTxSOge8PbXVOfS08Zvg0LpzPOad/R55Cyxc27WHzB5YW8084hVaSZKgurtclTITVTUvvEI0hdMFnfExIStEarI4MQdB04t89/1O/w1cDnyilFU='
 
@@ -26,7 +26,7 @@ async function reply(req) {
          * url :reply,push,multicast,Broadcast
          */
         // pushBody(newres)
-        replyBody(newres)
+        // replyBody(newres)
     } catch (error) {
         logger.error('error', JSON.stringify(error))
         // console.log("error : ", error)
@@ -60,8 +60,7 @@ async function reply(req) {
 async function setBody(req) {
     let body
     try {
-        // let reply_token = req.body.events[0].replyToken
-        // console.log(req.body.events[0])
+        console.log(req.body.events[0])
         let replyToken = req.body.events[0].replyToken
         let user_token = req.body.events[0].source.userId
         // let user_token = "Ue811773dc55c06f5ad786782d0626f8c"
@@ -98,7 +97,7 @@ async function setBody(req) {
             /**
             * https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
             */
-            if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch")) {
+            if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch") || _.includes(message, "story_fbid")) {
                 // console.log("messages facebook")
                 logger.info('info', 'link messages facebook : ', JSON.stringify(message))
                 let data = await checkMsgFB(message)
