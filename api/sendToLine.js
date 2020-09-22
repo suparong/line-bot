@@ -3,7 +3,7 @@ const rq = require('request-promise')
 const _ = require('lodash')
 const { logger } = require('@zanroo/init');
 
-const token = 'd6i2fyYzfSkdRgb2Hkin4O0iQvAAZ0unnnJtXq+sDK4489KVruPrP12Z7vx2UHoWE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUOifuoseFn9iGdYxokwiXRlVTyn4u/UedPPn0RGCECsHQdB04t89/1O/w1cDnyilFU='
+const token = 'fjK/rIFyvFst0ft9FJrX3JdUN8LOMSfCJrl0DflnYz/4vzuzBXwf6kff3UlPGBIxE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUMAMYuxQJSGe09kKZQMxP+pZQnz7ybbS1s03jJz02Hj9wdB04t89/1O/w1cDnyilFU='
 // token-test
 // const token = '0zTssGCqCWcU++oW2esVPcVc7aZ6c+/vVnrpU4nGz846s2pPurIEVEtt/xovGTxSOge8PbXVOfS08Zvg0LpzPOad/R55Cyxc27WHzB5YW8084hVaSZKgurtclTITVTUvvEI0hdMFnfExIStEarI4MQdB04t89/1O/w1cDnyilFU='
 
@@ -73,7 +73,7 @@ async function setBody(req) {
 
         let message = msg.toLowerCase()
         // console.log(typeof (message), JSON.stringify(message))
-        let status_user
+        // let status_user
         // if (_.includes(message, "login")) {
         //     // console.log("login")
         //     logger.info('info', 'register : ', JSON.stringify(message))
