@@ -5,13 +5,18 @@ async function help() {
     //     "type": "flex",
     //     "altText": "new messages"
     // }
-    let sendHelpList = []
-    let sendHelpFB = await formatHelpFB()
-    sendHelpList.push(sendHelpFB)
-    // doing sendHelpWEB
-    let sendHelpWEB = await formatHelpWEB()
-    sendHelpList.push(sendHelpWEB)
-    return sendHelpList
+    // let sendHelpList = []
+    // let sendHelpFB = await formatHelpFB()
+    // sendHelpList.push(sendHelpFB)
+    // // doing sendHelpWEB
+    // let sendHelpWEB = await formatHelpWEB()
+    // sendHelpList.push(sendHelpWEB)
+    // return sendHelpList
+    let link = `https://zanrooth.sharepoint.com/sites/ZanrooThailand/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FZanrooThailand%2FShared%20Documents%2FProduct%20Quality%2F%5BZanroo%5DManual%20Bot%20Monitor%2Epdf&parent=%2Fsites%2FZanrooThailand%2FShared%20Documents%2FProduct%20Quality&p=true&originalPath=aHR0cHM6Ly96YW5yb290aC5zaGFyZXBvaW50LmNvbS86Yjovcy9aYW5yb29UaGFpbGFuZC9FYnd4ZTd4NThWMUR1TEo5S3ZWSVVoa0J4ZGYyZldleVpuTVVicFNvbVk3ZlJnP3J0aW1lPTdPd0JsU3RoMkVn`
+    return {
+        "type": "text",
+        "text": `Please visit this link for manual.\n${link}`
+    }
 }
 
 async function formatHelpFB() {
