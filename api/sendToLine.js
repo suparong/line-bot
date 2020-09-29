@@ -144,7 +144,8 @@ async function setBody(req) {
             // console.log("help")
             logger.info('info', 'help')
             let data = await help()
-            await _.map(data, (a) => { body.messages.push(a) })
+            body.messages.push(data)
+            // await _.map(data, (a) => { body.messages.push(a) })
         } else if (_.includes(message, "web")) {
             // console.log("web")
             logger.info('info', 'configure : ', JSON.stringify(message))
