@@ -18,8 +18,8 @@ async function facebook(message) {
             logger.info('info', 'checking page type :', type)
             // console.log("111111111111111111")
             let list_page = message.split("\n")
-            let zone = urlParams.get('zone') || 'none'
-            let tag = urlParams.get('tag') || "0"
+            let zone = 'none'
+            let tag = "0"
             // console.log(list_page)
             let list_name = await _.map(list_page, (p) => {
                 let page = getPathFromUrl(p)
