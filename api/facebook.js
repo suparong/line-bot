@@ -13,12 +13,13 @@ async function facebook(message) {
     // console.log("===============>", message)
     try {
         if (_.includes(message, "\n")) {
+            let urlParams = new URLSearchParams(message)
             let type = "multi"
             logger.info('info', 'checking page type :', type)
             // console.log("111111111111111111")
             let list_page = message.split("\n")
-            let zone = 'none'
-            let tag = "0"
+            let zone = urlParams.get('zone') || 'none'
+            let tag = urlParams.get('tag') || "0"
             // console.log(list_page)
             let list_name = await _.map(list_page, (p) => {
                 let page = getPathFromUrl(p)
@@ -35,7 +36,7 @@ async function facebook(message) {
             if (_.includes(message, "fb")) {
                 // console.log("11111111111", urlParams)
                 let name = urlParams.get('add')
-                let zone = urlParams.get('zone')
+                let zone = urlParams.get('zone') || 'none'
                 let tag = urlParams.get('tag') || "0"
                 name = encodeURIComponent(name)
                 // console.log("+++++>", name, "zone : ", zone)
@@ -143,12 +144,14 @@ async function searchPageMulti(page, zone, tag) {
     try {
         let body = []
         let page_list = ''
+        let status = []
         for (let i = 0; i < page.length; i++) {
             // console.log("======", page[i])
             let pageInfo = await apiFbSearchPage(page[i])
             if (pageInfo) {
                 let pageInDB = await checkPage(pageInfo.id)
                 let newPage = JSON.parse(pageInDB)
+                status.push(newPage.status)
                 /**
                 * {
                 * "status": false | true ,
@@ -237,7 +240,12 @@ async function searchPageMulti(page, zone, tag) {
         // console.log(body)
         // console.log('=================')
         // console.log(page_list)
-        let link_submit = `&fb&submit=${page_list}&zone=${zone}&tag=${tag}`
+        if (_.compact(status).length == 0) {
+            let link_submit = null
+        } else {
+            let link_submit = `&fb&submit=${page_list}&zone=${zone}&tag=${tag}`
+        }
+
         // console.log(link_submit)
         return formateDataMulti(body, link_submit)
     } catch (error) {
@@ -284,7 +292,7 @@ async function formateDataMulti(item, link_submit) {
         }
     }
     data.body.contents = item
-    data.footer.contents[0].action.text = link_submit
+    if (link_submit) data.footer.contents[0].action.text = link_submit
     return data
 }
 
