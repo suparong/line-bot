@@ -292,7 +292,8 @@ async function formateDataMulti(item, link_submit) {
         }
     }
     data.body.contents = item
-    if (link_submit) data.footer.contents[0].action.text = link_submit
+    // if (link_submit) data.footer.contents[0].action.text = link_submit
+    data.footer.contents[0].action.text = link_submit
     return data
 }
 
