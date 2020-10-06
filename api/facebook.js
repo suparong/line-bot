@@ -18,15 +18,17 @@ async function facebook(message) {
             logger.info('info', 'checking page type :', type)
             // console.log("111111111111111111")
             let list_page = message.split("\n")
-            let zone = 'none'
-            let tag = "0"
+            let zone = urlParams.get('zone') || 'none'
+            let tag = urlParams.get('tag') || "0"
             // console.log(list_page)
+            // console.log("zone", zone, "tag", tag)
             let list_name = await _.map(list_page, (p) => {
                 let page = getPathFromUrl(p)
                 return page
             })
-            // console.log(list_name)
+            console.log(list_name)
             let item = await getPage(list_name, zone, tag, type)
+            // console.log(JSON.stringify(item))
             return item
         } else {
             let type = "single"
@@ -61,7 +63,8 @@ async function facebook(message) {
 }
 
 function getPathFromUrl(url) {
-    return url.split("?")[0];
+    let a = url.split("?")[0];
+    return a.split("&")[0];
 }
 
 async function getPage(page, zone, tag, type) {
@@ -72,7 +75,7 @@ async function getPage(page, zone, tag, type) {
             "altText": "new messages"
         }
         if (type === "single") {
-            // console.log("single")
+            console.log("single")
             // let pagesInfo = await searchPageInfo(page, zone)
             let pagesInfo = await searchPage(page, zone, tag)
             // console.log("pagesInfo =====================>", JSON.stringify(pagesInfo))
@@ -198,26 +201,26 @@ async function searchPageMulti(page, zone, tag) {
                         "contents": [],
                         "color": "#0BA993"
                     }]
-                    if (i != page.length - 1) {
-                        // console.log(i, ":", page.length - 1)
-                        page_list += `${pageInfo.id},`
-                        body.push(_.map(list, (l) => { return l }))
-                    } else {
-                        // console.log(i, ":", page.length - 1, "end")
-                        page_list += `${pageInfo.id}`
-                        let text_approve = [{
-                            "type": "separator",
-                            "margin": "lg"
-                        },
-                        {
-                            "type": "text",
-                            "text": "Do you want to send all which not exist to approve ?",
-                            "margin": "lg",
-                            "wrap": true,
-                            "contents": []
-                        }]
-                        body.push(_.map(text_approve, (t) => { return t }))
-                    }
+                    // if (i != page.length - 1) {
+                    // console.log(i, ":", page.length - 1)
+                    page_list += `${pageInfo.id},`
+                    body.push(_.map(list, (l) => { return l }))
+                    // } else {
+                    //     // console.log(i, ":", page.length - 1, "end")
+                    //     page_list += `${pageInfo.id}`
+                    //     let text_approve = [{
+                    //         "type": "separator",
+                    //         "margin": "lg"
+                    //     },
+                    //     {
+                    //         "type": "text",
+                    //         "text": "Do you want to send all which not exist to approve ?",
+                    //         "margin": "lg",
+                    //         "wrap": true,
+                    //         "contents": []
+                    //     }]
+                    //     body.push(_.map(text_approve, (t) => { return t }))
+                    // }
 
 
                 }
@@ -236,65 +239,86 @@ async function searchPageMulti(page, zone, tag) {
                 body.push(_.map(list, (l) => { return l }))
             }
         }
-        body = _.flatMapDeep(body)
         // console.log(body)
         // console.log('=================')
         // console.log(page_list)
+        let link_submit = ""
         if (_.compact(status).length == 0) {
-            let link_submit = null
+            link_submit = null
         } else {
-            let link_submit = `&fb&submit=${page_list}&zone=${zone}&tag=${tag}`
+            let text_approve = [{
+                "type": "separator",
+                "margin": "lg"
+            },
+            {
+                "type": "text",
+                "text": "Do you want to send all which not exist to approve ?",
+                "margin": "lg",
+                "wrap": true,
+                "contents": []
+            }]
+            body.push(_.map(text_approve, (t) => { return t }))
+            link_submit = `&fb&submit=${page_list}&zone=${zone}&tag=${tag}`
         }
-
-        // console.log(link_submit)
-        return formateDataMulti(body, link_submit)
+        body = _.flatMapDeep(body)
+        // console.log(link_submit, "body", body)
+        return await formateDataMulti(body, link_submit)
     } catch (error) {
         logger.error('error', JSON.stringify(error))
     }
 }
 
 async function formateDataMulti(item, link_submit) {
-    logger.info('info', 'formate data multi')
-    let data = {
-        "type": "bubble",
-        "direction": "ltr",
-        "header": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-                {
-                    "type": "text",
-                    "text": "Multiple Facebook Page Request",
-                    "weight": "bold",
-                    "align": "center",
-                    "contents": []
-                }
-            ]
-        },
-        "body": {
-            "type": "box",
-            "layout": "vertical"
-        },
-        "footer": {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-                {
-                    "type": "button",
-                    "action": {
-                        "type": "message",
-                        "label": "Submit",
-                        "text": ''
-                    },
-                    "style": "primary"
-                }
-            ]
+    // console.log("link_submit", link_submit)
+    try {
+        logger.info('info', 'formate data multi')
+        let data = {
+            "type": "bubble",
+            "direction": "ltr",
+            "header": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "Multiple Facebook Page Request",
+                        "weight": "bold",
+                        "align": "center",
+                        "contents": []
+                    }
+                ]
+            },
+            "body": {
+                "type": "box",
+                "layout": "vertical"
+            }
         }
+        data.body.contents = item
+        if (link_submit) {
+            data.footer = {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                            "type": "message",
+                            "label": "Submit",
+                            "text": ''
+                        },
+                        "style": "primary"
+                    }
+                ]
+            }
+            data.footer.contents[0].action.text = link_submit
+        }
+        // console.log(data)
+        // if (link_submit) data.footer.contents[0].action.text = link_submit
+        return data
+    } catch (error) {
+        console.log(error)
     }
-    data.body.contents = item
-    // if (link_submit) data.footer.contents[0].action.text = link_submit
-    data.footer.contents[0].action.text = link_submit
-    return data
+
 }
 
 async function formateData(res, zone, tag) {
