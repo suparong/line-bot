@@ -18,18 +18,27 @@ async function facebook(message) {
             logger.info('info', 'checking page type :', type)
             // console.log("111111111111111111")
             let list_page = message.split("\n")
-            let zone = urlParams.get('zone') || 'none'
-            let tag = urlParams.get('tag') || "0"
+            let zone
+            let tag
+            // let zone = urlParams.get('zone') || 'none'
+            // let tag = urlParams.get('tag') || "0"
             // console.log(list_page)
-            // console.log("zone", zone, "tag", tag)
             let list_name = await _.map(list_page, (p) => {
+                let urlParams = new URLSearchParams(p)
+                if (urlParams.get('zone')) {
+                    zone = urlParams.get('zone')
+                }
+                if (urlParams.get('tag')) {
+                    tag = urlParams.get('tag')
+                }
                 let page = getPathFromUrl(p)
                 return page
             })
+            console.log("zone", zone, "tag", tag)
             // console.log(list_name)
-            let item = await getPage(list_name, zone, tag, type)
+            let item = await getPage(list_name, zone || "none", tag || "0", type)
             // console.log(JSON.stringify(item))
-            return item
+            // return item
         } else {
             let type = "single"
             logger.info('info', 'checking page type :', type)
@@ -68,7 +77,7 @@ function getPathFromUrl(url) {
 }
 
 async function getPage(page, zone, tag, type) {
-    // console.log("+++++++++++++++++ getPage")
+    console.log("+++++++++++++++++ getPage", zone, tag)
     try {
         let info = {
             "type": "flex",
