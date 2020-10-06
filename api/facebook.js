@@ -26,7 +26,7 @@ async function facebook(message) {
                 let page = getPathFromUrl(p)
                 return page
             })
-            console.log(list_name)
+            // console.log(list_name)
             let item = await getPage(list_name, zone, tag, type)
             // console.log(JSON.stringify(item))
             return item
