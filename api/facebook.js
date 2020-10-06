@@ -34,11 +34,11 @@ async function facebook(message) {
                 let page = getPathFromUrl(p)
                 return page
             })
-            console.log("zone", zone, "tag", tag)
+            // console.log("zone", zone, "tag", tag)
             // console.log(list_name)
             let item = await getPage(list_name, zone || "none", tag || "0", type)
             // console.log(JSON.stringify(item))
-            // return item
+            return item
         } else {
             let type = "single"
             logger.info('info', 'checking page type :', type)
