@@ -21,7 +21,7 @@ app.post('/webhook', (req, res) => {
 
 app.post('/statusApprove', async (req, res) => {
     // console.log('statusApprove')
-    logger.info('info', 'process statusApprove')
+    logger.info('info', 'process statusApprove',req.body)
     let readyToSend = await formatData(req.body)
     // console.log("======", JSON.stringify(readyToSend))
     pushBody(JSON.stringify(readyToSend))

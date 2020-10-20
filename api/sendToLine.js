@@ -192,7 +192,7 @@ async function formatData(body) {
                 "to": body.line_token,
                 "messages": [{
                     "type": "text",
-                    "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\nhttps://www.facebook.com/${body.social_id}\nFacebook name:\n${body.page_name}\n\nReason:\n approve.`
+                    "text": `Your Facebook Page Request got approve.\n\n---------------\n\nFacebook Link:\nhttps://www.facebook.com/${body.social_id}\nFacebook name:\n${body.page_name}\n\nReason:\n approve.`
                 }]
             }
         } else {
