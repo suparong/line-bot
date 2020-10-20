@@ -57,6 +57,7 @@ async function reply(req) {
 ]
 }
 */
+
 async function setBody(req) {
     let body
     try {
@@ -191,7 +192,7 @@ async function formatData(body) {
                 "to": body.line_token,
                 "messages": [{
                     "type": "text",
-                    "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\n${page}\nFacebook name:\n${body.page_name}\n\nReason:\n approve.`
+                    "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\nhttps://www.facebook.com/${body.social_id}\nFacebook name:\n${body.page_name}\n\nReason:\n approve.`
                 }]
             }
         } else {
@@ -200,7 +201,7 @@ async function formatData(body) {
                 "to": body.line_token,
                 "messages": [{
                     "type": "text",
-                    "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\n${page}\nFacebook name:\n${body.page_name}\n\nReason:\nNot approve.`
+                    "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\nhttps://www.facebook.com/${body.social_id}\nFacebook name:\n${body.page_name}\n\nReason:\nNot approve.`
                 }]
             }
         }
