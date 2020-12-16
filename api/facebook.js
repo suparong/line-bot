@@ -32,6 +32,7 @@ async function facebook(message) {
                     tag = urlParams.get('tag')
                 }
                 let page = getPathFromUrl(p)
+		 page = page.split('facebook.com/')[1]
                 return page
             })
             // console.log("zone", zone, "tag", tag)
@@ -58,8 +59,9 @@ async function facebook(message) {
                 let name = await getPathFromUrl(message)
                 let zone = urlParams.get('zone') || "none"
                 let tag = urlParams.get('tag') || "0"
-                var newname = name.split("&")
-                newname = encodeURIComponent(newname[0])
+                var newname = name.split("&")[0]
+		newname = newname.split('facebook.com/')[1]
+               // newname = encodeURIComponent(newname[0])
                 let item = await getPage(newname, zone, tag, type)
                 return item
 
@@ -77,7 +79,7 @@ function getPathFromUrl(url) {
 }
 
 async function getPage(page, zone, tag, type) {
-    console.log("+++++++++++++++++ getPage", zone, tag)
+    console.log("+++++++++++++++++ getPage",page, zone, tag)
     try {
         let info = {
             "type": "flex",

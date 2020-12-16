@@ -1,6 +1,6 @@
 module.exports = {
     apps: [{
-        name: "line-box",
+        name: "line-bot",
         script: "./index.js",
         env: {
             NODE_ENV: "production"
