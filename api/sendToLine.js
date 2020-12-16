@@ -1,7 +1,7 @@
 
 const rq = require('request-promise')
 const _ = require('lodash')
-const { logger } = require('@zanroo/init');
+const { logger } = require('@zanroo/init')
 
 const token = '6B897Ob5lGGGxoj1gPZLXHIbwwn/jZhwxd5uxY66YLDXHhEFdTlkgqTIqTHo0A8hE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUPLBVys1DM2EZiFVtWzDhP7QzE0yk0QKPWzXWTMwUII8QdB04t89/1O/w1cDnyilFU='
 // token-test
@@ -14,25 +14,23 @@ const { checkMsgFB, checkMsgTW, checkMsgYT, checkMsgIG, checkMsgPT } = require('
 const { insertUser, checkUser } = require('./user')
 
 const HEADER = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
+  'Content-Type': 'application/json',
+  Authorization: `Bearer ${token}`
 }
 
-async function reply(req) {
-    try {
-        let newres = await setBody(req)
-        // console.log("=============>", newres)
-        /**
+async function reply (req) {
+  try {
+    const newres = await setBody(req)
+    // console.log("=============>", newres)
+    /**
          * url :reply,push,multicast,Broadcast
          */
-        // pushBody(newres)
-        replyBody(newres)
-    } catch (error) {
-        logger.error('error', JSON.stringify(error))
-        // console.log("error : ", error)
-    }
-
-
+    // pushBody(newres)
+    replyBody(newres)
+  } catch (error) {
+    logger.error('error', JSON.stringify(error))
+    // console.log("error : ", error)
+  }
 }
 
 /**
@@ -58,202 +56,195 @@ async function reply(req) {
 }
 */
 
-async function setBody(req) {
-    let body
-    try {
-        // console.log(req.body.events[0])
-        let replyToken = req.body.events[0].replyToken
-        let user_token = req.body.events[0].source.userId
-        // let user_token = "Ue811773dc55c06f5ad786782d0626f8c"
-        let msg = req.body.events[0].message.text
-        body = {
-            "replyToken": replyToken,
-            "messages": []
-        }
+async function setBody (req) {
+  let body
+  try {
+    // console.log(req.body.events[0])
+    const replyToken = req.body.events[0].replyToken
+    const user_token = req.body.events[0].source.userId
+    // let user_token = "Ue811773dc55c06f5ad786782d0626f8c"
+    const msg = req.body.events[0].message.text
+    body = {
+      replyToken: replyToken,
+      messages: []
+    }
 
-        let message = msg.toLowerCase()
-        // console.log(typeof (message), JSON.stringify(message))
-        // let status_user
-        // if (_.includes(message, "login")) {
-        //     // console.log("login")
-        //     logger.info('info', 'register : ', JSON.stringify(message))
-        //     status_user = await insertUser(user_token, message)
-        //     if (status_user) {
-        //         body.messages.push({
-        //             "type": "text",
-        //             "text": "Login success"
-        //         })
-        //     } else {
-        //         body.messages.push({
-        //             "type": "text",
-        //             "text": "something went wrong"
-        //         })
-        //     }
-        // } else {
-        // console.log("No login")
-        // status_user = await checkUser(user_token)
-        // if (status_user.status) {
-        logger.info('info', 'login : ', 'login user name', `user token ${user_token}`)
-        if (message.indexOf("facebook") === 12 || _.includes(message, "www.facebook.com") || _.includes(message, "facebook.com") || _.includes(message, "facebook")) {
-            /**
+    const message = msg.toLowerCase()
+    // console.log(typeof (message), JSON.stringify(message))
+    // let status_user
+    // if (_.includes(message, "login")) {
+    //     // console.log("login")
+    //     logger.info('info', 'register : ', JSON.stringify(message))
+    //     status_user = await insertUser(user_token, message)
+    //     if (status_user) {
+    //         body.messages.push({
+    //             "type": "text",
+    //             "text": "Login success"
+    //         })
+    //     } else {
+    //         body.messages.push({
+    //             "type": "text",
+    //             "text": "something went wrong"
+    //         })
+    //     }
+    // } else {
+    // console.log("No login")
+    // status_user = await checkUser(user_token)
+    // if (status_user.status) {
+    logger.info('info', 'login : ', 'login user name', `user token ${user_token}`)
+    if (message.indexOf('facebook') === 12 || _.includes(message, 'www.facebook.com') || _.includes(message, 'facebook.com') || _.includes(message, 'facebook')) {
+      /**
             * https://www.facebook.com/Mommy-Is-Here-108444714131126?zone=th
             */
-            if (_.includes(message, "permalink") || _.includes(message, "videos") || _.includes(message, "posts") || _.includes(message, "photos") || _.includes(message, "watch") || _.includes(message, "story_fbid")) {
-                // console.log("messages facebook")
-                logger.info('info', 'link messages facebook : ', JSON.stringify(message))
-                let data = await checkMsgFB(message)
-                body.messages.push(data)
-            } else {
-                // console.log("facebook")
-                logger.info('info', 'link page : ', JSON.stringify(message))
-                let data = await facebook(message)
-                body.messages.push(data)
-            }
-        } else if (message.indexOf("twitter") === 12 || _.includes(message, "www.twitter.com") || _.includes(message, "twitter.com") || _.includes(message, "twitter")) {
-            // console.log("twitter")
-            logger.info('info', 'link messages twitter : ', JSON.stringify(message))
-            let data = await checkMsgTW(message)
-            body.messages.push(data)
-        } else if (message.indexOf("youtube") === 12 || _.includes(message, "www.youtube.com") || _.includes(message, "youtube.com") || _.includes(message, "youtube"), _.includes(message, "youtu")) {
-            // console.log("youtube")
-            logger.info('info', 'link messages youtube : ', JSON.stringify(message))
-            let data = await checkMsgYT(msg)
-            body.messages.push(data)
-        } else if (message.indexOf("instagram") === 12 || _.includes(message, "www.instagram.com") || _.includes(message, "instagram.com") || _.includes(message, "instagram")) {
-            // console.log("instagram")
-            logger.info('info', 'link messages instagram : ', JSON.stringify(message))
-            let data = await checkMsgIG(msg)
-            body.messages.push(data)
-        } else if (message.indexOf("pantip") === 12 || _.includes(message, "www.pantip.com") || _.includes(message, "pantip.com") || _.includes(message, "pantip")) {
-            // console.log("pantip")
-            logger.info('info', 'link messages pantip : ', JSON.stringify(message))
-            let data = await checkMsgPT(message)
-            body.messages.push(data)
-        } else if (_.includes(message, "submit") && _.includes(message, "zone")) {
-            // console.log("submit")
-            logger.info('info', 'submit : ', JSON.stringify(message))
-            if (_.includes(message, "fb")) {
-                // console.log("=========> FB")
-                let data = await getPageInfo(message, user_token)
-                body.messages.push(data)
-            } else if (_.includes(message, "web")) {
-                // console.log("=========> WEB")
-                let data = await getConfigInfo(message, user_token)
-                body.messages.push(data)
-            }
-        } else if (_.includes(message, "help")) {
-            // console.log("help")
-            logger.info('info', 'help')
-            let data = await help()
-            body.messages.push(data)
-            // await _.map(data, (a) => { body.messages.push(a) })
-        } else if (_.includes(message, "web")) {
-            // console.log("web")
-            logger.info('info', 'configure : ', JSON.stringify(message))
-            let data = await web(message)
-            body.messages.push(data)
-        } else {
-            // console.log("other")
-            logger.info('info', 'other : ', JSON.stringify(message))
-            body.messages.push({
-                type: "sticker",
-                packageId: 11537,
-                stickerId: 52002744
-            })
-        }
-        //  }else if(!status_user.status && status_user.user_status === 0 ){
-        //     body.messages.push({
-        //         "type": "text",
-        //         "text": "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ." 
-        //     }) 
-        // } else {
-        //     logger.info('info', 'no login : ', 'Please login user name', `user token ${user_token}`)
-        //     body.messages.push({
-        //         "type": "text",
-        //         "text": "Please login user name"
-        //     })
-        // }
-        // }
-    } catch (error) {
-        // console.log(error)
-        logger.error('error', JSON.stringify(error))
-    } finally {
-        return JSON.stringify(body)
+      if (_.includes(message, 'permalink') || _.includes(message, 'videos') || _.includes(message, 'posts') || _.includes(message, 'photos') || _.includes(message, 'watch') || _.includes(message, 'story_fbid')) {
+        // console.log("messages facebook")
+        logger.info('info', 'link messages facebook : ', JSON.stringify(message))
+        const data = await checkMsgFB(message)
+        body.messages.push(data)
+      } else {
+        // console.log("facebook")
+        logger.info('info', 'link page : ', JSON.stringify(message))
+        const data = await facebook(message)
+        body.messages.push(data)
+      }
+    } else if (message.indexOf('twitter') === 12 || _.includes(message, 'www.twitter.com') || _.includes(message, 'twitter.com') || _.includes(message, 'twitter')) {
+      // console.log("twitter")
+      logger.info('info', 'link messages twitter : ', JSON.stringify(message))
+      const data = await checkMsgTW(message)
+      body.messages.push(data)
+    } else if (message.indexOf('youtube') === 12 || _.includes(message, 'www.youtube.com') || _.includes(message, 'youtube.com') || _.includes(message, 'youtube'), _.includes(message, 'youtu')) {
+      // console.log("youtube")
+      logger.info('info', 'link messages youtube : ', JSON.stringify(message))
+      const data = await checkMsgYT(msg)
+      body.messages.push(data)
+    } else if (message.indexOf('instagram') === 12 || _.includes(message, 'www.instagram.com') || _.includes(message, 'instagram.com') || _.includes(message, 'instagram')) {
+      // console.log("instagram")
+      logger.info('info', 'link messages instagram : ', JSON.stringify(message))
+      const data = await checkMsgIG(msg)
+      body.messages.push(data)
+    } else if (message.indexOf('pantip') === 12 || _.includes(message, 'www.pantip.com') || _.includes(message, 'pantip.com') || _.includes(message, 'pantip')) {
+      // console.log("pantip")
+      logger.info('info', 'link messages pantip : ', JSON.stringify(message))
+      const data = await checkMsgPT(message)
+      body.messages.push(data)
+    } else if (_.includes(message, 'submit') && _.includes(message, 'zone')) {
+      // console.log("submit")
+      logger.info('info', 'submit : ', JSON.stringify(message))
+      if (_.includes(message, 'fb')) {
+        // console.log("=========> FB")
+        const data = await getPageInfo(message, user_token)
+        body.messages.push(data)
+      } else if (_.includes(message, 'web')) {
+        // console.log("=========> WEB")
+        const data = await getConfigInfo(message, user_token)
+        body.messages.push(data)
+      }
+    } else if (_.includes(message, 'help')) {
+      // console.log("help")
+      logger.info('info', 'help')
+      const data = await help()
+      body.messages.push(data)
+      // await _.map(data, (a) => { body.messages.push(a) })
+    } else if (_.includes(message, 'web')) {
+      // console.log("web")
+      logger.info('info', 'configure : ', JSON.stringify(message))
+      const data = await web(message)
+      body.messages.push(data)
+    } else {
+      // console.log("other")
+      logger.info('info', 'other : ', JSON.stringify(message))
+      body.messages.push({
+        type: 'sticker',
+        packageId: 11537,
+        stickerId: 52002744
+      })
     }
-
-
+    //  }else if(!status_user.status && status_user.user_status === 0 ){
+    //     body.messages.push({
+    //         "type": "text",
+    //         "text": "Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ."
+    //     })
+    // } else {
+    //     logger.info('info', 'no login : ', 'Please login user name', `user token ${user_token}`)
+    //     body.messages.push({
+    //         "type": "text",
+    //         "text": "Please login user name"
+    //     })
+    // }
+    // }
+  } catch (error) {
+    // console.log(error)
+    logger.error('error', JSON.stringify(error))
+  } finally {
+    return JSON.stringify(body)
+  }
 }
 
-async function formatData(body) {
-    // console.log(body)
-    try {
-        if (body.status) {
-            return {
-                "to": body.line_token,
-                "messages": [{
-                    "type": "text",
-                    "text": `Your Facebook Page Request got approve.\n\n---------------\n\nFacebook Link:\nhttps://www.facebook.com/${body.social_id}\nFacebook name:\n${body.page_name}\n\nReason:\n approve.`
-                }]
-            }
-        } else {
-            let page = body.social_id
-            return {
-                "to": body.line_token,
-                "messages": [{
-                    "type": "text",
-                    "text": `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\nhttps://www.facebook.com/${body.social_id}\nFacebook name:\n${body.page_name}\n\nReason:\nNot approve.`
-                }]
-            }
-        }
-
-    } catch (error) {
-        logger.error('error', JSON.stringify(error))
-        // console.log("=======>", error)
+async function formatData (body) {
+  // console.log(body)
+  try {
+    if (body.status) {
+      return {
+        to: body.line_token,
+        messages: [{
+          type: 'text',
+          text: `Your Facebook Page Request got approve.\n\n---------------\n\nFacebook Link:\nhttps://www.facebook.com/${body.social_id}\nFacebook name:\n${body.page_name}\n\nReason:\n approve.`
+        }]
+      }
+    } else {
+      const page = body.social_id
+      return {
+        to: body.line_token,
+        messages: [{
+          type: 'text',
+          text: `Your Facebook Page Request got decline.\n\n---------------\n\nFacebook Link:\nhttps://www.facebook.com/${body.social_id}\nFacebook name:\n${body.page_name}\n\nReason:\nNot approve.`
+        }]
+      }
     }
+  } catch (error) {
+    logger.error('error', JSON.stringify(error))
+    // console.log("=======>", error)
+  }
 }
 
-
-async function pushBody(newres) {
-    try {
-        let options = {
-            method: 'POST',
-            uri: 'https://api.line.me/v2/bot/message/push',
-            headers: HEADER,
-            body: newres // Automatically stringifies the body to JSON
-        }
-        const res = await rq(options)
-        logger.info('info', 'push body : ', JSON.stringify(newres), "DONE")
-        // console.log('status = ' + JSON.stringify("DONE"));
-    } catch (e) {
-        logger.error('error', JSON.stringify(e))
-        // console.log(e.error)
+async function pushBody (newres) {
+  try {
+    const options = {
+      method: 'POST',
+      uri: 'https://api.line.me/v2/bot/message/push',
+      headers: HEADER,
+      body: newres // Automatically stringifies the body to JSON
     }
-
+    const res = await rq(options)
+    logger.info('info', 'push body : ', JSON.stringify(newres), 'DONE')
+    // console.log('status = ' + JSON.stringify("DONE"));
+  } catch (e) {
+    logger.error('error', JSON.stringify(e))
+    // console.log(e.error)
+  }
 }
 
-async function replyBody(newres) {
-    try {
-        let options = {
-            method: 'POST',
-            uri: 'https://api.line.me/v2/bot/message/reply',
-            headers: HEADER,
-            body: newres // Automatically stringifies the body to JSON
-        }
-        const res = await rq(options)
-        logger.info('info', 'reply body : ', JSON.stringify(newres), "DONE")
-        // console.log('status = ' + JSON.stringify("DONE"));
-    } catch (e) {
-        logger.error('error', JSON.stringify(e))
-        // console.log(e.error)
+async function replyBody (newres) {
+  try {
+    const options = {
+      method: 'POST',
+      uri: 'https://api.line.me/v2/bot/message/reply',
+      headers: HEADER,
+      body: newres // Automatically stringifies the body to JSON
     }
-
+    const res = await rq(options)
+    logger.info('info', 'reply body : ', JSON.stringify(newres), 'DONE')
+    // console.log('status = ' + JSON.stringify("DONE"));
+  } catch (e) {
+    logger.error('error', JSON.stringify(e))
+    // console.log(e.error)
+  }
 }
-
 
 module.exports = {
-    reply,
-    pushBody,
-    setBody,
-    formatData,
-    replyBody
+  reply,
+  pushBody,
+  setBody,
+  formatData,
+  replyBody
 }
