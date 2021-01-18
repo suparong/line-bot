@@ -114,6 +114,14 @@ async function searchPage (page, zone, tag) {
   try {
     const pageInfo = await apiFbSearchPage(page)
     // console.log("+++++>", pageInfo.id, "zone : ", zone)
+    if (pageInfo === false) {
+      return {
+        type: 'text',
+        text: '> Invalid url',
+        contents: [],
+        color: '#BE3214'
+      }
+    }
     const pageInDB = await checkPage(pageInfo.id)
     // console.log("=====", pageInDB)
     const newPage = JSON.parse(pageInDB)
