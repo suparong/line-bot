@@ -4,7 +4,7 @@ const { logger } = require('@zanroo/init')
 
 const QUERY = 'about,picture{url},fan_count,name'
 const QUERY_INFO = 'link,name,fan_count,talking_about_count,rating_count,category_list,artists_we_like,country_page_likes,picture{url}'
-const ACCESS_TOKEN = 'EAAG4BSmPZAe0BAJY7m7gJMHo4PEuI7ZALkbwcahHtru424qdIC5Ft6yMtkWWa38QDy5tEEWbOeMRTcqK7Q5lLBNtI8teRDIB9SEqqEHAC6LObgINf7SEKZCmhxCiQ3pO0ScJzSfVkvbtoZAPP1W4TckbMfTXn3qZAJuA8lByb5AZDZD'
+const ACCESS_TOKEN = '219923916263193|b8dd9b42b4bc5fe90cc14feb5c3bfac2'
 const URL_API = 'https://graph.facebook.com/v4.0'
 
 async function checkPage (page_id) {
