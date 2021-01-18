@@ -116,10 +116,7 @@ async function searchPage (page, zone, tag) {
     // console.log("+++++>", pageInfo.id, "zone : ", zone)
     if (pageInfo === false) {
       return {
-        type: 'text',
-        text: '> Invalid url',
-        contents: [],
-        color: '#BE3214'
+        type: 'text', text: 'Please check your link url again. Make sure that you send Facebook page’s link.'
       }
     }
     const pageInDB = await checkPage(pageInfo.id)
