@@ -451,18 +451,19 @@ async function getPageInfo (message, user_token) {
     let list = page_id.split(',')
     list = _.uniq(list)
     list = _.compact(list)
-    // console.log(list)
+     console.log('======+>',list)
     for (let i = 0; i < list.length; i++) {
       const PageInfo = await searchPageInfo(list[i], zone, tag, user_token)
       // console.log(PageInfo)
       await insertPage(PageInfo)
       // console.log("=============>", resDB)
       // if (resDB) {
-      return { type: 'text', text: 'Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ.' }
       // } else {
       //     return { type: "text", text: `This page already exists.` }
       // }
     }
+
+      return { type: 'text', text: 'Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ.' }
   } catch (error) {
     logger.error('error', JSON.stringify(error))
     // console.log(error)
