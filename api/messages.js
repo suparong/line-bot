@@ -49,13 +49,13 @@ async function checkMsgFB (message) {
       const bodyMsg = _.split(url.pathname, '/')
       page_id = await getPageID(bodyMsg[1])
       if (!page_id.status) {
-        if (pageInfo.tag === 1) {
+        if (page_id.tag === 1) {
           return {
             type: 'text', text: '(#4) Application request limit reached'
           }
         } else {
           return {
-            type: 'text', text: pageInfo.body
+            type: 'text', text: page_id.body
           }
         }
       }
@@ -78,13 +78,13 @@ async function checkMsgFB (message) {
         // console.log(bodyMsg)
         page_id = await getPageID(bodyMsg[1])
         if (!page_id.status) {
-          if (pageInfo.tag === 1) {
+          if (page_id.tag === 1) {
             return {
               type: 'text', text: '(#4) Application request limit reached'
             }
           } else {
             return {
-              type: 'text', text: pageInfo.body
+              type: 'text', text: page_id.body
             }
           }
         }
@@ -107,13 +107,13 @@ async function checkMsgFB (message) {
       const pages_name = bodyMsg[1]
       page_id = await getPageID(bodyMsg[1])
       if (!page_id.status) {
-        if (pageInfo.tag === 1) {
+        if (page_id.tag === 1) {
           return {
             type: 'text', text: '(#4) Application request limit reached'
           }
         } else {
           return {
-            type: 'text', text: pageInfo.body
+            type: 'text', text: page_id.body
           }
         }
       }
