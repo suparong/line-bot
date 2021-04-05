@@ -3,7 +3,7 @@ const rq = require('request-promise')
 const _ = require('lodash')
 const { logger } = require('@zanroo/init')
 
-const token = '6B897Ob5lGGGxoj1gPZLXHIbwwn/jZhwxd5uxY66YLDXHhEFdTlkgqTIqTHo0A8hE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUPLBVys1DM2EZiFVtWzDhP7QzE0yk0QKPWzXWTMwUII8QdB04t89/1O/w1cDnyilFU='
+const token = '/T4a6bsmMjAzmowvRHl1uNf1vThvbeDoHMkKNTf1nkJw3PLFvpk0+wbZ7+4xffvmE/DLlF5+vaagJ3Qv9WLqS+vO7SbDkPsp8OX6tzSvlUO52h9alXqP6vXdXOR/99BRCiwMXO77Kg2zeH/9whdSAAdB04t89/1O/w1cDnyilFU='
 // token-test
 // const token = '0zTssGCqCWcU++oW2esVPcVc7aZ6c+/vVnrpU4nGz846s2pPurIEVEtt/xovGTxSOge8PbXVOfS08Zvg0LpzPOad/R55Cyxc27WHzB5YW8084hVaSZKgurtclTITVTUvvEI0hdMFnfExIStEarI4MQdB04t89/1O/w1cDnyilFU='
 

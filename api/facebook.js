@@ -122,7 +122,7 @@ async function searchPage (page, zone, tag) {
     const pageInDB = await checkPage(pageInfo.id)
     // console.log("=====", pageInDB)
     const newPage = JSON.parse(pageInDB)
-    // console.log("===========>", newPage, JSON.stringify(newPage.status), typeof (newPage))
+    // console.log('===========>', newPage, JSON.stringify(newPage.status), typeof (newPage))
     /**
              * {
              * "status": false ,
