@@ -478,7 +478,20 @@ async function getPageInfo (message, user_token) {
     for (let i = 0; i < list.length; i++) {
       const PageInfo = await searchPageInfo(list[i], zone, tag, user_token)
       // console.log(PageInfo)
-      await insertPage(PageInfo)
+      if (PageInfo.status) {
+        await insertPage(PageInfo.body)
+      } else {
+        if (PageInfo.tag === 1) {
+          return {
+            type: 'text', text: '(#4) Application request limit reached'
+          }
+        } else {
+          return {
+            type: 'text', text: PageInfo.body
+          }
+        }
+      }
+
       // console.log("=============>", resDB)
       // if (resDB) {
       // } else {

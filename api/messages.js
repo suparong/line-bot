@@ -48,8 +48,20 @@ async function checkMsgFB (message) {
       // console.log("type")
       const bodyMsg = _.split(url.pathname, '/')
       page_id = await getPageID(bodyMsg[1])
+      if (!page_id.status) {
+        if (pageInfo.tag === 1) {
+          return {
+            type: 'text', text: '(#4) Application request limit reached'
+          }
+        } else {
+          return {
+            type: 'text', text: pageInfo.body
+          }
+        }
+      }
+      const pageId = page_id.body
       const post_id = bodyMsg[4]
-      message_id = `${page_id}_${post_id}`
+      message_id = `${pageId}_${post_id}`
       // console.log(message_id)
     } else if (watch) {
       // console.log("watch")
@@ -59,13 +71,26 @@ async function checkMsgFB (message) {
              * let linkWatch
              * check messages comment
              */
-      if (linkWatch) {
-        url = new URL(linkWatch)
+      if (linkWatch.status) {
+        const newLinkWatch = linkWatch.body
+        url = new URL(newLinkWatch)
         const bodyMsg = _.split(url.pathname, '/')
         // console.log(bodyMsg)
         page_id = await getPageID(bodyMsg[1])
+        if (!page_id.status) {
+          if (pageInfo.tag === 1) {
+            return {
+              type: 'text', text: '(#4) Application request limit reached'
+            }
+          } else {
+            return {
+              type: 'text', text: pageInfo.body
+            }
+          }
+        }
+        const pageId = page_id.body
         const post_id = bodyMsg[3]
-        message_id = `${page_id}_${post_id}`
+        message_id = `${pageId}_${post_id}`
         // console.log(message_id)
       } else {
         /**
@@ -81,8 +106,20 @@ async function checkMsgFB (message) {
       const bodyMsg = _.split(url.pathname, '/')
       const pages_name = bodyMsg[1]
       page_id = await getPageID(bodyMsg[1])
+      if (!page_id.status) {
+        if (pageInfo.tag === 1) {
+          return {
+            type: 'text', text: '(#4) Application request limit reached'
+          }
+        } else {
+          return {
+            type: 'text', text: pageInfo.body
+          }
+        }
+      }
+      const pageId = page_id.body
       const post_id = bodyMsg[3]
-      message_id = `${page_id}_${post_id}`
+      message_id = `${pageId}_${post_id}`
       // console.log(message_id)
     }
     // console.log("======>", message_id)
@@ -99,28 +136,47 @@ async function checkMsgFB (message) {
 }
 
 async function getPageID (name) {
-  const options = {
-    method: 'GET',
-    url: `https://graph.facebook.com/v4.0/${name}?access_token=${ACCESS_TOKEN}`,
-    json: true
+  try {
+    const options = {
+      method: 'GET',
+      url: `https://graph.facebook.com/v9.0/${name}?access_token=${ACCESS_TOKEN}`,
+      json: true
+    }
+    const pageInfo = await rq(options)
+    if (pageInfo) return { status: true, body: pageInfo.id }
+  } catch (error) {
+    logger.error('error messages', JSON.stringify(error))
+    // console.log(error.statusCode)
+    if (error.statusCode === 403) {
+      return { status: false, body: error.statusCode, tag: 1 }
+    }
+    return { status: false, body: error.statusCode, tag: 2 }
   }
-  const pageInfo = await rq(options)
-  if (pageInfo) return pageInfo.id
 }
+
 async function getLinkWatch (name) {
-  const options = {
-    method: 'GET',
-    url: `https://graph.facebook.com/v4.0/${name}/comments?fields=permalink_url&access_token=${ACCESS_TOKEN}`,
-    json: true
-  }
-  const pageInfo = await rq(options)
-  if ((pageInfo.data).length > 0) {
-    // console.log(pageInfo.data[0].permalink_url)
-    const link = pageInfo.data[0].permalink_url
-    return link
-  } else {
-    // console.log("no comment")
-    return false
+  try {
+    const options = {
+      method: 'GET',
+      url: `https://graph.facebook.com/v9.0/${name}/comments?fields=permalink_url&access_token=${ACCESS_TOKEN}`,
+      json: true
+    }
+    const pageInfo = await rq(options)
+    if ((pageInfo.data).length > 0) {
+      // console.log(pageInfo.data[0].permalink_url)
+      const link = pageInfo.data[0].permalink_url
+      return { status: true, body: link }
+    } else {
+      // console.log("no comment")
+      return { status: false, body: '' }
+    }
+  } catch (error) {
+    logger.error('error messages', JSON.stringify(error))
+    // console.log(error.statusCode)
+    if (error.statusCode === 403) {
+      return { status: false, body: error.statusCode, tag: 1 }
+    }
+    return { status: false, body: error.statusCode, tag: 2 }
   }
 }
 /**

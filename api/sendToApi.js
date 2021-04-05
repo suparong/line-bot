@@ -5,7 +5,7 @@ const { logger } = require('@zanroo/init')
 const QUERY = 'about,picture{url},fan_count,name'
 const QUERY_INFO = 'link,name,fan_count,talking_about_count,rating_count,category_list,artists_we_like,country_page_likes,picture{url}'
 const ACCESS_TOKEN = '219923916263193|b8dd9b42b4bc5fe90cc14feb5c3bfac2'
-const URL_API = 'https://graph.facebook.com/v4.0'
+const URL_API = 'https://graph.facebook.com/v9.0'
 
 async function checkPage (page_id) {
   // console.log("================== checkPage")
@@ -149,11 +149,11 @@ async function apiFbSearchPage (page) {
     return { status: true, body: pageInfo }
   } catch (error) {
     logger.error('error', JSON.stringify(error))
-    console.log(error.statusCode)
+    // console.log(error.statusCode)
     if (error.statusCode === 403) {
-      return { status: false, body: '', tag: 1 }
+      return { status: false, body: error.statusCode, tag: 1 }
     }
-    return { status: false, body: '', tag: 2 }
+    return { status: false, body: error.statusCode, tag: 2 }
   }
 }
 
@@ -181,10 +181,14 @@ async function searchPageInfo (page_id, zone, tag, user_token) {
     pageInfo.request_time = new Date()
     pageInfo.customer = tag
     pageInfo.line_token = user_token
-    return pageInfo
+    return { status: true, body: pageInfo, tag: 1 }
   } catch (error) {
     logger.error('error', JSON.stringify(error))
-    // console.log(error)
+    // console.log(error.statusCode)
+    if (error.statusCode === 403) {
+      return { status: false, body: error.statusCode, tag: 1 }
+    }
+    return { status: false, body: error.statusCode, tag: 2 }
   }
 }
 
