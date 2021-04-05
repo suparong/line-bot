@@ -146,11 +146,14 @@ async function apiFbSearchPage (page) {
       json: true
     }
     const pageInfo = await rq(options)
-    return pageInfo
+    return { status: true, body: pageInfo }
   } catch (error) {
     logger.error('error', JSON.stringify(error))
-    // console.log(error)
-    return false
+    console.log(error.statusCode)
+    if (error.statusCode === 403) {
+      return { status: false, body: '', tag: 1 }
+    }
+    return { status: false, body: '', tag: 2 }
   }
 }
 

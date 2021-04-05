@@ -114,12 +114,19 @@ async function searchPage (page, zone, tag) {
   try {
     const pageInfo = await apiFbSearchPage(page)
     // console.log("+++++>", pageInfo.id, "zone : ", zone)
-    if (pageInfo === false) {
-      return {
-        type: 'text', text: 'Please check your link url again. Make sure that you send Facebook page’s link.'
+    if (!pageInfo.status) {
+      if (pageInfo.tag === 1) {
+        return {
+          type: 'text', text: '(#4) Application request limit reached'
+        }
+      } else {
+        return {
+          type: 'text', text: 'Please check your link url again. Make sure that you send Facebook page’s link.'
+        }
       }
     }
-    const pageInDB = await checkPage(pageInfo.id)
+    const newBody = pageInfo.body
+    const pageInDB = await checkPage(newBody.id)
     // console.log("=====", pageInDB)
     const newPage = JSON.parse(pageInDB)
     // console.log('===========>', newPage, JSON.stringify(newPage.status), typeof (newPage))
@@ -142,7 +149,7 @@ async function searchPage (page, zone, tag) {
         type: 'text', text: 'This page already exists.'
       }
     } else {
-      const newPageInfo = await formateData(pageInfo, zone, tag)
+      const newPageInfo = await formateData(newBody, zone, tag)
       return newPageInfo
     }
   } catch (error) {
@@ -162,8 +169,9 @@ async function searchPageMulti (page, zone, tag) {
     for (let i = 0; i < page.length; i++) {
       // console.log("======", page[i])
       const pageInfo = await apiFbSearchPage(page[i])
-      if (pageInfo) {
-        const pageInDB = await checkPage(pageInfo.id)
+      if (pageInfo.status) {
+        const newBody = pageInfo.body
+        const pageInDB = await checkPage(newBody.id)
         const newPage = JSON.parse(pageInDB)
         status.push(newPage.status)
         /**
@@ -212,7 +220,7 @@ async function searchPageMulti (page, zone, tag) {
           }]
           // if (i != page.length - 1) {
           // console.log(i, ":", page.length - 1)
-          page_list += `${pageInfo.id},`
+          page_list += `${newBody.id},`
           body.push(_.map(list, (l) => { return l }))
           // } else {
           //     // console.log(i, ":", page.length - 1, "end")
@@ -232,18 +240,33 @@ async function searchPageMulti (page, zone, tag) {
           // }
         }
       } else {
-        const list = [{
-          type: 'text',
-          text: `${page[i]}`,
-          align: 'start',
-          contents: []
-        }, {
-          type: 'text',
-          text: '> Invalid url',
-          contents: [],
-          color: '#BE3214'
-        }]
-        body.push(_.map(list, (l) => { return l }))
+        if (pageInfo.tag === 1) {
+          const list = [{
+            type: 'text',
+            text: `${page[i]}`,
+            align: 'start',
+            contents: []
+          }, {
+            type: 'text',
+            text: '>(#4) request limit',
+            contents: [],
+            color: '#BE3214'
+          }]
+          body.push(_.map(list, (l) => { return l }))
+        } else {
+          const list = [{
+            type: 'text',
+            text: `${page[i]}`,
+            align: 'start',
+            contents: []
+          }, {
+            type: 'text',
+            text: '> Invalid url',
+            contents: [],
+            color: '#BE3214'
+          }]
+          body.push(_.map(list, (l) => { return l }))
+        }
       }
     }
     // console.log(body)
@@ -451,7 +474,7 @@ async function getPageInfo (message, user_token) {
     let list = page_id.split(',')
     list = _.uniq(list)
     list = _.compact(list)
-     console.log('======+>',list)
+    console.log('======+>', list)
     for (let i = 0; i < list.length; i++) {
       const PageInfo = await searchPageInfo(list[i], zone, tag, user_token)
       // console.log(PageInfo)
@@ -463,7 +486,7 @@ async function getPageInfo (message, user_token) {
       // }
     }
 
-      return { type: 'text', text: 'Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ.' }
+    return { type: 'text', text: 'Thanks for your submit.\n\nYour request is waiting for approval and PQ will approve on working day 17:00 (GMT+7).\n\n**If urgent, please contact PQ.' }
   } catch (error) {
     logger.error('error', JSON.stringify(error))
     // console.log(error)
