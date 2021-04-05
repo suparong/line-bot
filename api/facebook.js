@@ -487,7 +487,7 @@ async function getPageInfo (message, user_token) {
           }
         } else {
           return {
-            type: 'text', text: PageInfo.body
+            type: 'text', text: `Error Code :${page_id.body}`
           }
         }
       }

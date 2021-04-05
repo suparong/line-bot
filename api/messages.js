@@ -55,7 +55,7 @@ async function checkMsgFB (message) {
           }
         } else {
           return {
-            type: 'text', text: page_id.body
+            type: 'text', text: `Error Code :${page_id.body}`
           }
         }
       }
@@ -84,7 +84,7 @@ async function checkMsgFB (message) {
             }
           } else {
             return {
-              type: 'text', text: page_id.body
+              type: 'text', text: `Error Code :${page_id.body}`
             }
           }
         }
@@ -113,7 +113,7 @@ async function checkMsgFB (message) {
           }
         } else {
           return {
-            type: 'text', text: page_id.body
+            type: 'text', text: `Error Code :${page_id.body}`
           }
         }
       }
