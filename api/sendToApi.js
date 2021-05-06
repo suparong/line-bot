@@ -13,7 +13,7 @@ async function checkPage (page_id) {
   try {
     const options = {
       method: 'POST',
-      url: 'http://192.168.19.23:8082/checkPage',
+      url: 'http://172.16.200.51:8082/checkPage',
       headers: {
         page_id: `${page_id}`,
         'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ async function insertPage (pageInfo) {
   try {
     const options = {
       method: 'POST',
-      url: 'http://192.168.19.23:8082/facebookApprove',
+      url: 'http://172.16.200.51:8082/facebookApprove',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -57,7 +57,7 @@ async function checkConfig (domain) {
      */
   const options = {
     method: 'POST',
-    url: 'http://192.168.19.23:8082/checkConfig',
+    url: 'http://172.16.200.51:8082/checkConfig',
     headers: {
       config_name: `${domain}`
     }
@@ -72,7 +72,7 @@ async function insertConfig (configInfo) {
   try {
     const options = {
       method: 'POST',
-      url: 'http://192.168.19.23:8082/configApprove',
+      url: 'http://172.16.200.51:8082/configApprove',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -95,7 +95,7 @@ async function checkMessage (_id) {
     logger.info('info', 'checking message', 'message id : ', JSON.stringify(_id))
     const options = {
       method: 'POST',
-      url: 'http://192.168.19.23:8082/checkMessages',
+      url: 'http://172.16.200.51:8082/checkMessages',
       headers: {
         _id: `${_id}`
       }
@@ -111,7 +111,7 @@ async function insertUserLine (user_token, user_name) {
   console.log('===========> insertUserLine')
   const options = {
     method: 'POST',
-    url: 'http://192.168.19.23:8082/insertUser',
+    url: 'http://172.16.200.51:8082/insertUser',
     headers: {
       _id: user_token,
       name: user_name,
@@ -126,7 +126,7 @@ async function checkUserLine (user_token) {
   console.log('===========> checkUserLine')
   const options = {
     method: 'POST',
-    url: 'http://192.168.19.23:8082/checkUser',
+    url: 'http://172.16.200.51:8082/checkUser',
     headers: {
       _id: user_token
     }
