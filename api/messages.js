@@ -5,6 +5,7 @@ const { URL, URLSearchParams } = require('url')
 const { logger } = require('@zanroo/init')
 
 const ACCESS_TOKEN = '219923916263193|b8dd9b42b4bc5fe90cc14feb5c3bfac2'
+const KEY_YT = 'AIzaSyCD2LJ9897zqprKL7fLpL5QggNvBj1umoI'
 
 const { checkMessage, checkPage, insertPage } = require('./sendToApi')
 
@@ -269,7 +270,7 @@ async function checkMsgYT (message) {
 async function getChannelID (watch_id) {
   const options = {
     method: 'GET',
-    url: `https://www.googleapis.com/youtube/v3/videos?id=${watch_id}&key=AIzaSyCD2LJ9897zqprKL7fLpL5QggNvBj1umoI&part=snippet`,
+    url: `https://www.googleapis.com/youtube/v3/videos?id=${watch_id}&key=${KEY_YT}&part=snippet`,
     json: true
   }
   // console.log(options)
