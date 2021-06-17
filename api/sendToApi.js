@@ -4,7 +4,7 @@ const { logger } = require('@zanroo/init')
 
 const QUERY = 'about,picture{url},fan_count,name'
 const QUERY_INFO = 'link,name,fan_count,talking_about_count,rating_count,category_list,artists_we_like,country_page_likes,picture{url}'
-const ACCESS_TOKEN = '219923916263193|b8dd9b42b4bc5fe90cc14feb5c3bfac2' // 317889262983738 : CCW Social
+const ACCESS_TOKEN = '317889262983738|dd34876ecb32a9b6ecb772fe58be6e33'// '219923916263193|b8dd9b42b4bc5fe90cc14feb5c3bfac2' // 317889262983738 : CCW Social
 const URL_API = 'https://graph.facebook.com/v9.0'
 
 async function checkPage (page_id) {
