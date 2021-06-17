@@ -4,7 +4,8 @@ const { logger } = require('@zanroo/init')
 
 const QUERY = 'about,picture{url},fan_count,name'
 const QUERY_INFO = 'link,name,fan_count,talking_about_count,rating_count,category_list,artists_we_like,country_page_likes,picture{url}'
-const ACCESS_TOKEN = '317889262983738|dd34876ecb32a9b6ecb772fe58be6e33'// '219923916263193|b8dd9b42b4bc5fe90cc14feb5c3bfac2' // 317889262983738 : CCW Social
+const ACCESS_TOKEN = '317889262983738|dd34876ecb32a9b6ecb772fe58be6e33' // 317889262983738 : CCW Social
+const ACCESS_TOKEN2 = '229436658822219|611655939cd8bbda36bc4d9e32dd2769' // 229436658822219 : CCW Trend
 const URL_API = 'https://graph.facebook.com/v9.0'
 
 async function checkPage (page_id) {
@@ -138,9 +139,10 @@ async function checkUserLine (user_token) {
 async function apiFbSearchPage (page) {
   try {
     logger.info('info', 'Search page', 'page id : ', JSON.stringify(page))
+    const token = _.sample([ACCESS_TOKEN, ACCESS_TOKEN2])
     const options = {
       method: 'GET',
-      url: `${URL_API}/${page}?fields=${QUERY}&access_token=${ACCESS_TOKEN}`,
+      url: `${URL_API}/${page}?fields=${QUERY}&access_token=${token}`,
       headers: {
       },
       json: true
@@ -160,10 +162,11 @@ async function apiFbSearchPage (page) {
 async function searchPageInfo (page_id, zone, tag, user_token) {
   try {
     // console.log("+++++++++++++++++ searchPageInfo")
+    const token = _.sample([ACCESS_TOKEN, ACCESS_TOKEN2])
     logger.info('info', 'Search page info', 'page id : ', JSON.stringify(page_id))
     const options = {
       method: 'GET',
-      url: `${URL_API}/${page_id}?fields=${QUERY_INFO}&access_token=${ACCESS_TOKEN}`,
+      url: `${URL_API}/${page_id}?fields=${QUERY_INFO}&access_token=${token}`,
       headers: {
       },
       json: true

@@ -4,7 +4,9 @@ const _ = require('lodash')
 const { URL, URLSearchParams } = require('url')
 const { logger } = require('@zanroo/init')
 
-const ACCESS_TOKEN = '219923916263193|b8dd9b42b4bc5fe90cc14feb5c3bfac2'
+// const ACCESS_TOKEN = '219923916263193|b8dd9b42b4bc5fe90cc14feb5c3bfac2'
+const ACCESS_TOKEN = '317889262983738|dd34876ecb32a9b6ecb772fe58be6e33' // 317889262983738 : CCW Social
+const ACCESS_TOKEN2 = '229436658822219|611655939cd8bbda36bc4d9e32dd2769' // 229436658822219 : CCW Trend
 const KEY_YT = 'AIzaSyCD2LJ9897zqprKL7fLpL5QggNvBj1umoI'
 
 const { checkMessage, checkPage, insertPage } = require('./sendToApi')
@@ -138,9 +140,10 @@ async function checkMsgFB (message) {
 
 async function getPageID (name) {
   try {
+    const token = _.sample([ACCESS_TOKEN, ACCESS_TOKEN2])
     const options = {
       method: 'GET',
-      url: `https://graph.facebook.com/v9.0/${name}?access_token=${ACCESS_TOKEN}`,
+      url: `https://graph.facebook.com/v9.0/${name}?access_token=${token}`,
       json: true
     }
     const pageInfo = await rq(options)
@@ -157,9 +160,10 @@ async function getPageID (name) {
 
 async function getLinkWatch (name) {
   try {
+    const token = _.sample([ACCESS_TOKEN, ACCESS_TOKEN2])
     const options = {
       method: 'GET',
-      url: `https://graph.facebook.com/v9.0/${name}/comments?fields=permalink_url&access_token=${ACCESS_TOKEN}`,
+      url: `https://graph.facebook.com/v9.0/${name}/comments?fields=permalink_url&access_token=${token}`,
       json: true
     }
     const pageInfo = await rq(options)
