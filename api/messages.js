@@ -413,7 +413,7 @@ async function formatMessages (status) {
     let cts_GMT
     return {
       type: 'text',
-      text: `The message already exist.\n\n---------------------------------------------\n\nAccount ID: ${status.acc_list}\nChannel: ${status.channel}\nZone: ${status.zone}\nCreated_Time: ${status.created_time} (GMT+7)\nSys_Time: ${status.sys_time} (GMT+7)\n\nSystem Link:\nhttps://listening.zanroo.com/message/conversation/conversation#message_id=${status._id}`
+      text: `The message already exist.\n\n---------------------------------------------\n\nAccount ID: ${status.acc_list}\nChannel: ${status.channel}\nZone: ${status.zone}\nCreated_Time: ${status.created_time} (GMT+7)\nSys_Time: ${status.sys_time} (GMT+7)\n\nSystem Link:\nhttps://listening-bkk.zanroo.com/message/conversation/conversation#message_id=${status._id}`
     }
   } catch (error) {
     logger.error('error', JSON.stringify(error))
